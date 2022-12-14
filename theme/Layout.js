@@ -104,7 +104,9 @@ function Layout({ children, page }) {
             </Toolbar>
           </Container>
         </AppBar>
+        {/* <Box sx={{ m: 2 }}> */}
         {children}
+        {/* </Box> */}
         <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, borderTopLeftRadius: '30px', borderTopRightRadius: '30px' }} elevation={3}>
           <BottomNavigation
             showLabels
@@ -123,7 +125,7 @@ function Layout({ children, page }) {
 
       </Box>
 
-    </div>
+    </div >
   );
 }
 
