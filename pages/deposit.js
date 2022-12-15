@@ -26,7 +26,7 @@ function deposit() {
 
   return (
     <Layout page="deposit">
-      <Box sx={{ m: 5 }}>
+      <Box sx={{ m: 3 }}>
         <Card sx={{
           mt: 1,
           display: { xs: "block", md: "none" },

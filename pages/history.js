@@ -18,7 +18,7 @@ function history() {
   const [price, setPrice] = useState(0)
   return (
     <Layout page="history">
-      <Box sx={{ m: 5 }}>
+      <Box sx={{ m: 3 }}>
         <Card sx={{
           display: { xs: "block", md: "none" },
           borderRadius: 3, background: "linear-gradient(#7BBDFA, #62AEF4, #0072B1 )"

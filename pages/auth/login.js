@@ -175,6 +175,7 @@ function Login() {
             //     router.push(`/RegisterTel?know_us=${know_us}`);
             //   }
             // }}
+            onClick={() =>  router.push(`/auth/register`)}
             >
               สมัครสมาชิก
             </Button>
