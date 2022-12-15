@@ -22,7 +22,7 @@
     "react-dom": "18.2.0",
     "react-redux": "^8.0.2",
     "styled-components": "^5.3.6",
-    "sweetalert2": "^11.5.0",
+    "sweetalert2": "^11.6.15",
     "swiper": "^8.4.5"
   },
   "devDependencies": {

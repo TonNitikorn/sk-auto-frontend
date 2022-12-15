@@ -11,10 +11,30 @@ import {
 } from "@mui/material";
 import scbL from "../assets/scbL.png";
 import Image from "next/image";
+import Swal from "sweetalert2";
+
 
 
 function withdraw() {
   const [price, setPrice] = useState(0)
+
+  const handelwithdraw = () => {
+    Swal.fire({
+      title: "ยืนยันการทำรายการ",
+      text: `ท่านต้องการถอนเครดิตจำนวน ${price} ฿`,
+      icon: "info",
+      showCancelButton: true,
+      cancelButtonColor: "#EB001B",
+      confirmButtonColor: "#058900",
+      cancelButtonText: "ยกเลิก",
+      confirmButtonText: "ยืนยัน",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // withdraw();
+      }
+    });
+  };
+  
   return (
     <Layout page="withdraw">
       <Box sx={{ m: 5 }}>
