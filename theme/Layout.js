@@ -32,8 +32,7 @@ import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import ViewListIcon from '@mui/icons-material/ViewList';
 
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['โปรไฟล์', 'เปลี่ยนรหัสผ่าน', 'ออกจากระบบ'];
 
 
 
@@ -60,7 +59,7 @@ function Layout({ children, page }) {
           display: { xs: "block", md: "none" },
         }}
       >
-        <AppBar position="static" color="secondary" elevation={0} sx={{ borderBottomLeftRadius: '30px', borderBottomRightRadius: '30px' }}>
+        <AppBar position="fixed" color="secondary" elevation={0} sx={{ borderBottomLeftRadius: '30px', borderBottomRightRadius: '30px' }}>
           <Container maxWidth="xl">
             <Toolbar disableGutters>
               <Grid container>
@@ -104,9 +103,9 @@ function Layout({ children, page }) {
             </Toolbar>
           </Container>
         </AppBar>
-        {/* <Box sx={{ m: 2 }}> */}
-        {children}
-        {/* </Box> */}
+        <Box sx={{ my: 8 }}>
+          {children}
+        </Box>
         <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, borderTopLeftRadius: '30px', borderTopRightRadius: '30px' }} elevation={3}>
           <BottomNavigation
             showLabels
