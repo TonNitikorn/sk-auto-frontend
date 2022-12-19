@@ -10,7 +10,10 @@ import {
   Box,
   InputAdornment,
   OutlinedInput,
-  Paper
+  Paper,
+  AppBar,
+  Container,
+  Toolbar
 } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -57,15 +60,27 @@ function Login() {
     <>
       <div style={{ padding: "0 2rem" }}>
         <CssBaseline />
+        <AppBar position="fixed" color="secondary" elevation={0} sx={{ borderBottomLeftRadius: '30px', borderBottomRightRadius: '30px' }}>
+          <Container maxWidth="xl">
+            <Toolbar disableGutters>
+              <Grid container>
+                <Grid item xs={6}>
+                  <Typography sx={{ mt: 1 }}>LOGO</Typography>
+                </Grid>
+              </Grid>
+            </Toolbar>
+          </Container>
+        </AppBar>
         <Box
           sx={{
             display: { xs: "block", md: "none" },
             flexGrow: 1,
-            mt: 1,
-            mt: "50%",
+            mt: 20,
             p: 2,
-            bgcolor: '#41A3E3',
-            borderRadius: 5
+            bgcolor: '#fff',
+            borderRadius: 5,
+            boxShadow: '2px 2px 5px #C1B9B9',
+            border: "1px solid #C1B9B9"
           }}
         >
           <Grid
@@ -73,14 +88,10 @@ function Login() {
             direction="column"
             justifyContent="center"
             alignItems="center"
-          // sx={{ pt: 10 ,}}
           >
-            {/* <Image src={logo} alt="Vercel Logo" width={163} height={59} />  */}
-
-            <Typography variant="h5" sx={{ mt: 3, color: "white" }}>เข้าสู่ระบบ</Typography>
+            <Typography variant="h5" sx={{ mt: 3, color: "#41A3E3" }}>เข้าสู่ระบบ</Typography>
           </Grid>
-
-          <Typography sx={{ mt: 3, color: "#FFFF" }}>
+          <Typography sx={{ mt: 3, color: "#707070", fontSize: "14px" }}>
             เบอร์โทรศัพท์
           </Typography>
           <TextField
@@ -95,7 +106,7 @@ function Login() {
             sx={{ bgcolor: "white" }}
             inputProps={{ maxLength: 10 }}
           />
-          <Typography sx={{ mt: 2, color: "#FFFF" }}>รหัสผ่าน</Typography>
+          <Typography sx={{ mt: 2, color: "#707070", fontSize: "14px" }}>รหัสผ่าน</Typography>
           <div>
             <FormControl fullWidth variant="outlined" size="small">
               <OutlinedInput
@@ -127,7 +138,7 @@ function Login() {
             >
               <Button
                 variant="text"
-                sx={{ textDecoration: "underline ", color: "#FFFF" }}
+                sx={{ textDecoration: "underline ", color: "#000" }}
               >
                 ลืมรหัสผ่าน
               </Button>
@@ -135,12 +146,12 @@ function Login() {
           </div>
           <Button
             variant="contained"
-            size="large"
             fullWidth
             sx={{
-              mt: 3,
-              // background: "linear-gradient(to right,#00C041, #0097D7)",
-              borderRadius: 5
+              mt: 2,
+              bgcolor: '#41A3E3',
+              borderRadius: 5,
+              color: '#fff'
             }}
             onClick={async () => {
               const response = await dispatch(
@@ -157,35 +168,42 @@ function Login() {
           >
             เข้าสู่ระบบ
           </Button>
-          <Grid
-            container
-            direction="row"
-            justifyContent="flex-start"
-            alignItems="center"
-            sx={{ mt: 2 }}
-          >
-            <Typography sx={{ color: "#eeee" }}>ยังไม่เป็นสมาชิก?</Typography>
-            <Button
-              variant="text"
-              sx={{ textDecoration: "underline ", color: "#FFFF" }}
-            // onClick={() => {
-            //   if (know_us === undefined) {
-            //     router.push(`/RegisterTel?know_us=friend`);
-            //   } else {
-            //     router.push(`/RegisterTel?know_us=${know_us}`);
-            //   }
-            // }}
-            onClick={() =>  router.push(`/auth/register`)}
-            >
-              สมัครสมาชิก
-            </Button>
+          <Grid container justifyContent="center">
+            <Typography sx={{ my: 1, color: "#707070", fontSize: "14px" }}>หรือ</Typography>
           </Grid>
+          <Button
+            variant="contained"
+            fullWidth
+            sx={{
+              bgcolor: '#00BB00',
+              borderRadius: 5,
+              color: '#fff'
+            }}
+
+          >
+            เข้าสู่ระบบด้วยไลน์
+          </Button>
+
+          <Button
+            variant="outlined"
+            fullWidth
+            sx={{
+              my: 4,
+              bgcolor: '#fff',
+              borderRadius: 5,
+              border: "2px solid #41A3E3",
+              color: '#41A3E3'
+            }}
+            onClick={() => router.push(`/auth/register`)}
+          >
+            สมัครสมาชิก
+          </Button>
+
         </Box>
       </div>
     </>
   );
 }
 
-// export default Login;
 export default withAuth(Login);
 

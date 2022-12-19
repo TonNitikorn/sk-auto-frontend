@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Box, Grid, Button, Typography } from '@mui/material'
+import { Box, Grid, Button, Typography, MenuList, MenuItem } from '@mui/material'
 import withAuth from '../routes/withAuth'
 import Layout from '../theme/Layout'
 import LoadingModal from '../theme/LoadingModal'
@@ -12,6 +12,7 @@ import Image from 'next/image'
 
 function home() {
     const [loading, setLoading] = useState(false)
+    const [categoryType, setCategoryType] = useState('game')
 
     // useEffect(() => {
     //     setTimeout(() => {
@@ -27,27 +28,33 @@ function home() {
     const category = [
         {
             type: 'game',
-            img: 'game'
+            img: 'game',
+            category: 'game'
         },
         {
             type: 'poker',
-            img: 'game'
+            img: 'game',
+            category: 'poker'
         },
         {
             type: 'slot',
-            img: 'game'
+            img: 'game',
+            category: 'slot',
         },
         {
             type: 'esport',
-            img: 'game'
+            img: 'game',
+            category: 'esport',
         },
         {
             type: 'casino',
-            img: 'game'
+            img: 'game',
+            category: 'casino',
         },
         {
             type: 'casino',
-            img: 'game'
+            img: 'game',
+            category: 'casino',
         },
     ];
 
@@ -104,30 +111,16 @@ function home() {
 
     const games2 = [
         {
-            type: 'game',
+            type: 'poker',
             img: 'game'
         },
         {
             type: 'poker',
             img: 'game'
         },
-        {
-            type: 'slot',
-            img: 'game'
-        },
-        {
-            type: 'esport',
-            img: 'game'
-        },
-        {
-            type: 'casino',
-            img: 'game'
-        },
-        {
-            type: 'casino',
-            img: 'game'
-        },
     ];
+
+    console.log('category', category)
 
     return (
         <Layout page="home">
@@ -193,14 +186,18 @@ function home() {
                         direction="column"
                         justifyContent="flex-start"
                         alignItems="flex-start"
-                        // sx={{ bgcolor: 'red' }}
+                    // sx={{ bgcolor: 'red' }}
                     >
                         {category.map((item) => (
                             <Button
                                 variant="contained"
                                 // fullWidth
+                                color='secondary2'
                                 sx={{ mt: 1, bgcolor: "#7CC6F8", height: '65px', width: '80%' }}
-                            // onClick={() => setPrice(100)}
+
+                                onClick={() => {
+                                    setCategoryType(item.category)
+                                }}
                             >
                                 <Typography
                                     sx={{ fontWeight: "bold", textAlign: "center", color: "black" }}
@@ -210,14 +207,42 @@ function home() {
                             </Button>
                         ))}
 
+                        {/* <MenuList
+                            id="composition-menu"
+                            aria-labelledby="composition-button"
+                            onChange={() => {
+                                setValue(value);
+                              }}
+                        > */}
+                        {/* <MenuItem value="home"
+                            onClick={() => {
+                                setValue("home");
+                            }} >Profile</MenuItem>
+                        <MenuItem value="2" >My account</MenuItem>
+                        <MenuItem value="3" >Logout</MenuItem> */}
+                        {/* </MenuList> */}
+
                     </Grid>
                     <Grid item xs={9}
                         justifyContent="center"
                         alignItems="flex-start"
-                        // sx={{ bgcolor: 'green' }}
-                        >
+                    // sx={{ bgcolor: 'green' }}
+                    >
 
-                        {games1.map((item) => (
+                        {categoryType === "game" ? games1.map((item) => (
+                            <Button
+                                variant="contained"
+                                // fullWidth
+                                sx={{ mt: 1, mr: "2px", bgcolor: "#fff", height: '70px', width: '49%' }}
+                            // onClick={() => setPrice(100)}
+                            >
+                                <Typography
+                                    sx={{ fontWeight: "bold", textAlign: "center", color: "black" }}
+                                >
+                                    {item.type}
+                                </Typography>
+                            </Button>
+                        )) : games2.map((item) => (
                             <Button
                                 variant="contained"
                                 // fullWidth
@@ -231,6 +256,7 @@ function home() {
                                 </Typography>
                             </Button>
                         ))}
+
                     </Grid>
 
 

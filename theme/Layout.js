@@ -90,7 +90,12 @@ function Layout({ children, page }) {
                       onClose={handleCloseUserMenu}
                     >
                       {settings.map((setting) => (
-                        <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                        // <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                        <MenuItem key={setting} onClick={() => {
+                          dispatch(signOut());
+                          localStorage.clear();
+                          router.push("/auth/login");
+                        }}>
                           <Typography textAlign="center">{setting}</Typography>
                         </MenuItem>
                       ))}
