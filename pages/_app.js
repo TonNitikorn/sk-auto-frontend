@@ -17,6 +17,10 @@ function MyApp({ Component, pageProps }) {
         main: "#41A3E3",
         light: "#7190c4",
       },
+      secondary2: {
+        main: "#0072B1",
+        light: "#7190c4",
+      },
      
       
     },

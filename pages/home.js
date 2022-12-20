@@ -1,5 +1,5 @@
-import { Box } from '@mui/material'
 import React, { useState, useEffect } from 'react'
+import { Box, Grid, Button, Typography, MenuList, MenuItem } from '@mui/material'
 import withAuth from '../routes/withAuth'
 import Layout from '../theme/Layout'
 import LoadingModal from '../theme/LoadingModal'
@@ -12,17 +12,116 @@ import Image from 'next/image'
 
 function home() {
     const [loading, setLoading] = useState(false)
+    const [categoryType, setCategoryType] = useState('game')
 
     // useEffect(() => {
     //     setTimeout(() => {
     //         setLoading(false)
-    //     }, 3000);
+    //     }, 2000);
     // }, [])
     const images = [
         "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
         "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
         "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
     ];
+
+    const category = [
+        {
+            type: 'game',
+            img: 'game',
+            category: 'game'
+        },
+        {
+            type: 'poker',
+            img: 'game',
+            category: 'poker'
+        },
+        {
+            type: 'slot',
+            img: 'game',
+            category: 'slot',
+        },
+        {
+            type: 'esport',
+            img: 'game',
+            category: 'esport',
+        },
+        {
+            type: 'casino',
+            img: 'game',
+            category: 'casino',
+        },
+        {
+            type: 'casino',
+            img: 'game',
+            category: 'casino',
+        },
+    ];
+
+    const games1 = [
+        {
+            type: 'game',
+            img: 'game'
+        },
+        {
+            type: 'poker',
+            img: 'game'
+        },
+        {
+            type: 'slot',
+            img: 'game'
+        },
+        {
+            type: 'esport',
+            img: 'game'
+        },
+        {
+            type: 'casino',
+            img: 'game'
+        },
+        {
+            type: 'casino',
+            img: 'game'
+        },
+        {
+            type: 'game',
+            img: 'game'
+        },
+        {
+            type: 'poker',
+            img: 'game'
+        },
+        {
+            type: 'slot',
+            img: 'game'
+        },
+        {
+            type: 'esport',
+            img: 'game'
+        },
+        {
+            type: 'casino',
+            img: 'game'
+        },
+        {
+            type: 'casino',
+            img: 'game'
+        },
+    ];
+
+    const games2 = [
+        {
+            type: 'poker',
+            img: 'game'
+        },
+        {
+            type: 'poker',
+            img: 'game'
+        },
+    ];
+
+    console.log('category', category)
+
     return (
         <Layout page="home">
             <Box sx={{ m: 2 }}>
@@ -53,6 +152,9 @@ function home() {
                     ))}
                 </Swiper>
 
+
+            </Box>
+            <Box sx={{ mt: 1 }}>
                 <Swiper
                     loop={true}
                     spaceBetween={10}
@@ -64,18 +166,102 @@ function home() {
                         delay: 500,
                         disableOnInteraction: false,
                     }}
-                    modules={[FreeMode, Navigation, Thumbs ,Autoplay]}
+                    modules={[FreeMode, Navigation, Thumbs, Autoplay]}
                     className="mySwiper"
                 >
                     {images.map((item) => (
                         <SwiperSlide>
-                            <Box sx={{borderRadius:"100px"}}>
+                            <Box sx={{ borderRadius: "100px" }}>
                                 <Image alt="banner" src={item} width={600} height={350} />
                             </Box>
                         </SwiperSlide>
 
                     ))}
                 </Swiper>
+            </Box>
+
+            <Box sx={{ m: 2 }}>
+                <Grid container>
+                    <Grid item xs={3} container
+                        direction="column"
+                        justifyContent="flex-start"
+                        alignItems="flex-start"
+                    // sx={{ bgcolor: 'red' }}
+                    >
+                        {category.map((item) => (
+                            <Button
+                                variant="contained"
+                                // fullWidth
+                                color='secondary2'
+                                sx={{ mt: 1, bgcolor: "#7CC6F8", height: '65px', width: '80%' }}
+
+                                onClick={() => {
+                                    setCategoryType(item.category)
+                                }}
+                            >
+                                <Typography
+                                    sx={{ fontWeight: "bold", textAlign: "center", color: "black" }}
+                                >
+                                    {item.type}
+                                </Typography>
+                            </Button>
+                        ))}
+
+                        {/* <MenuList
+                            id="composition-menu"
+                            aria-labelledby="composition-button"
+                            onChange={() => {
+                                setValue(value);
+                              }}
+                        > */}
+                        {/* <MenuItem value="home"
+                            onClick={() => {
+                                setValue("home");
+                            }} >Profile</MenuItem>
+                        <MenuItem value="2" >My account</MenuItem>
+                        <MenuItem value="3" >Logout</MenuItem> */}
+                        {/* </MenuList> */}
+
+                    </Grid>
+                    <Grid item xs={9}
+                        justifyContent="center"
+                        alignItems="flex-start"
+                    // sx={{ bgcolor: 'green' }}
+                    >
+
+                        {categoryType === "game" ? games1.map((item) => (
+                            <Button
+                                variant="contained"
+                                // fullWidth
+                                sx={{ mt: 1, mr: "2px", bgcolor: "#fff", height: '70px', width: '49%' }}
+                            // onClick={() => setPrice(100)}
+                            >
+                                <Typography
+                                    sx={{ fontWeight: "bold", textAlign: "center", color: "black" }}
+                                >
+                                    {item.type}
+                                </Typography>
+                            </Button>
+                        )) : games2.map((item) => (
+                            <Button
+                                variant="contained"
+                                // fullWidth
+                                sx={{ mt: 1, mr: "2px", bgcolor: "#fff", height: '70px', width: '49%' }}
+                            // onClick={() => setPrice(100)}
+                            >
+                                <Typography
+                                    sx={{ fontWeight: "bold", textAlign: "center", color: "black" }}
+                                >
+                                    {item.type}
+                                </Typography>
+                            </Button>
+                        ))}
+
+                    </Grid>
+
+
+                </Grid>
+
             </Box>
 
             <LoadingModal open={loading} />

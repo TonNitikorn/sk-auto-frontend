@@ -32,15 +32,12 @@ import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import ViewListIcon from '@mui/icons-material/ViewList';
 
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
-
 
 function Layout({ children, page }) {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const [value, setValue] = useState(page);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -50,7 +47,15 @@ function Layout({ children, page }) {
     setAnchorElUser(null);
   };
 
-  const [value, setValue] = useState(page);
+
+  const profile = [{
+    page: 'profile',
+    text: 'โปรไฟล์'
+  },
+  {
+    page: 'logout',
+    text: 'ออกจากระบบ'
+  }];
 
   return (
     <div>
@@ -60,7 +65,9 @@ function Layout({ children, page }) {
           display: { xs: "block", md: "none" },
         }}
       >
-        <AppBar position="static" color="secondary" elevation={0} sx={{ borderBottomLeftRadius: '30px', borderBottomRightRadius: '30px' }}>
+        {/* ----- header ----- */}
+
+        <AppBar position="fixed" color="secondary" elevation={0} sx={{ borderBottomLeftRadius: '30px', borderBottomRightRadius: '30px' }}>
           <Container maxWidth="xl">
             <Toolbar disableGutters>
               <Grid container>
@@ -68,6 +75,8 @@ function Layout({ children, page }) {
                   <Typography sx={{ mt: 1 }}>LOGO</Typography>
                 </Grid>
                 <Grid item xs={6} container justifyContent="flex-end">
+                  <Typography sx={{ mt: 1.5, mr: 2, color: "#fff", fontSize: '14px' }}>300,000.00 ฿</Typography>
+
                   <Box sx={{ flexGrow: 0 }}>
                     <Tooltip title="Open settings">
                       <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -90,9 +99,21 @@ function Layout({ children, page }) {
                       open={Boolean(anchorElUser)}
                       onClose={handleCloseUserMenu}
                     >
-                      {settings.map((setting) => (
-                        <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                          <Typography textAlign="center">{setting}</Typography>
+                      {profile.map((item) => (
+                        <MenuItem key={item} onClick={() => {
+                          console.log('item', item.page)
+                          if (item.page === "profile") {
+                            handleCloseUserMenu()
+                            router.push("/deposit");
+                          } else if (item.page === "logout") {
+                            dispatch(signOut());
+                            handleCloseUserMenu()
+                            localStorage.clear();
+                            router.push("/auth/login");
+                          }
+
+                        }}>
+                          <Typography textAlign="center">{item.text}</Typography>
                         </MenuItem>
                       ))}
                     </Menu>
@@ -104,9 +125,13 @@ function Layout({ children, page }) {
             </Toolbar>
           </Container>
         </AppBar>
-        {/* <Box sx={{ m: 2 }}> */}
-        {children}
-        {/* </Box> */}
+
+        {/* ----- body ----- */}
+        <Box sx={{ my: 8 }}>
+          {children}
+        </Box>
+
+        {/* ----- footer ----- */}
         <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, borderTopLeftRadius: '30px', borderTopRightRadius: '30px' }} elevation={3}>
           <BottomNavigation
             showLabels

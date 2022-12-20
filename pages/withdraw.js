@@ -34,13 +34,17 @@ function withdraw() {
       }
     });
   };
-  
+
   return (
     <Layout page="withdraw">
       <Box sx={{ m: 3,display: { xs: "block", md: "none" }, }}>
         <Card sx={{
-          borderRadius: 3, 
-          background: "linear-gradient(#7BBDFA, #62AEF4, #0072B1 )",
+          mt: 1,
+          display: { xs: "block", md: "none" },
+          borderRadius: 3,
+          bgcolor: '#78BEFF',
+          border: "2px solid #41A3E3"
+
         }}>
           <CardContent>
             <Grid container
@@ -48,13 +52,13 @@ function withdraw() {
               justifyContent="center"
               alignItems="center">
               <Grid item xs={5}>
-                <Box sx={{ mt: 1, ml: 2 }}>
+                <Box sx={{ mt: 1, ml: 3 }}>
                   <Image src={scbL} alt="scb" />
                 </Box>
               </Grid>
               <Grid item xs={7}>
-                <Typography sx={{ color: 'white' }}>SCB (ไทยพาณิชย์)</Typography>
-                <Typography sx={{ color: 'white' }}>095-2-78718-8</Typography>
+                <Typography sx={{ color: 'white', mb: '2px', mt: 1 }}>SCB (ไทยพาณิชย์)</Typography>
+                <Typography sx={{ color: 'white', mb: '2px' }}>095-2-78718-8</Typography>
                 <Typography sx={{ color: 'white' }}>ผู้ใช้ ผู้ใช้</Typography>
               </Grid>
             </Grid>
@@ -63,7 +67,7 @@ function withdraw() {
         <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 3 }}>ถอนเครดิต</Typography>
         <Typography sx={{ fontSize: '12px' }}>เลือกจำนวนเครดิต</Typography>
 
-        <Grid container spacing={2} sx={{mt:2}}>
+        <Grid container spacing={2} sx={{ mt: 2 }}>
           <Grid item xs={3}>
             <Button
               variant="contained"
@@ -192,7 +196,7 @@ function withdraw() {
           variant="outlined"
         />
         <Typography sx={{ color: "#aaa", mt: 1, mb: 2, fontSize: "12px" }}>
-        ถอนไม่มีขั้นต่ำ
+          ถอนไม่มีขั้นต่ำ
         </Typography>
 
         <Button
@@ -207,7 +211,7 @@ function withdraw() {
           }}
         >
           ถอนเงิน
-          
+
         </Button>
       </Box>
     </Layout>
