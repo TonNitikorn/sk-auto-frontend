@@ -60,6 +60,7 @@ function Layout({ children, page }) {
   return (
     <div>
       <CssBaseline />
+      {/* ------------ on Mobile ------------ */}
       <Box
         sx={{
           display: { xs: "block", md: "none" },
@@ -67,7 +68,7 @@ function Layout({ children, page }) {
       >
         {/* ----- header ----- */}
 
-        <AppBar position="fixed" color="secondary" elevation={0} sx={{ borderBottomLeftRadius: '30px', borderBottomRightRadius: '30px' }}>
+        <AppBar position="fixed" color="primary" elevation={0} sx={{ borderBottomLeftRadius: '30px', borderBottomRightRadius: '30px' }}>
           <Container maxWidth="xl">
             <Toolbar disableGutters>
               <Grid container>
@@ -136,7 +137,17 @@ function Layout({ children, page }) {
           <BottomNavigation
             showLabels
             value={value}
-            sx={{ bgcolor: '#41A3E3', borderTopLeftRadius: '30px', borderTopRightRadius: '30px' }}
+            sx={{
+              bgcolor: '#41A3E3', borderTopLeftRadius: '30px', borderTopRightRadius: '30px',
+              '& .Mui-selected': {
+                '& .MuiBottomNavigationAction-label': {
+                  color: '#fff'
+                },
+                '& .MuiSvgIcon-root, & .MuiBottomNavigationAction-label': {
+                  color: '#fff'
+                }
+              }
+            }}
             onChange={() => {
               setValue(value);
             }}
@@ -150,12 +161,14 @@ function Layout({ children, page }) {
 
       </Box>
 
+
+      {/* ------------ on Desktop ------------ */}
       <Box
         sx={{
           display: { xs: "none", md: "block" },
         }}
       >
-        <AppBar position="fixed" color="secondary" elevation={0} sx={{ borderBottomLeftRadius: '30px', borderBottomRightRadius: '30px' }}>
+        <AppBar position="fixed" color="primary" elevation={0} sx={{ borderBottomLeftRadius: '30px', borderBottomRightRadius: '30px' }}>
           <Container maxWidth="xl">
             <Toolbar disableGutters>
               <Grid container>
@@ -217,18 +230,12 @@ function Layout({ children, page }) {
         <Grid container >
           <Grid item xs={3} />
           <Grid item xs={6}>
-          <Paper elevation={10} v sx={{ py: 2 }}>
-          {children}
-
-        </Paper>
+            <Paper elevation={10} v sx={{ py: 2 }}>
+              {children}
+            </Paper>
           </Grid>
           <Grid item xs={3} />
-
         </Grid>
-        {/* <Box sx={{ mx: '30%'}}> */}
-      
-
-        {/* </Box> */}
 
         <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, borderTopLeftRadius: '30px', borderTopRightRadius: '30px' }} elevation={3}>
           <BottomNavigation

@@ -71,7 +71,7 @@ function withdraw() {
             <Button
               variant="outlined"
               fullWidth
-              color="secondary"
+              color="primary"
               sx={{ p: 1
               }}
               onClick={() => setPrice(100)}
@@ -87,7 +87,7 @@ function withdraw() {
             <Button
               variant="outlined"
               fullWidth
-              color="secondary"
+              color="primary"
               sx={{ p: 1 }}
               onClick={() => setPrice(200)}
             >
@@ -102,7 +102,7 @@ function withdraw() {
             <Button
               variant="outlined"
               fullWidth
-              color="secondary"
+              color="primary"
               sx={{ p: 1, bgcolor: "#fff" }}
               onClick={() => setPrice(300)}
             >
@@ -117,7 +117,7 @@ function withdraw() {
             <Button
               variant="outlined"
               fullWidth
-              color="secondary"
+              color="primary"
               sx={{ p: 1, bgcolor: "#fff" }}
               onClick={() => setPrice(500)}
             >
@@ -132,7 +132,7 @@ function withdraw() {
             <Button
              variant="outlined"
              fullWidth
-             color="secondary"
+             color="primary"
               sx={{ p: 1, bgcolor: "#fff" }}
               onClick={() => setPrice(1000)}
             >
@@ -147,7 +147,7 @@ function withdraw() {
             <Button
              variant="outlined"
              fullWidth
-             color="secondary"
+             color="primary"
               onClick={() => setPrice(2000)}
               sx={{ p: 1, bgcolor: "#fff" }}
             >
@@ -162,7 +162,7 @@ function withdraw() {
             <Button
               variant="outlined"
               fullWidth
-              color="secondary"
+              color="primary"
               sx={{ p: 1, bgcolor: "#fff" }}
               onClick={() => setPrice(5000)}
             >
@@ -177,7 +177,7 @@ function withdraw() {
             <Button
               variant="outlined"
               fullWidth
-              color="secondary"
+              color="primary"
               sx={{ p: 1, bgcolor: "#fff" }}
               onClick={() => setPrice(10000)}
             >

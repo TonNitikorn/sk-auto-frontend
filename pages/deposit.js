@@ -39,8 +39,8 @@ function deposit() {
               direction="row"
               justifyContent="center"
               alignItems="center">
-              <Grid item xs={5}>
-                <Box sx={{ mt: 1, ml: 3 }}>
+              <Grid item xs={4}>
+                <Box sx={{ mt: 1, mr: 2 }}>
                   <Image src={scbL} alt="scb" width="100%" height="100%" />
                 </Box>
               </Grid>

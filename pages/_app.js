@@ -10,11 +10,11 @@ function MyApp({ Component, pageProps }) {
   const theme = createTheme({
     palette: {
       primary: {
-        main: "#fff",
+        main: "#41A3E3",
         light: "#30323e",
       },
       secondary: {
-        main: "#41A3E3",
+        main: "#fff",
         light: "#7190c4",
       },
       secondary2: {
