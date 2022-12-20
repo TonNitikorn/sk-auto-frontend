@@ -37,10 +37,10 @@ function withdraw() {
   
   return (
     <Layout page="withdraw">
-      <Box sx={{ m: 3 }}>
+      <Box sx={{ m: 3,display: { xs: "block", md: "none" }, }}>
         <Card sx={{
-          display: { xs: "block", md: "none" },
-          borderRadius: 3, background: "linear-gradient(#7BBDFA, #62AEF4, #0072B1 )"
+          borderRadius: 3, 
+          background: "linear-gradient(#7BBDFA, #62AEF4, #0072B1 )",
         }}>
           <CardContent>
             <Grid container
@@ -68,7 +68,7 @@ function withdraw() {
             <Button
               variant="contained"
               fullWidth
-              sx={{ p: 1, bgcolor: "#fff" }}
+              sx={{ p: 1, bgcolor: "#eee" }}
               onClick={() => setPrice(100)}
             >
               <Typography
@@ -82,7 +82,7 @@ function withdraw() {
             <Button
               variant="contained"
               fullWidth
-              sx={{ p: 1, bgcolor: "#fff" }}
+              sx={{ p: 1, bgcolor: "#eee" }}
               onClick={() => setPrice(200)}
             >
               <Typography
@@ -96,7 +96,7 @@ function withdraw() {
             <Button
               variant="contained"
               fullWidth
-              sx={{ p: 1, bgcolor: "#fff" }}
+              sx={{ p: 1, bgcolor: "#eee" }}
               onClick={() => setPrice(300)}
             >
               <Typography
@@ -110,7 +110,7 @@ function withdraw() {
             <Button
               variant="contained"
               fullWidth
-              sx={{ p: 1, bgcolor: "#fff" }}
+              sx={{ p: 1, bgcolor: "#eee" }}
               onClick={() => setPrice(500)}
             >
               <Typography
@@ -124,7 +124,7 @@ function withdraw() {
             <Button
               variant="contained"
               fullWidth
-              sx={{ p: 1, bgcolor: "#fff" }}
+              sx={{ p: 1, bgcolor: "#eee" }}
               onClick={() => setPrice(1000)}
             >
               <Typography
@@ -139,7 +139,7 @@ function withdraw() {
               variant="contained"
               fullWidth
               onClick={() => setPrice(2000)}
-              sx={{ p: 1, bgcolor: "#fff" }}
+              sx={{ p: 1, bgcolor: "#eee" }}
             >
               <Typography
                 sx={{ fontWeight: "bold", textAlign: "center", color: "black" }}
@@ -152,7 +152,7 @@ function withdraw() {
             <Button
               variant="contained"
               fullWidth
-              sx={{ p: 1, bgcolor: "#fff" }}
+              sx={{ p: 1, bgcolor: "#eee" }}
               onClick={() => setPrice(5000)}
             >
               <Typography
@@ -166,7 +166,7 @@ function withdraw() {
             <Button
               variant="contained"
               fullWidth
-              sx={{ p: 1, bgcolor: "#fff" }}
+              sx={{ p: 1, bgcolor: "#eee" }}
               onClick={() => setPrice(10000)}
             >
               <Typography
@@ -187,7 +187,7 @@ function withdraw() {
           fullWidth
           value={price || ""}
           size="medium"
-          sx={{ bgcolor: "#fff", borderRadius: 2, fontWeight: "bold" }}
+          sx={{ bgcolor: "#eee", borderRadius: 2, fontWeight: "bold" }}
           onChange={(e) => setPrice(e.target.value)}
           variant="outlined"
         />
