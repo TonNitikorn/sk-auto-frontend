@@ -205,7 +205,7 @@ function Layout({ children, page }) {
                           console.log('item', item.page)
                           if (item.page === "profile") {
                             handleCloseUserMenu()
-                            router.push("/deposit");
+                            router.push("/profile");
                           } else if (item.page === "logout") {
                             dispatch(signOut());
                             handleCloseUserMenu()
