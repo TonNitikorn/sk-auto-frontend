@@ -94,6 +94,52 @@ function history() {
           </Grid>
         </Paper>
 
+        <Paper sx={{ mt: 2, borderRadius: 5 }}>
+          <Grid container justifyContent="space-between" sx={{ p: 2, bgcolor: '#F1F1F1', borderRadius: "20px 20px 0px 0px" }}>
+            <Typography>ถอนเครดิต</Typography>
+            <Typography sx={{ color: "#D2042D", fontWeight: "bold" }}>
+              - {Intl.NumberFormat("THB").format(3000)}
+            </Typography>
+          </Grid>
+          <Grid
+            container
+            justifyContent="flex-end"
+            sx={{ bgcolor: "#D9D9D9", p: 1, borderRadius: "0px 0px 20px 20px" }}
+          >
+            20 ก.ย. | 11:53
+          </Grid>
+        </Paper>
+        <Paper sx={{ mt: 2, borderRadius: 5 }}>
+          <Grid container justifyContent="space-between" sx={{ p: 2, bgcolor: '#F1F1F1', borderRadius: "20px 20px 0px 0px" }}>
+            <Typography>ถอนเครดิต</Typography>
+            <Typography sx={{ color: "#D2042D", fontWeight: "bold" }}>
+              - {Intl.NumberFormat("THB").format(3000)}
+            </Typography>
+          </Grid>
+          <Grid
+            container
+            justifyContent="flex-end"
+            sx={{ bgcolor: "#D9D9D9", p: 1, borderRadius: "0px 0px 20px 20px" }}
+          >
+            20 ก.ย. | 11:53
+          </Grid>
+        </Paper>
+        <Paper sx={{ mt: 2, borderRadius: 5 }}>
+          <Grid container justifyContent="space-between" sx={{ p: 2, bgcolor: '#F1F1F1', borderRadius: "20px 20px 0px 0px" }}>
+            <Typography>ถอนเครดิต</Typography>
+            <Typography sx={{ color: "#D2042D", fontWeight: "bold" }}>
+              - {Intl.NumberFormat("THB").format(3000)}
+            </Typography>
+          </Grid>
+          <Grid
+            container
+            justifyContent="flex-end"
+            sx={{ bgcolor: "#D9D9D9", p: 1, borderRadius: "0px 0px 20px 20px" }}
+          >
+            20 ก.ย. | 11:53
+          </Grid>
+        </Paper>
+        
 
       </Box>
     </Layout>
