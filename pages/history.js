@@ -18,10 +18,9 @@ function history() {
   const [price, setPrice] = useState(0)
   return (
     <Layout page="history">
-      <Box sx={{ m: 3, display: { xs: "block", md: "none" }, }}>
+           <Box sx={{ m: 3, mt: 10 , mb: 10}}>
         <Card sx={{
           mt: 1,
-          display: { xs: "block", md: "none" },
           borderRadius: 3,
           bgcolor: '#78BEFF',
           border: "2px solid #41A3E3"
@@ -139,7 +138,7 @@ function history() {
             20 ก.ย. | 11:53
           </Grid>
         </Paper>
-        
+
 
       </Box>
     </Layout>

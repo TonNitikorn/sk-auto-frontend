@@ -150,6 +150,103 @@ function Layout({ children, page }) {
 
       </Box>
 
+      <Box
+        sx={{
+          display: { xs: "none", md: "block" },
+        }}
+      >
+        <AppBar position="fixed" color="secondary" elevation={0} sx={{ borderBottomLeftRadius: '30px', borderBottomRightRadius: '30px' }}>
+          <Container maxWidth="xl">
+            <Toolbar disableGutters>
+              <Grid container>
+                <Grid item xs={6}>
+                  <Typography sx={{ mt: 1 }}>LOGO</Typography>
+                </Grid>
+                <Grid item xs={6} container justifyContent="flex-end">
+                  <Typography sx={{ mt: 1.5, mr: 2, color: "#fff", fontSize: '14px' }}>300,000.00 ฿</Typography>
+
+                  <Box sx={{ flexGrow: 0 }}>
+                    <Tooltip title="Open settings">
+                      <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                        <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                      </IconButton>
+                    </Tooltip>
+                    <Menu
+                      sx={{ mt: '45px' }}
+                      id="menu-appbar"
+                      anchorEl={anchorElUser}
+                      anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                      }}
+                      keepMounted
+                      transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                      }}
+                      open={Boolean(anchorElUser)}
+                      onClose={handleCloseUserMenu}
+                    >
+                      {profile.map((item) => (
+                        <MenuItem key={item} onClick={() => {
+                          console.log('item', item.page)
+                          if (item.page === "profile") {
+                            handleCloseUserMenu()
+                            router.push("/deposit");
+                          } else if (item.page === "logout") {
+                            dispatch(signOut());
+                            handleCloseUserMenu()
+                            localStorage.clear();
+                            router.push("/auth/login");
+                          }
+
+                        }}>
+                          <Typography textAlign="center">{item.text}</Typography>
+                        </MenuItem>
+                      ))}
+                    </Menu>
+                  </Box>
+                </Grid>
+
+              </Grid>
+
+            </Toolbar>
+          </Container>
+        </AppBar>
+
+        <Grid container >
+          <Grid item xs={3} />
+          <Grid item xs={6}>
+          <Paper elevation={10} v sx={{ py: 2 }}>
+          {children}
+
+        </Paper>
+          </Grid>
+          <Grid item xs={3} />
+
+        </Grid>
+        {/* <Box sx={{ mx: '30%'}}> */}
+      
+
+        {/* </Box> */}
+
+        <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, borderTopLeftRadius: '30px', borderTopRightRadius: '30px' }} elevation={3}>
+          <BottomNavigation
+            showLabels
+            value={value}
+            sx={{ bgcolor: '#41A3E3', borderTopLeftRadius: '30px', borderTopRightRadius: '30px' }}
+            onChange={() => {
+              setValue(value);
+            }}
+          >
+            <BottomNavigationAction label="หน้าหลัก" value="home" icon={<HomeIcon />} onClick={() => router.push("/home")} />
+            <BottomNavigationAction label="ฝากเงิน" value="deposit" icon={<PaidIcon />} onClick={() => router.push("/deposit")} />
+            <BottomNavigationAction label="ถอนเงิน" value="withdraw" icon={<CurrencyExchangeIcon />} onClick={() => router.push("/withdraw")} />
+            <BottomNavigationAction label="ประวัติ" value="history" icon={<ViewListIcon />} onClick={() => router.push("/history")} />
+          </BottomNavigation>
+        </Paper>
+      </Box>
+
     </div >
   );
 }

@@ -124,7 +124,7 @@ function home() {
 
     return (
         <Layout page="home">
-            <Box sx={{ m: 2 }}>
+            <Box sx={{ m: 2, mt: 8.5 }}>
                 <Swiper
                     spaceBetween={30}
                     centeredSlides={true}
@@ -136,25 +136,26 @@ function home() {
                         clickable: true,
                     }}
 
-                    // navigation={{
-                    //     clickable: true
-                    // }}
                     modules={[Autoplay, Pagination, Navigation]}
                     className="mySwiper"
                 >
                     {images.map((item) => (
                         <SwiperSlide>
-                            <Box >
-                                <Image alt="banner" src={item} width={400} height={170} />
+                            <Box sx={{ display: { xs: "block", sm: "none", md: "none" } }}>
+                                <Image alt="banner" src={item} width={'400px'} height={'170px'} />
+                            </Box>
+                            <Box sx={{ display: { xs: "none", sm: "block", md: "none" } }}>
+                                <Image alt="banner" src={item} width={'800%'} height={'330px'} />
+                            </Box>
+                            <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
+                                <Image alt="banner" src={item} width={'800%'} height={350} />
                             </Box>
                         </SwiperSlide>
 
                     ))}
                 </Swiper>
-
-
             </Box>
-            <Box sx={{ mt: 1 }}>
+            <Box sx={{ my: 1 }}>
                 <Swiper
                     loop={true}
                     spaceBetween={10}
@@ -171,8 +172,14 @@ function home() {
                 >
                     {images.map((item) => (
                         <SwiperSlide>
-                            <Box sx={{ borderRadius: "100px" }}>
+                            <Box sx={{ display: { xs: "block", sm: "none", md: "none" } }}>
                                 <Image alt="banner" src={item} width={600} height={350} />
+                            </Box>
+                            <Box sx={{ display: { xs: "none", sm: "block", md: "none" } }}>
+                                <Image alt="banner" src={item} width={350} height={180} />
+                            </Box>
+                            <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
+                                <Image alt="banner" src={item} width={400} height={200} />
                             </Box>
                         </SwiperSlide>
 
@@ -180,7 +187,7 @@ function home() {
                 </Swiper>
             </Box>
 
-            <Box sx={{ m: 2 }}>
+            <Box sx={{ m: 2, mb: 8 }}>
                 <Grid container>
                     <Grid item xs={3} container
                         direction="column"
@@ -189,38 +196,26 @@ function home() {
                     // sx={{ bgcolor: 'red' }}
                     >
                         {category.map((item) => (
-                            <Button
-                                variant="contained"
-                                // fullWidth
-                                color='secondary2'
-                                sx={{ mt: 1, bgcolor: "#7CC6F8", height: '65px', width: '80%' }}
+                            <>
+                                <Button
+                                    variant="contained"
+                                    // fullWidth
+                                    color='secondary2'
+                                    sx={{ mt: 1, bgcolor: "#7CC6F8", height: '80px', width: '90%' }}
 
-                                onClick={() => {
-                                    setCategoryType(item.category)
-                                }}
-                            >
-                                <Typography
-                                    sx={{ fontWeight: "bold", textAlign: "center", color: "black" }}
+                                    onClick={() => {
+                                        setCategoryType(item.category)
+                                    }}
                                 >
-                                    {item.type}
-                                </Typography>
-                            </Button>
-                        ))}
+                                    <Typography
+                                        sx={{ fontWeight: "bold", textAlign: "center", color: "black" }}
+                                    >
+                                        {item.type}
+                                    </Typography>
+                                </Button>
 
-                        {/* <MenuList
-                            id="composition-menu"
-                            aria-labelledby="composition-button"
-                            onChange={() => {
-                                setValue(value);
-                              }}
-                        > */}
-                        {/* <MenuItem value="home"
-                            onClick={() => {
-                                setValue("home");
-                            }} >Profile</MenuItem>
-                        <MenuItem value="2" >My account</MenuItem>
-                        <MenuItem value="3" >Logout</MenuItem> */}
-                        {/* </MenuList> */}
+                            </>
+                        ))}
 
                     </Grid>
                     <Grid item xs={9}
@@ -228,7 +223,6 @@ function home() {
                         alignItems="flex-start"
                     // sx={{ bgcolor: 'green' }}
                     >
-
                         {categoryType === "game" ? games1.map((item) => (
                             <Button
                                 variant="contained"

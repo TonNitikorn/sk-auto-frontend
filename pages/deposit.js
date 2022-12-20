@@ -26,7 +26,7 @@ function deposit() {
 
   return (
     <Layout page="deposit">
-      <Box sx={{ m: 3, display: { xs: "block", md: "none" }, }}>
+      <Box sx={{ m: 3, mt: 10 , mb: 10}}>
         <Card sx={{
           mt: 1,
           borderRadius: 3,
@@ -41,7 +41,7 @@ function deposit() {
               alignItems="center">
               <Grid item xs={5}>
                 <Box sx={{ mt: 1, ml: 3 }}>
-                  <Image src={scbL} alt="scb" />
+                  <Image src={scbL} alt="scb" width="100%" height="100%" />
                 </Box>
               </Grid>
               <Grid item xs={7}>

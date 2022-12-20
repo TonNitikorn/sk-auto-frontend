@@ -37,10 +37,9 @@ function withdraw() {
 
   return (
     <Layout page="withdraw">
-      <Box sx={{ m: 3 }}>
+       <Box sx={{ m: 3, mt: 10 , mb: 20}}>
         <Card sx={{
           mt: 1,
-          display: { xs: "block", md: "none" },
           borderRadius: 3,
           bgcolor: '#78BEFF',
           border: "2px solid #41A3E3"
