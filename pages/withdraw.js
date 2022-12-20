@@ -69,13 +69,15 @@ function withdraw() {
         <Grid container spacing={2} sx={{ mt: 2 }}>
           <Grid item xs={3}>
             <Button
-              variant="contained"
+              variant="outlined"
               fullWidth
-              sx={{ p: 1, bgcolor: "#fff" }}
+              color="secondary"
+              sx={{ p: 1
+              }}
               onClick={() => setPrice(100)}
             >
               <Typography
-                sx={{ fontWeight: "bold", textAlign: "center", color: "black" }}
+                sx={{ fontWeight: "bold", textAlign: "center", color: "#41A3E3" }}
               >
                 100
               </Typography>
@@ -83,13 +85,14 @@ function withdraw() {
           </Grid>
           <Grid item xs={3}>
             <Button
-              variant="contained"
+              variant="outlined"
               fullWidth
-              sx={{ p: 1, bgcolor: "#fff" }}
+              color="secondary"
+              sx={{ p: 1 }}
               onClick={() => setPrice(200)}
             >
               <Typography
-                sx={{ fontWeight: "bold", textAlign: "center", color: "black" }}
+                sx={{ fontWeight: "bold", textAlign: "center", color: "#41A3E3" }}
               >
                 200
               </Typography>
@@ -97,13 +100,14 @@ function withdraw() {
           </Grid>
           <Grid item xs={3}>
             <Button
-              variant="contained"
+              variant="outlined"
               fullWidth
+              color="secondary"
               sx={{ p: 1, bgcolor: "#fff" }}
               onClick={() => setPrice(300)}
             >
               <Typography
-                sx={{ fontWeight: "bold", textAlign: "center", color: "black" }}
+                sx={{ fontWeight: "bold", textAlign: "center", color: "#41A3E3" }}
               >
                 300
               </Typography>
@@ -111,13 +115,14 @@ function withdraw() {
           </Grid>
           <Grid item xs={3}>
             <Button
-              variant="contained"
+              variant="outlined"
               fullWidth
+              color="secondary"
               sx={{ p: 1, bgcolor: "#fff" }}
               onClick={() => setPrice(500)}
             >
               <Typography
-                sx={{ fontWeight: "bold", textAlign: "center", color: "black" }}
+                sx={{ fontWeight: "bold", textAlign: "center", color: "#41A3E3" }}
               >
                 500
               </Typography>
@@ -125,13 +130,14 @@ function withdraw() {
           </Grid>
           <Grid item xs={3}>
             <Button
-              variant="contained"
-              fullWidth
+             variant="outlined"
+             fullWidth
+             color="secondary"
               sx={{ p: 1, bgcolor: "#fff" }}
               onClick={() => setPrice(1000)}
             >
               <Typography
-                sx={{ fontWeight: "bold", textAlign: "center", color: "black" }}
+                sx={{ fontWeight: "bold", textAlign: "center", color: "#41A3E3" }}
               >
                 1000
               </Typography>
@@ -139,13 +145,14 @@ function withdraw() {
           </Grid>
           <Grid item xs={3}>
             <Button
-              variant="contained"
-              fullWidth
+             variant="outlined"
+             fullWidth
+             color="secondary"
               onClick={() => setPrice(2000)}
               sx={{ p: 1, bgcolor: "#fff" }}
             >
               <Typography
-                sx={{ fontWeight: "bold", textAlign: "center", color: "black" }}
+                sx={{ fontWeight: "bold", textAlign: "center", color: "#41A3E3" }}
               >
                 2000
               </Typography>
@@ -153,13 +160,14 @@ function withdraw() {
           </Grid>
           <Grid item xs={3}>
             <Button
-              variant="contained"
+              variant="outlined"
               fullWidth
+              color="secondary"
               sx={{ p: 1, bgcolor: "#fff" }}
               onClick={() => setPrice(5000)}
             >
               <Typography
-                sx={{ fontWeight: "bold", textAlign: "center", color: "black" }}
+                sx={{ fontWeight: "bold", textAlign: "center", color: "#41A3E3" }}
               >
                 5000
               </Typography>
@@ -167,13 +175,14 @@ function withdraw() {
           </Grid>
           <Grid item xs={3}>
             <Button
-              variant="contained"
+              variant="outlined"
               fullWidth
+              color="secondary"
               sx={{ p: 1, bgcolor: "#fff" }}
               onClick={() => setPrice(10000)}
             >
               <Typography
-                sx={{ fontWeight: "bold", textAlign: "center", color: "black" }}
+                sx={{ fontWeight: "bold", textAlign: "center", color: "#41A3E3" }}
               >
                 10000
               </Typography>
