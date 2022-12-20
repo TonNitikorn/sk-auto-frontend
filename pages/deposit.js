@@ -26,10 +26,10 @@ function deposit() {
 
   return (
     <Layout page="deposit">
-      <Box sx={{ m: 3 }}>
+      <Box sx={{ m: 3,display: { xs: "block", md: "none" }, }}>
         <Card sx={{
           mt: 1,
-          display: { xs: "block", md: "none" },
+          p:2,
           borderRadius: 3, background: "linear-gradient(#7BBDFA, #62AEF4, #0072B1 )"
         }}>
           <CardContent>
@@ -52,10 +52,10 @@ function deposit() {
         </Card>
 
         <Typography variant="h6" sx={{ fontWeight: 'bold', my: 3 }}>เติมเครดิต</Typography>
-        <Box sx={{ m: 3 }}>
+        <Box>
           <Card sx={{
             mt: 1,
-            display: { xs: "block", md: "none" },
+            
             borderRadius: 3,
             background: "linear-gradient(#7CC6F8, #1890D9 )"
           }}>
@@ -87,7 +87,6 @@ function deposit() {
 
           <Card sx={{
             mt: 2,
-            display: { xs: "block", md: "none" },
             borderRadius: 3,
             background: "linear-gradient(#7CC6F8, #1890D9 )"
           }}>
@@ -98,7 +97,7 @@ function deposit() {
                 alignItems="center">
                 <Grid item xs={3}>
                   <Box sx={{ mt: 1, ml: 0 }}>
-                    <Image src={scbL} alt="scb" />
+                    <Image src={scbL} alt="scb"  />
                   </Box>
                 </Grid>
                 <Grid item xs={7} >
@@ -119,7 +118,6 @@ function deposit() {
 
           <Card sx={{
             mt: 2,
-            display: { xs: "block", md: "none" },
             borderRadius: 3, 
             background: "linear-gradient(#7CC6F8, #1890D9 )"
           }}>
@@ -130,7 +128,7 @@ function deposit() {
                 alignItems="center">
                 <Grid item xs={3}>
                   <Box sx={{ mt: 1, ml: 0 }}>
-                    <Image src={trueL} alt="trueWalltet" width="100%" height="100%"/>
+                    <Image src={trueL} alt="trueWalltet" width="80%" height="80%"/>
                   </Box>
                 </Grid>
                 <Grid item xs={7} >
