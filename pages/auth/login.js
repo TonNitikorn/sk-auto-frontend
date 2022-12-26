@@ -65,7 +65,10 @@ function Login() {
             <Toolbar disableGutters>
               <Grid container>
                 <Grid item xs={6}>
-                  <Typography sx={{ mt: 1 }}>LOGO</Typography>
+                  <Typography sx={{ mt: 1 }}
+                    onClick={() => {
+                      router.push('/')
+                    }}>LOGO</Typography>
                 </Grid>
               </Grid>
             </Toolbar>

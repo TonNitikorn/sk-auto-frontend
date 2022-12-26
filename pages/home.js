@@ -120,7 +120,6 @@ function home() {
         },
     ];
 
-    console.log('category', category)
 
     return (
         <Layout page="home">

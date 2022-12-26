@@ -73,7 +73,11 @@ function Layout({ children, page }) {
             <Toolbar disableGutters>
               <Grid container>
                 <Grid item xs={6}>
-                  <Typography sx={{ mt: 1 }}>LOGO</Typography>
+                  <Typography sx={{ mt: 1 }}
+                    onClick={() => {
+                      router.push('home')
+                    }}
+                  >LOGO</Typography>
                 </Grid>
                 <Grid item xs={6} container justifyContent="flex-end">
                   <Typography sx={{ mt: 1.5, mr: 2, color: "#fff", fontSize: '14px' }}>300,000.00 ฿</Typography>
@@ -173,7 +177,9 @@ function Layout({ children, page }) {
             <Toolbar disableGutters>
               <Grid container>
                 <Grid item xs={6}>
-                  <Typography sx={{ mt: 1 }}>LOGO</Typography>
+                  <Typography sx={{ mt: 1 }} onClick={() => {
+                    router.push('home')
+                  }}>LOGO</Typography>
                 </Grid>
                 <Grid item xs={6} container justifyContent="flex-end">
                   <Typography sx={{ mt: 1.5, mr: 2, color: "#fff", fontSize: '14px' }}>300,000.00 ฿</Typography>
@@ -241,7 +247,17 @@ function Layout({ children, page }) {
           <BottomNavigation
             showLabels
             value={value}
-            sx={{ bgcolor: '#41A3E3', borderTopLeftRadius: '30px', borderTopRightRadius: '30px' }}
+            sx={{
+              bgcolor: '#41A3E3', borderTopLeftRadius: '30px', borderTopRightRadius: '30px',
+              '& .Mui-selected': {
+                '& .MuiBottomNavigationAction-label': {
+                  color: '#fff'
+                },
+                '& .MuiSvgIcon-root, & .MuiBottomNavigationAction-label': {
+                  color: '#fff'
+                }
+              }
+            }}
             onChange={() => {
               setValue(value);
             }}
