@@ -93,7 +93,7 @@ function register() {
         <div style={{ padding: "0 2rem" }}>
             <CssBaseline />
 
-            <AppBar position="fixed" color="primary" elevation={0} >
+            <AppBar position="fixed" color="primary" elevation={0} sx={{ borderBottomLeftRadius: '30px', borderBottomRightRadius: '30px' }}>
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
                         <Grid container>
