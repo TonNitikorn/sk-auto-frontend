@@ -97,7 +97,12 @@ function register() {
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
                         <Grid container>
-                            <Typography sx={{ mt: 1, color: "white" }}>LOGO</Typography>
+                            <Grid item xs={6}>
+                                <Typography sx={{ mt: 1 }}
+                                    onClick={() => {
+                                        router.push('/')
+                                    }}>LOGO</Typography>
+                            </Grid>
                         </Grid>
                     </Toolbar>
                 </Container>
