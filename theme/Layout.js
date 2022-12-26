@@ -80,7 +80,7 @@ function Layout({ children, page }) {
                   >LOGO</Typography>
                 </Grid>
                 <Grid item xs={6} container justifyContent="flex-end">
-                  <Typography sx={{ mt: 1.5, mr: 2, color: "#fff", fontSize: '14px' }}>300,000.00 ฿</Typography>
+                  <Typography sx={{ mt: 0.5, mr: 1, color: "#fff", fontSize: '14px' ,bgcolor:'#0885CA' ,borderRadius:"20px" , py:1 ,px:2}}>300,000.00 ฿</Typography>
 
                   <Box sx={{ flexGrow: 0 }}>
                     <Tooltip title="Open settings">
@@ -236,7 +236,7 @@ function Layout({ children, page }) {
         <Grid container >
           <Grid item xs={3} />
           <Grid item xs={6}>
-            <Paper elevation={10} v sx={{ py: 2 }}>
+            <Paper elevation={10} sx={{ py: 2 }}>
               {children}
             </Paper>
           </Grid>

@@ -206,7 +206,7 @@ function index() {
       </AppBar>
       {/* ----- on Mobile ----- */}
       <Box sx={{ display: { xs: "block", md: "none" } }}>
-        <Box sx={{ m: 2, mt: 8.5, }}>
+        <Box sx={{ my: 1,  mt: 8.5, }}>
           <Swiper
             spaceBetween={30}
             centeredSlides={true}
@@ -237,7 +237,7 @@ function index() {
             ))}
           </Swiper>
         </Box>
-        <Box sx={{ my: 1 }}>
+        <Box sx={{ my: 1,  }}>
           <Swiper
             loop={true}
             spaceBetween={10}
@@ -269,7 +269,7 @@ function index() {
           </Swiper>
         </Box>
 
-        <Box sx={{ m: 2, mb: 8 }}>
+        <Box sx={{ mt: 2, mb: 8 }}>
           <Grid container>
             <Grid item xs={3} container
               direction="column"
@@ -348,7 +348,7 @@ function index() {
           <Grid item xs={3} />
           <Grid item xs={6}>
             <Paper elevation={10} v sx={{ py: 2 }}>
-              <Box sx={{ m: 2, mt: 8.5 }}>
+              <Box sx={{ m: 1, mt: 8.5 }}>
                 <Swiper
                   spaceBetween={30}
                   centeredSlides={true}
@@ -379,7 +379,7 @@ function index() {
                   ))}
                 </Swiper>
               </Box>
-              <Box sx={{ my: 1 }}>
+              <Box sx={{m: 1, my: 1 }}>
                 <Swiper
                   loop={true}
                   spaceBetween={10}
@@ -411,7 +411,7 @@ function index() {
                 </Swiper>
               </Box>
 
-              <Box sx={{ m: 2, mb: 8 }}>
+              <Box sx={{ m: 1, mb: 8 }}>
                 <Grid container>
                   <Grid item xs={3} container
                     direction="column"

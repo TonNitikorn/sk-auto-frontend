@@ -123,7 +123,7 @@ function home() {
 
     return (
         <Layout page="home">
-            <Box sx={{ m: 2, mt: 8.5 }}>
+            <Box sx={{ m: 1, mt: 8.5 }}>
                 <Swiper
                     spaceBetween={30}
                     centeredSlides={true}
@@ -154,7 +154,7 @@ function home() {
                     ))}
                 </Swiper>
             </Box>
-            <Box sx={{ my: 1 }}>
+            <Box sx={{ my: 1 ,mx:1 }}>
                 <Swiper
                     loop={true}
                     spaceBetween={10}
@@ -186,7 +186,7 @@ function home() {
                 </Swiper>
             </Box>
 
-            <Box sx={{ m: 2, mb: 8 }}>
+            <Box sx={{ m: 1, mb: 8 }}>
                 <Grid container>
                     <Grid item xs={3} container
                         direction="column"
