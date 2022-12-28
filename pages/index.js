@@ -1,19 +1,21 @@
 import React, { useState } from 'react'
 import {
-  Avatar,
   Box,
   Button,
-  Divider,
   Grid,
   Paper,
   Typography,
-  BottomNavigation,
-  BottomNavigationAction,
-  Skeleton,
   IconButton,
   AppBar,
   Container,
-  Toolbar
+  Toolbar,
+  TextField,
+  FormControl,
+  OutlinedInput,
+  InputAdornment,
+  Dialog,
+  DialogContent,
+  DialogTitle
 } from "@mui/material";
 import Image from 'next/image'
 import withAuth from '../routes/withAuth'
@@ -25,12 +27,50 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { useRouter } from "next/router";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Slide from '@mui/material/Slide';
+import { signIn } from "../store/slices/userSlice";
+import hostname from "../utils/hostname";
+import { useAppDispatch } from "../store/store";
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 function index() {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false)
   const [categoryType, setCategoryType] = useState('game')
+  const [rowData, setRowData] = useState({})
+  const [openDialogContact, setOpenDialogContact] = useState(false)
+  const [values, setValues] = useState({
+    amount: "",
+    password: "",
+    weight: "",
+    weightRange: "",
+    showPassword: false,
+  });
+
+  const handleChangeData = async (e) => {
+    setRowData({ ...rowData, [e.target.name]: e.target.value });
+  };
+
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   // useEffect(() => {
   //     setTimeout(() => {
@@ -147,56 +187,26 @@ function index() {
                 <Typography sx={{ mt: 1 }}>LOGO</Typography>
               </Grid>
               <Grid item xs={6} container justifyContent="flex-end">
-                <Typography sx={{ mt: 1.5, mr: 2, color: "#fff", fontSize: '14px' }}
+                {/* <Typography sx={{ mt: 1.5, mr: 2, color: "#fff", fontSize: '14px' }}
                   onClick={() => {
                     router.push('auth/register')
                   }}>สมัครสมาชิก</Typography>
                 <Typography sx={{ mt: 1.5, mr: 2, color: "#fff", fontSize: '14px' }}
                   onClick={() => {
                     router.push('auth/login')
-                  }}>เข้าสู่ระบบ</Typography>
-
-                {/* <Box sx={{ flexGrow: 0 }}>
-                  <Tooltip title="Open settings">
-                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                      <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                    </IconButton>
-                  </Tooltip>
-                  <Menu
-                    sx={{ mt: '45px' }}
-                    id="menu-appbar"
-                    anchorEl={anchorElUser}
-                    anchorOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
-                    open={Boolean(anchorElUser)}
-                    onClose={handleCloseUserMenu}
-                  >
-                    {profile.map((item) => (
-                      <MenuItem key={item} onClick={() => {
-                        console.log('item', item.page)
-                        if (item.page === "profile") {
-                          handleCloseUserMenu()
-                          router.push("/deposit");
-                        } else if (item.page === "logout") {
-                          dispatch(signOut());
-                          handleCloseUserMenu()
-                          localStorage.clear();
-                          router.push("/auth/login");
-                        }
-
-                      }}>
-                        <Typography textAlign="center">{item.text}</Typography>
-                      </MenuItem>
-                    ))}
-                  </Menu>
-                </Box> */}
+                  }}>เข้าสู่ระบบ</Typography> */}
+                <Button
+                  variant="outlined"
+                  sx={{
+                    bgcolor: '#41A3E3',
+                    borderRadius: 5,
+                    border: "2px solid #fff",
+                    color: '#fff'
+                  }}
+                  onClick={() => { setOpenDialogContact(true) }}
+                >
+                  ติดต่อเรา
+                </Button>
               </Grid>
 
             </Grid>
@@ -205,8 +215,144 @@ function index() {
         </Container>
       </AppBar>
       {/* ----- on Mobile ----- */}
+
       <Box sx={{ display: { xs: "block", md: "none" } }}>
-        <Box sx={{ my: 1,  mt: 8.5, }}>
+        <Box
+          sx={{
+            mt: 8.5,
+            flexGrow: 1,
+            p: 2,
+            bgcolor: '#fff',
+            borderRadius: 5,
+            boxShadow: '2px 2px 5px #C1B9B9',
+            border: "1px solid #C1B9B9"
+          }}
+        >
+          <Grid
+            container
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Typography variant="h5" sx={{ color: "#41A3E3" }}>เข้าสู่ระบบ</Typography>
+          </Grid>
+          <Typography sx={{ mt: 1, color: "#707070", fontSize: "14px" }}>
+            เบอร์โทรศัพท์
+          </Typography>
+          <TextField
+            name="tel"
+            type="text"
+            value={rowData.tel || ""}
+            placeholder="000-000-000"
+            fullWidth
+            size="small"
+            onChange={(e) => handleChangeData(e)}
+            variant="outlined"
+            sx={{ bgcolor: "white" }}
+            inputProps={{ maxLength: 10 }}
+          />
+          <Typography sx={{ mt: 1, color: "#707070", fontSize: "14px" }}>รหัสผ่าน</Typography>
+          <div>
+            <FormControl fullWidth variant="outlined" size="small">
+              <OutlinedInput
+                id="outlined-adornment-password"
+                type={values.showPassword ? "text" : "password"}
+                value={values.password}
+                placeholder="password"
+                onChange={handleChange("password")}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                sx={{ bgcolor: "white" }}
+              />
+            </FormControl>
+            <Grid
+              container
+              direction="row-reverse"
+              justifyContent="flex-start"
+              alignItems="center"
+            >
+              <Button
+                variant="text"
+                sx={{ textDecoration: "underline ", color: "#000" }}
+              >
+                ลืมรหัสผ่าน
+              </Button>
+            </Grid>
+          </div>
+          <Grid container spacing={1}>
+            <Grid item xs={6}>
+              <Button
+                variant="outlined"
+                fullWidth
+                sx={{
+                  bgcolor: '#fff',
+                  borderRadius: 5,
+                  border: "2px solid #41A3E3",
+                  color: '#41A3E3'
+                }}
+                onClick={() => router.push(`/auth/register`)}
+              >
+                สมัครสมาชิก
+              </Button></Grid>
+            <Grid item xs={6}>
+              <Button
+                variant="contained"
+                fullWidth
+                sx={{
+                  bgcolor: '#41A3E3',
+                  borderRadius: 5,
+                  color: '#fff'
+                }}
+                onClick={async () => {
+                  const response = await dispatch(
+                    signIn({ tel: rowData.tel, password: values.password })
+                  );
+
+                  if (response.meta.requestStatus === "rejected") {
+                    alert("Login failed");
+                  } else {
+                    console.log("else");
+                    router.push("/home");
+                  }
+                }}
+              >
+                เข้าสู่ระบบ
+              </Button>
+            </Grid>
+          </Grid>
+
+          <Grid container justifyContent="center">
+            <Typography sx={{ my: 1, color: "#707070", fontSize: "14px" }}>หรือ</Typography>
+          </Grid>
+
+          <Button
+            variant="contained"
+            fullWidth
+            sx={{
+              bgcolor: '#00BB00',
+              borderRadius: 5,
+              color: '#fff'
+            }}
+
+          >
+            เข้าสู่ระบบด้วยไลน์
+          </Button>
+
+
+
+        </Box>
+
+        <Box sx={{ mt: 2, mb: 1 }}>
           <Swiper
             spaceBetween={30}
             centeredSlides={true}
@@ -237,7 +383,7 @@ function index() {
             ))}
           </Swiper>
         </Box>
-        <Box sx={{ my: 1,  }}>
+        {/* <Box sx={{ my: 1, }}>
           <Swiper
             loop={true}
             spaceBetween={10}
@@ -267,7 +413,7 @@ function index() {
 
             ))}
           </Swiper>
-        </Box>
+        </Box> */}
 
         <Box sx={{ mt: 2, mb: 8 }}>
           <Grid container>
@@ -348,7 +494,139 @@ function index() {
           <Grid item xs={3} />
           <Grid item xs={6}>
             <Paper elevation={10} v sx={{ py: 2 }}>
-              <Box sx={{ m: 1, mt: 8.5 }}>
+              <Box
+                sx={{
+                  m: 1,
+                  mt: 8.5,
+                  flexGrow: 1,
+                  p: 2,
+                  bgcolor: '#fff',
+                  borderRadius: 5,
+                  boxShadow: '2px 2px 5px #C1B9B9',
+                  border: "1px solid #C1B9B9"
+                }}
+              >
+                <Grid
+                  container
+                  direction="column"
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <Typography variant="h5" sx={{ color: "#41A3E3" }}>เข้าสู่ระบบ</Typography>
+                </Grid>
+                <Typography sx={{ mt: 1, color: "#707070", fontSize: "14px" }}>
+                  เบอร์โทรศัพท์
+                </Typography>
+                <TextField
+                  name="tel"
+                  type="text"
+                  value={rowData.tel || ""}
+                  placeholder="000-000-000"
+                  fullWidth
+                  size="small"
+                  onChange={(e) => handleChangeData(e)}
+                  variant="outlined"
+                  sx={{ bgcolor: "white" }}
+                  inputProps={{ maxLength: 10 }}
+                />
+                <Typography sx={{ mt: 1, color: "#707070", fontSize: "14px" }}>รหัสผ่าน</Typography>
+                <div>
+                  <FormControl fullWidth variant="outlined" size="small">
+                    <OutlinedInput
+                      id="outlined-adornment-password"
+                      type={values.showPassword ? "text" : "password"}
+                      value={values.password}
+                      placeholder="password"
+                      onChange={handleChange("password")}
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            edge="end"
+                          >
+                            {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                      sx={{ bgcolor: "white" }}
+                    />
+                  </FormControl>
+                  <Grid
+                    container
+                    direction="row-reverse"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                  >
+                    <Button
+                      variant="text"
+                      sx={{ textDecoration: "underline ", color: "#000" }}
+                    >
+                      ลืมรหัสผ่าน
+                    </Button>
+                  </Grid>
+                </div>
+                <Grid container spacing={1}>
+                  <Grid item xs={6}>
+                    <Button
+                      variant="outlined"
+                      fullWidth
+                      sx={{
+                        bgcolor: '#fff',
+                        borderRadius: 5,
+                        border: "2px solid #41A3E3",
+                        color: '#41A3E3'
+                      }}
+                      onClick={() => router.push(`/auth/register`)}
+                    >
+                      สมัครสมาชิก
+                    </Button></Grid>
+                  <Grid item xs={6}>
+                    <Button
+                      variant="contained"
+                      fullWidth
+                      sx={{
+                        bgcolor: '#41A3E3',
+                        borderRadius: 5,
+                        color: '#fff'
+                      }}
+                      onClick={async () => {
+                        const response = await dispatch(
+                          signIn({ tel: rowData.tel, password: values.password })
+                        );
+
+                        if (response.meta.requestStatus === "rejected") {
+                          alert("Login failed");
+                        } else {
+                          console.log("else");
+                          router.push("/home");
+                        }
+                      }}
+                    >
+                      เข้าสู่ระบบ
+                    </Button>
+                  </Grid>
+                </Grid>
+
+                <Grid container justifyContent="center">
+                  <Typography sx={{ my: 1, color: "#707070", fontSize: "14px" }}>หรือ</Typography>
+                </Grid>
+
+                <Button
+                  variant="contained"
+                  fullWidth
+                  sx={{
+                    bgcolor: '#00BB00',
+                    borderRadius: 5,
+                    color: '#fff'
+                  }}
+
+                >
+                  เข้าสู่ระบบด้วยไลน์
+                </Button>
+              </Box>
+              <Box sx={{ m: 1, mt: 2 }}>
                 <Swiper
                   spaceBetween={30}
                   centeredSlides={true}
@@ -379,7 +657,7 @@ function index() {
                   ))}
                 </Swiper>
               </Box>
-              <Box sx={{m: 1, my: 1 }}>
+              <Box sx={{ m: 1, my: 1 }}>
                 <Swiper
                   loop={true}
                   spaceBetween={10}
@@ -487,6 +765,53 @@ function index() {
         </Grid>
       </Box>
 
+      <Dialog
+        fullWidth
+        maxWidth="md"
+        open={openDialogContact}
+        onClose={() => setOpenDialogContact(false)}
+        TransitionComponent={Transition}
+      >
+        <DialogTitle >
+          ช่องทางการติดต่อ
+        </DialogTitle>
+        <DialogContent>
+          <Button
+            variant="outlined"
+            sx={{
+              bgcolor: '#41A3E3',
+              borderRadius: 2,
+              border: "2px solid #fff",
+              color: '#fff'
+            }}
+          >
+            ติดต่อผ่าน Line
+          </Button>
+          <Button
+            variant="outlined"
+            sx={{
+              bgcolor: '#41A3E3',
+              borderRadius: 2,
+              border: "2px solid #fff",
+              color: '#fff'
+            }}
+          >
+           ติดต่อผ่าน โทรศัพท์
+          </Button>
+          <Button
+            variant="outlined"
+            sx={{
+              bgcolor: '#41A3E3',
+              borderRadius: 2,
+              border: "2px solid #fff",
+              color: '#fff'
+            }}
+          >
+            แชทสดกับพนักงาน
+          </Button>
+        </DialogContent>
+
+      </Dialog>
 
       <LoadingModal open={loading} />
     </div>

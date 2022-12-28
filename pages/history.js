@@ -12,38 +12,15 @@ import {
 } from "@mui/material";
 import scbL from "../assets/scbL.png";
 import Image from "next/image";
+import CardBank_Rank from "../components/CardBank_Rank";
 
 
 function history() {
   const [price, setPrice] = useState(0)
   return (
     <Layout page="history">
-           <Box sx={{ m: 3, mt: 10 , mb: 10}}>
-        <Card sx={{
-          mt: 1,
-          borderRadius: 3,
-          bgcolor: '#78BEFF',
-          border: "2px solid #41A3E3"
-
-        }}>
-          <CardContent>
-            <Grid container
-              direction="row"
-              justifyContent="center"
-              alignItems="center">
-              <Grid item xs={5}>
-                <Box sx={{ mt: 1, ml: 3 }}>
-                  <Image src={scbL} alt="scb" />
-                </Box>
-              </Grid>
-              <Grid item xs={7}>
-                <Typography sx={{ color: 'white', mb: '2px', mt: 1 }}>SCB (ไทยพาณิชย์)</Typography>
-                <Typography sx={{ color: 'white', mb: '2px' }}>095-2-78718-8</Typography>
-                <Typography sx={{ color: 'white' }}>ผู้ใช้ ผู้ใช้</Typography>
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Card>
+      <Box sx={{ m: 3, mt: 10, mb: 10 }}>
+        <CardBank_Rank />
         <Typography sx={{ fontWeight: 'bold', mt: 3 }}>ประวัติรายการย้อนหลัง</Typography>
 
         <Paper sx={{ mt: 1, borderRadius: 5 }}>
