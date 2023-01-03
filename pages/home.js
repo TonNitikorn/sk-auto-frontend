@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { Box, Grid, Button, Typography, MenuList, MenuItem } from '@mui/material'
+import {
+    Box, Grid, Button, Typography, MenuList, MenuItem, Dialog,
+    DialogTitle,
+    DialogContentText,
+    DialogContent,
+    DialogActions,
+    IconButton,
+    TextField,
+    FormControl,
+    InputAdornment,
+    OutlinedInput,
+} from '@mui/material'
 import withAuth from '../routes/withAuth'
 import Layout from '../theme/Layout'
 import LoadingModal from '../theme/LoadingModal'
@@ -8,11 +19,49 @@ import { Autoplay, Pagination, Navigation, FreeMode, Thumbs } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { useRouter } from "next/router";
+import DescriptionIcon from '@mui/icons-material/Description';
+import Swal from "sweetalert2";
 import Image from 'next/image'
 
 function home() {
+    const router = useRouter();
+    const [rowData, setRowData] = useState({});
     const [loading, setLoading] = useState(false)
     const [categoryType, setCategoryType] = useState('game')
+    const { by } = router.query
+    const [open, setOpen] = useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+    const handleChangeData = async (e) => {
+        setRowData({ ...rowData, [e.target.name]: e.target.value });
+    };
+
+    const handelAddData = () => {
+        if (by === 'line') {
+            Swal.fire({
+                title: "ยืนยันการทำรายการ",
+                text: `ท่านต้องการถอนเครดิตจำนวน`,
+                icon: "info",
+                showCancelButton: true,
+                cancelButtonColor: "#7C7C7C",
+                confirmButtonColor: "#41A3E3",
+                cancelButtonText: "ตกลง",
+                confirmButtonText: "ไปยังข้อมูลส่วนตัว",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    router.push(`/profile?by=${'line'}`)
+                }
+            });
+        }
+
+    };
 
     // useEffect(() => {
     //     setTimeout(() => {
@@ -120,10 +169,18 @@ function home() {
         },
     ];
 
+    useEffect(() => {
 
+        if (by === 'line') {
+            // จะเช็คจากบัญชีว่ามีรึเปล่า ถ้าไม่มีให้แสดง Dialog
+            handleClickOpen()
+        }
+    }, [])
     return (
         <Layout page="home">
             <Box sx={{ m: 1, mt: 8.5 }}>
+
+
                 <Swiper
                     spaceBetween={30}
                     centeredSlides={true}
@@ -154,7 +211,7 @@ function home() {
                     ))}
                 </Swiper>
             </Box>
-            <Box sx={{ my: 1 ,mx:1 }}>
+            <Box sx={{ my: 1, mx: 1 }}>
                 <Swiper
                     loop={true}
                     spaceBetween={10}
@@ -227,7 +284,7 @@ function home() {
                                 variant="contained"
                                 // fullWidth
                                 sx={{ mt: 1, mr: "2px", bgcolor: "#fff", height: '70px', width: '49%' }}
-                            // onClick={() => setPrice(100)}
+                                onClick={() => handelAddData()}
                             >
                                 <Typography
                                     sx={{ fontWeight: "bold", textAlign: "center", color: "black" }}
@@ -256,7 +313,89 @@ function home() {
                 </Grid>
 
             </Box>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+            >
+                <DialogTitle >
+                    {/* <DescriptionIcon sx={{ color: '#41A3E3' }} /><Typography>กรุณากรอกข้อมูลเพิ่มเติม</Typography> */}
 
+                    <Grid container
+                        direction="row"
+                        sx={{ textAlign: 'center', mt: 1 }}>
+                        <DescriptionIcon sx={{ color: '#41A3E3' }} /><Typography>กรุณากรอกข้อมูลเพิ่มเติม</Typography>
+                    </Grid>
+                </DialogTitle>
+                <DialogContent>
+                    <Grid container
+                        direction="column"
+                        sx={{ mt: 3 }}>
+                        <Typography sx={{ color: "#707070", fontSize: "14px" }}>ธนาคารสำหรับฝาก - ถอนเงิน</Typography>
+                        <TextField
+                            name="bank_name"
+                            type="text"
+                            value={rowData.bank_name || ""}
+                            select
+                            fullWidth
+                            size="small"
+                            onChange={(e) => handleChangeData(e)}
+                            variant="outlined"
+                            sx={{ bgcolor: "white", borderRadius: 1 }}
+                        >
+                            <MenuItem selected disabled value>
+                                เลือก ธนาคาร
+                            </MenuItem>
+                            <MenuItem value="kbnk">ธนาคารกสิกรไทย</MenuItem>
+                            <MenuItem value="truemoney">TrueMoney Wallet</MenuItem>
+                            <MenuItem value="ktba">ธนาคารกรุงไทย</MenuItem>
+                            <MenuItem value="scb">ธนาคารไทยพาณิชย์</MenuItem>
+                            <MenuItem value="bay">ธนาคารกรุงศรีอยุธยา</MenuItem>
+                            <MenuItem value="bbla">ธนาคารกรุงเทพ</MenuItem>
+                            <MenuItem value="gsb">ธนาคารออมสิน</MenuItem>
+                            <MenuItem value="ttb">ธนาคารทหารไทยธนชาต (TTB)</MenuItem>
+                            <MenuItem value="BAAC">
+                                ธนาคารเพื่อการเกษตรและสหกรณ์การเกษตร
+                            </MenuItem>
+                            <MenuItem value="ICBC">ธนาคารไอซีบีซี (ไทย)</MenuItem>
+                            <MenuItem value="TCD">ธนาคารไทยเครดิตเพื่อรายย่อย</MenuItem>
+                            <MenuItem value="CITI">ธนาคารซิตี้แบงก์</MenuItem>
+                            <MenuItem value="SCBT">ธนาคารสแตนดาร์ดชาร์เตอร์ด (ไทย)</MenuItem>
+                            <MenuItem value="CIMB">ธนาคารซีไอเอ็มบีไทย</MenuItem>
+                            <MenuItem value="UOB">ธนาคารยูโอบี</MenuItem>
+                            <MenuItem value="HSBC">ธนาคารเอชเอสบีซี ประเทศไทย</MenuItem>
+                            <MenuItem value="MIZUHO">ธนาคารมิซูโฮ คอร์ปอเรต</MenuItem>
+                            <MenuItem value="GHB">ธนาคารอาคารสงเคราะห์</MenuItem>
+                            <MenuItem value="LHBANK">ธนาคารแลนด์ แอนด์ เฮ้าส์</MenuItem>
+                            <MenuItem value="TISCO">ธนาคารทิสโก้</MenuItem>
+                            <MenuItem value="kkba">ธนาคารเกียรตินาคิน</MenuItem>
+                            <MenuItem value="IBANK">ธนาคารอิสลามแห่งประเทศไทย</MenuItem>
+                        </TextField>
+
+                        <Typography sx={{ mt: 1, color: "#707070", fontSize: '12px' }}>
+                            หมายเลขบัญชี*
+                        </Typography>
+                        <TextField
+                            name="bank_number"
+                            type="number"
+                            value={rowData.bank_number || ""}
+                            placeholder="000-000-000"
+                            fullWidth
+                            size="small"
+                            onChange={(e) => handleChangeData(e)}
+                            variant="outlined"
+                            sx={{ bgcolor: "white", borderRadius: 1 }}
+                        />
+
+
+                    </Grid>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>ยกเลิก</Button>
+                    <Button onClick={handleClose} autoFocus>
+                        ยืนยัน
+                    </Button>
+                </DialogActions>
+            </Dialog>
             <LoadingModal open={loading} />
         </Layout >
     )

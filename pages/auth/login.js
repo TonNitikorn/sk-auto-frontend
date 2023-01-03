@@ -27,6 +27,7 @@ import { useAppDispatch } from "../../store/store";
 
 function Login() {
   const router = useRouter();
+  const line ='line'
   const dispatch = useAppDispatch();
   const [rowData, setRowData] = useState({});
   const [values, setValues] = useState({
@@ -301,7 +302,6 @@ function Login() {
               if (response.meta.requestStatus === "rejected") {
                 alert("Login failed");
               } else {
-                console.log("else");
                 router.push("/home");
               }
             }}
@@ -319,7 +319,17 @@ function Login() {
               borderRadius: 5,
               color: '#fff'
             }}
+            onClick={async () => {
+              const response = await dispatch(
+                signIn({ tel: rowData.tel, password: values.password })
+              );
 
+              if (response.meta.requestStatus === "rejected") {
+                alert("Login failed");
+              } else {
+                router.push(`/home?by=${'line'}`);
+              }
+            }}
           >
             เข้าสู่ระบบด้วยไลน์
           </Button>
