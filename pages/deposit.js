@@ -5,8 +5,6 @@ import {
   Typography,
   Box,
   IconButton,
-  Card,
-  CardContent,
 } from "@mui/material";
 import Image from 'next/image';
 import kbank from "../assets/kbank.png";
@@ -14,6 +12,7 @@ import scbL from "../assets/scbL.png";
 import trueL from "../assets/trueL.png";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import CardBank_Rank from "../components/CardBank_Rank";
 
 function deposit() {
   const [open, setOpen] = useState(false);
@@ -26,32 +25,8 @@ function deposit() {
 
   return (
     <Layout page="deposit">
-      <Box sx={{ m: 3, mt: 10 , mb: 10}}>
-      <Card sx={{
-          mt: 1,
-          borderRadius: 3,
-          bgcolor: '#78BEFF',
-          border: "2px solid #41A3E3"
-
-        }}>
-          <CardContent>
-            <Grid container
-              direction="row"
-              justifyContent="center"
-              alignItems="center">
-              <Grid item xs={5}>
-                <Box sx={{ mt: 1, ml: 3 }}>
-                  <Image src={scbL} alt="scb" />
-                </Box>
-              </Grid>
-              <Grid item xs={7}>
-                <Typography sx={{ color: 'white', mb: '2px', mt: 1 }}>SCB (ไทยพาณิชย์)</Typography>
-                <Typography sx={{ color: 'white', mb: '2px' }}>095-2-78718-8</Typography>
-                <Typography sx={{ color: 'white' }}>ผู้ใช้ ผู้ใช้</Typography>
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Card>
+      <Box sx={{ m: 3, mt: 10, mb: 10 }}>
+        <CardBank_Rank />
         {/* <Box
           sx={{
             borderRadius: 3,
@@ -118,7 +93,7 @@ function deposit() {
               bgcolor: '#fff',
               border: "2px solid #41A3E3",
               py: "30px",
-              mt:3
+              mt: 3
             }}
           >
             <Grid container
