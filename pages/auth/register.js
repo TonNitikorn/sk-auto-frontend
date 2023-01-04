@@ -26,6 +26,9 @@ import CssBaseline from "@mui/material/CssBaseline";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import EastIcon from '@mui/icons-material/East';
+import axios from "axios";
+import hostname from "../../utils/hostname";
+
 
 function register() {
     const router = useRouter()
@@ -89,7 +92,50 @@ function register() {
     const handleMouseDownPasswordCf = (event) => {
         event.preventDefault();
     };
-    console.log('rowData', rowData)
+
+
+    const register = async () => {
+        try {
+            let res = await axios({
+                method: "post",
+                url: `${hostname}/auth/register`,
+                data: {
+                    fname: rowData.fname,
+                    lname: rowData.lname,
+                    bank_number: rowData.bank_number,
+                    bank_name: rowData.bank_name,
+                    password: values.password,
+                    tel: rowData.tel,
+                    affiliate_by: "-",
+                    line_id: rowData.line_id,
+                    platform: "postman",
+                }
+            });
+
+            if (res.data.message === "Register success") {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'สมัครสมาชิกสำเร็จ',
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+                router.push("/auth/login")
+            }
+
+        } catch (error) {
+            console.log(error);
+            // if (
+            //   error.response.status === 401 &&
+            //   error.response.data === "Unauthorized"
+            // ) {
+            //   dispatch(signOut());
+            //   localStorage.clear();
+            //   router.push("/auth/login");
+            // }
+        }
+    }
+
     return (
         <div style={{ padding: "0 2rem" }}>
             <CssBaseline />
@@ -324,40 +370,40 @@ function register() {
 
                                             <Grid container spacing={2} direction="row">
                                                 <Grid item xs={6}>
-                                                <Typography sx={{ mt: 1, color: "#707070", fontSize: '12px' }}>
-                                                ชื่อ*
-                                            </Typography>
-                                            <TextField
-                                                name="fname"
-                                                type="text"
-                                                value={rowData.fname || ""}
-                                                placeholder="ชื่อจริง"
-                                                fullWidth
-                                                size="small"
-                                                onChange={(e) => handleChangeData(e)}
-                                                variant="outlined"
-                                                sx={{ bgcolor: "white", borderRadius: 1 }}
-                                            />
+                                                    <Typography sx={{ mt: 1, color: "#707070", fontSize: '12px' }}>
+                                                        ชื่อ*
+                                                    </Typography>
+                                                    <TextField
+                                                        name="fname"
+                                                        type="text"
+                                                        value={rowData.fname || ""}
+                                                        placeholder="ชื่อจริง"
+                                                        fullWidth
+                                                        size="small"
+                                                        onChange={(e) => handleChangeData(e)}
+                                                        variant="outlined"
+                                                        sx={{ bgcolor: "white", borderRadius: 1 }}
+                                                    />
                                                 </Grid>
                                                 <Grid item xs={6}>
-                                                <Typography sx={{ mt: 1, color: "#707070", fontSize: '12px' }}>
-                                                นามสกุล*
-                                            </Typography>
-                                            <TextField
-                                                name="lname"
-                                                type="text"
-                                                value={rowData.lname || ""}
-                                                placeholder="นามสกุลจริง"
-                                                fullWidth
-                                                size="small"
-                                                onChange={(e) => handleChangeData(e)}
-                                                variant="outlined"
-                                                sx={{ bgcolor: "white", borderRadius: 1 }}
-                                            />
+                                                    <Typography sx={{ mt: 1, color: "#707070", fontSize: '12px' }}>
+                                                        นามสกุล*
+                                                    </Typography>
+                                                    <TextField
+                                                        name="lname"
+                                                        type="text"
+                                                        value={rowData.lname || ""}
+                                                        placeholder="นามสกุลจริง"
+                                                        fullWidth
+                                                        size="small"
+                                                        onChange={(e) => handleChangeData(e)}
+                                                        variant="outlined"
+                                                        sx={{ bgcolor: "white", borderRadius: 1 }}
+                                                    />
                                                 </Grid>
                                             </Grid>
                                             <Typography sx={{ mt: 1, color: "#707070", fontSize: '12px' }}>
-                                            Line Id*
+                                                Line Id*
                                             </Typography>
                                             <TextField
                                                 name="line_id"
@@ -476,7 +522,8 @@ function register() {
                                                     <Button
                                                         variant="contained"
                                                         sx={{ borderRadius: 10 }}
-                                                        onClick={() => router.push("/auth/login")}
+                                                        // onClick={() => router.push("/auth/login")}
+                                                        onClick={() => register()}
                                                         fullWidth
                                                     >
                                                         <Typography sx={{ color: '#fff', mr: 1 }}> {" "}ยืนยัน {"  "}</Typography>
