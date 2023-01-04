@@ -1,3 +1,3 @@
-const hostname = "https://api-007bet.superfast-auto.com";
+const hostname = "http://localhost:3001";
 
 export default hostname;

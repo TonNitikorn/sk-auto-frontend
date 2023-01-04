@@ -169,7 +169,6 @@ function Login() {
                   if (response.meta.requestStatus === "rejected") {
                     alert("Login failed");
                   } else {
-                    console.log("else");
                     router.push("/home");
                   }
                 }}
