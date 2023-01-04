@@ -7,24 +7,15 @@ import Swal from "sweetalert2";
 // import MuiAlert from '@mui/material/Alert';
 export const signIn = async (user) => {
   try {
-
     let res = await axios({
       method: "post",
-      // url: `${hostname}/auth/login`,
-      url: 'https://www.mecallapi.com/api/login',
+      url: `${hostname}/auth/login`,
       data: {
-        // "tel":"0775556631",
-        // "password":"qwe"
-        "username": "karn.yong@mecallapi.com",
-        "password": "mecallapi"
+        "tel": user.tel,
+        "password": user.password
       }
-      // data: {
-      //   tel: user.tel,
-      //   password: user.password,
-      // },
     });
-    console.log('res.data', res.data)
-    localStorage.setItem("access_token", res.data.accessToken);
+    localStorage.setItem("access_token", res.data.accesstoken);
     return res.data;
 
 
