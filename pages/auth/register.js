@@ -89,6 +89,7 @@ function register() {
     const handleMouseDownPasswordCf = (event) => {
         event.preventDefault();
     };
+    console.log('rowData', rowData)
     return (
         <div style={{ padding: "0 2rem" }}>
             <CssBaseline />
@@ -107,6 +108,7 @@ function register() {
                     </Toolbar>
                 </Container>
             </AppBar>
+
             <Grid container direction="row"
                 justifyContent="center"
                 alignItems="center" >
@@ -136,6 +138,7 @@ function register() {
                                             size="small"
                                             onChange={(e) => handleChangeData(e)}
                                             variant="outlined"
+                                            inputProps={{ maxLength: 10 }}
                                             sx={{ borderRadius: "20px", mt: 1 }}
                                         />
 
@@ -180,7 +183,20 @@ function register() {
                                     <Button
                                         variant="contained"
                                         sx={{ borderRadius: 10 }}
-                                        onClick={() => setPage(1)}
+                                        onClick={() => {
+                                            if (!rowData.tel) {
+                                                Swal.fire({
+                                                    position: 'center',
+                                                    icon: 'warning',
+                                                    title: 'กรุณากรอกเบอร์โทรศัพท์',
+                                                    showConfirmButton: false,
+                                                    timer: 1500
+                                                })
+                                            } else {
+                                                setPage(1)
+                                            }
+                                        }
+                                        }
                                     >
                                         <Typography sx={{ color: '#fff', fontSize: '10px', mr: 1 }}> {" "}ต่อไป {"  "}</Typography>
                                         <EastIcon fontSize="small" sx={{ color: '#fff' }} />
@@ -306,6 +322,55 @@ function register() {
                                                 />
                                             </FormControl>
 
+                                            <Grid container spacing={2} direction="row">
+                                                <Grid item xs={6}>
+                                                <Typography sx={{ mt: 1, color: "#707070", fontSize: '12px' }}>
+                                                ชื่อ*
+                                            </Typography>
+                                            <TextField
+                                                name="fname"
+                                                type="text"
+                                                value={rowData.fname || ""}
+                                                placeholder="ชื่อจริง"
+                                                fullWidth
+                                                size="small"
+                                                onChange={(e) => handleChangeData(e)}
+                                                variant="outlined"
+                                                sx={{ bgcolor: "white", borderRadius: 1 }}
+                                            />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                <Typography sx={{ mt: 1, color: "#707070", fontSize: '12px' }}>
+                                                นามสกุล*
+                                            </Typography>
+                                            <TextField
+                                                name="lname"
+                                                type="text"
+                                                value={rowData.lname || ""}
+                                                placeholder="นามสกุลจริง"
+                                                fullWidth
+                                                size="small"
+                                                onChange={(e) => handleChangeData(e)}
+                                                variant="outlined"
+                                                sx={{ bgcolor: "white", borderRadius: 1 }}
+                                            />
+                                                </Grid>
+                                            </Grid>
+                                            <Typography sx={{ mt: 1, color: "#707070", fontSize: '12px' }}>
+                                            Line Id*
+                                            </Typography>
+                                            <TextField
+                                                name="line_id"
+                                                type="text"
+                                                value={rowData.line_id || ""}
+                                                placeholder="line id"
+                                                fullWidth
+                                                size="small"
+                                                onChange={(e) => handleChangeData(e)}
+                                                variant="outlined"
+                                                sx={{ bgcolor: "white", borderRadius: 1 }}
+                                            />
+
                                         </Grid>
 
                                         <Grid container
@@ -370,7 +435,7 @@ function register() {
                                                     sx={{ mt: 3 }}>
                                                     <Typography sx={{ color: "#4B4949", fontSize: "16px" }}>ยืนยันตัวตน OTP</Typography>
 
-                                                    <Typography sx={{ mt: 1, color: "#707070", fontSize: "14px" }}>ส่งรหัส 6 หลักไปที่ 0987644452</Typography>
+                                                    <Typography sx={{ mt: 1, color: "#707070", fontSize: "14px" }}>ส่งรหัส 6 หลักไปที่ {rowData.tel || ''}</Typography>
                                                     <Box sx={{ textAlign: 'center', mt: 2 }}>
                                                         {tabOtp.map((data, index) => {
                                                             return (
@@ -451,7 +516,6 @@ function register() {
                 <Grid item xs={3}></Grid>
             </Grid>
 
-
             <Box sx={{ display: { xs: "block", md: "none" }, }}>
                 {
                     page === 0 ?
@@ -470,7 +534,7 @@ function register() {
                                     <Typography sx={{ color: "#707070", fontSize: "14px" }}>เบอร์โทรศัพท์</Typography>
                                     <TextField
                                         name="tel"
-                                        type="text"
+                                        type="number"
                                         value={rowData.tel || ""}
                                         placeholder="เบอร์โทรศัพท์ของท่าน"
                                         fullWidth
