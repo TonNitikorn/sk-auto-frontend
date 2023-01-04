@@ -38,6 +38,33 @@ function Layout({ children, page }) {
   const dispatch = useAppDispatch();
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [value, setValue] = useState(page);
+  const [credit, setCredit] = useState({});
+
+  const getProfile = async () => {
+    try {
+      let res = await axios({
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("access_token"),
+        },
+        method: "get",
+        url: `${hostname}/user/credit`,
+      });
+
+      setCredit(res.data);
+    } catch (error) {
+      console.log(error);
+      // if (
+      //   error.response.status === 401 &&
+      //   error.response.data === "Unauthorized"
+      // ) {
+      //   dispatch(signOut());
+      //   localStorage.clear();
+      //   router.push("/auth/login");
+      // }
+    }
+  };
+  
+ 
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -48,7 +75,7 @@ function Layout({ children, page }) {
   };
 
 
-  const profile = [{
+  const MenuProfile = [{
     page: 'profile',
     text: 'โปรไฟล์'
   },
@@ -57,6 +84,9 @@ function Layout({ children, page }) {
     text: 'ออกจากระบบ'
   }];
 
+  useEffect(() => {
+    getProfile()
+  }, [])
   return (
     <div>
       <CssBaseline />
@@ -80,7 +110,7 @@ function Layout({ children, page }) {
                   >LOGO</Typography>
                 </Grid>
                 <Grid item xs={6} container justifyContent="flex-end">
-                  <Typography sx={{ mt: 0.5, mr: 1, color: "#fff", fontSize: '14px' ,bgcolor:'#0885CA' ,borderRadius:"20px" , py:1 ,px:2}}>300,000.00 ฿</Typography>
+                  <Typography sx={{ mt: 0.5, mr: 1, color: "#fff", fontSize: '14px' ,bgcolor:'#0885CA' ,borderRadius:"20px" , py:1 ,px:2}}>{Intl.NumberFormat("THB").format(credit)} ฿</Typography>
 
                   <Box sx={{ flexGrow: 0 }}>
                     <Tooltip title="Open settings">
@@ -104,7 +134,7 @@ function Layout({ children, page }) {
                       open={Boolean(anchorElUser)}
                       onClose={handleCloseUserMenu}
                     >
-                      {profile.map((item) => (
+                      {MenuProfile.map((item) => (
                         <MenuItem key={item} onClick={() => {
                           console.log('item', item.page)
                           if (item.page === "profile") {
@@ -182,8 +212,7 @@ function Layout({ children, page }) {
                   }}>LOGO</Typography>
                 </Grid>
                 <Grid item xs={6} container justifyContent="flex-end">
-                  <Typography sx={{ mt: 1.5, mr: 2, color: "#fff", fontSize: '14px' }}>300,000.00 ฿</Typography>
-
+                  <Typography sx={{ mt: 0.5, mr: 2, color: "#fff", fontSize: '14px' ,bgcolor:'#0885CA' ,borderRadius:"20px" , py:1 ,px:2}}>{Intl.NumberFormat("THB").format(credit)} ฿</Typography>
                   <Box sx={{ flexGrow: 0 }}>
                     <Tooltip title="Open settings">
                       <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -206,7 +235,7 @@ function Layout({ children, page }) {
                       open={Boolean(anchorElUser)}
                       onClose={handleCloseUserMenu}
                     >
-                      {profile.map((item) => (
+                      {MenuProfile.map((item) => (
                         <MenuItem key={item} onClick={() => {
                           console.log('item', item.page)
                           if (item.page === "profile") {
