@@ -13,20 +13,51 @@ import trueL from "../assets/trueL.png";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import CardBank_Rank from "../components/CardBank_Rank";
+import axios from "axios";
+import hostname from "../utils/hostname";
 
 function deposit() {
   const [open, setOpen] = useState(false);
+  const [bank, setBank] = useState([])
+  const [profileDeposit, setProfileDeposit] = useState({})
 
   const handleTooltipOpen = () => {
     setOpen(true);
   };
 
 
+  const getBank = async () => {
+    try {
+      let res = await axios({
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("access_token"),
+        },
+        method: "get",
+        url: `${hostname}/bank/bank_deposit`,
+      });
+
+      setBank(res.data);
+    } catch (error) {
+      console.log(error);
+      // if (
+      //   error.response.status === 401 &&
+      //   error.response.data === "Unauthorized"
+      // ) {
+      //   dispatch(signOut());
+      //   localStorage.clear();
+      //   router.push("/auth/login");
+      // }
+    }
+  };
+
+  useEffect(() => {
+    getBank()
+  }, [])
 
   return (
     <Layout page="deposit">
       <Box sx={{ m: 3, mt: 10, mb: 10 }}>
-        <CardBank_Rank />
+        <CardBank_Rank setProfileDeposit={setProfileDeposit} />
         {/* <Box
           sx={{
             borderRadius: 3,
@@ -53,75 +84,46 @@ function deposit() {
         </Box> */}
 
         <Typography variant="h6" sx={{ fontWeight: 'bold', my: 3 }}>เติมเครดิต</Typography>
+        {bank.map((item) => (
+          <>
+            <Box sx={{ my: 3 }}>
+              <Box
+                sx={{
+                  borderRadius: 4,
+                  bgcolor: '#fff',
+                  border: "2px solid #41A3E3",
+                  py: "30px"
+                }}
+              >
+                <Grid container
+                  direction="row"
+                  justifyContent="center"
+                  alignItems="center">
+                  <Grid item xs={3}>
+                    <Box sx={{ ml: 4 }}>
+                      <Image src={kbank} alt="kbank" width="100%" height="100%" />
+                    </Box>
+                  </Grid>
+                  <Grid item xs={7} >
+                    <Typography sx={{ color: '#0B5FAD', fontSize: '14px', pl: 3 }}>{item.bank_name} (กสิกรไทย)</Typography>
+                    <Typography sx={{ color: '#0B5FAD', fontSize: '16px', fontWeight:'bold', my:"2px", pl: 3 }}>{item.bank_number}</Typography>
+                    <Typography sx={{ color: '#0B5FAD', fontSize: '12px', pl: 3 }}>{item.bank_account_name}</Typography>
+                  </Grid>
+                  <Grid item xs={2} >
+                    <IconButton onClick={handleTooltipOpen}>
+                      <CopyToClipboard text={"bank_number"}>
+                        <ContentCopyIcon color="black" />
+                      </CopyToClipboard>
+                    </IconButton>
+                  </Grid>
+                </Grid>
+              </Box>
 
-        <Box sx={{ my: 3 }}>
-          <Box
-            sx={{
-              borderRadius: 4,
-              bgcolor: '#fff',
-              border: "2px solid #41A3E3",
-              py: "30px"
-            }}
-          >
-            <Grid container
-              direction="row"
-              justifyContent="center"
-              alignItems="center">
-              <Grid item xs={3}>
-                <Box sx={{ ml: 4 }}>
-                  <Image src={scbL} alt="kbank" width="100%" height="100%" />
-                </Box>
-              </Grid>
-              <Grid item xs={7} >
-                <Typography sx={{ color: '#0B5FAD', fontSize: '14px', pl: 3 }}>KBANK (กสิกรไทย)</Typography>
-                <Typography sx={{ color: '#0B5FAD', fontSize: '14px', pl: 3 }}>095-2-78718-8</Typography>
-                <Typography sx={{ color: '#0B5FAD', fontSize: '12px', pl: 3 }}>ผู้ใช้ ผู้ใช้</Typography>
-              </Grid>
-              <Grid item xs={2} >
-                <IconButton onClick={handleTooltipOpen}>
-                  <CopyToClipboard text={"bank_number"}>
-                    <ContentCopyIcon color="black" />
-                  </CopyToClipboard>
-                </IconButton>
-              </Grid>
-            </Grid>
-          </Box>
+            </Box>
+          </>
+        ))}
 
-          <Box
-            sx={{
-              borderRadius: 4,
-              bgcolor: '#fff',
-              border: "2px solid #41A3E3",
-              py: "30px",
-              mt: 3
-            }}
-          >
-            <Grid container
-              direction="row"
-              justifyContent="center"
-              alignItems="center">
-              <Grid item xs={3}>
-                <Box sx={{ ml: 4 }}>
-                  <Image src={scbL} alt="kbank" width="100%" height="100%" />
-                </Box>
-              </Grid>
-              <Grid item xs={7} >
-                <Typography sx={{ color: '#0B5FAD', fontSize: '14px', pl: 3 }}>KBANK (กสิกรไทย)</Typography>
-                <Typography sx={{ color: '#0B5FAD', fontSize: '14px', pl: 3 }}>095-2-78718-8</Typography>
-                <Typography sx={{ color: '#0B5FAD', fontSize: '12px', pl: 3 }}>ผู้ใช้ ผู้ใช้</Typography>
-              </Grid>
-              <Grid item xs={2} >
-                <IconButton onClick={handleTooltipOpen}>
-                  <CopyToClipboard text={"bank_number"}>
-                    <ContentCopyIcon color="black" />
-                  </CopyToClipboard>
-                </IconButton>
-              </Grid>
-            </Grid>
-          </Box>
-
-        </Box>
-        <Typography sx={{ my: 3, fontSize: '12px' }}>โปรดใช้บัญชี กสิกรไทย 095-2-78718-8 โอนมาเท่านั้น</Typography>
+        <Typography sx={{ my: 3, fontSize: '12px' }}>โปรดใช้บัญชี {profileDeposit.bank_name} <b>{profileDeposit.bank_number}</b> โอนมาเท่านั้น</Typography>
 
       </Box>
 

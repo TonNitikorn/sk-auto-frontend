@@ -16,7 +16,7 @@ import hostname from "../utils/hostname";
 
 
 
-function CardBank_Rank() {
+function CardBank_Rank(props) {
   const [profile, setProfile] = useState({});
 
   const getProfile = async () => {
@@ -30,6 +30,7 @@ function CardBank_Rank() {
       });
 
       setProfile(res.data);
+      props.setProfileDeposit(res.data)
     } catch (error) {
       console.log(error);
       // if (
@@ -42,14 +43,13 @@ function CardBank_Rank() {
       // }
     }
   };
-  
+
   useEffect(() => {
     getProfile()
   }, [])
 
   return (
     <>
-
       <Card sx={{
         mt: 1,
         borderRadius: 3,
