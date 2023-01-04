@@ -15,7 +15,10 @@ import {
 } from "@mui/material";
 import Layout from '../theme/Layout';
 import SearchIcon from '@mui/icons-material/Search';
+
 function profile() {
+  
+
   return (
     <Layout>
       <Box sx={{
@@ -28,8 +31,8 @@ function profile() {
         justifyContent="center"
         alignItems="center"
         sx={{ textAlign: 'center' }}>
-        <Grid item xs={6} sx={{ bgcolor: '#62AEF4', color: '#fff' }}>ยอดฝาก <Typography>50,000</Typography></Grid>
-        <Grid item xs={6} sx={{ bgcolor: '#A1D2FF', color: '#144069' }}>ยอดถอน <Typography>150,000</Typography></Grid>
+        <Grid item xs={6} sx={{ bgcolor: '#62AEF4', color: '#62AEF4' ,py:1}}>{' s'}</Grid>
+        <Grid item xs={6} sx={{ bgcolor: '#A1D2FF', color: '#A1D2FF' ,py:1 }}> {' s'}</Grid>
       </Grid>
 
 

@@ -10,11 +10,11 @@ export const signIn = async (user) => {
 
     let res = await axios({
       method: "post",
-      // url: `${hostname}/member/api/member/login`,
+      // url: `${hostname}/auth/login`,
       url: 'https://www.mecallapi.com/api/login',
       data: {
-        // "username": user.tel,
-        // "password": user.password,
+        // "tel":"0775556631",
+        // "password":"qwe"
         "username": "karn.yong@mecallapi.com",
         "password": "mecallapi"
       }
