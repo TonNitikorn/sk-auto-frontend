@@ -11,8 +11,42 @@ import Image from 'next/image';
 import kbank from "../assets/kbank.png";
 import scbL from "../assets/scbL.png";
 import trueL from "../assets/trueL.png";
+import axios from "axios";
+import hostname from "../utils/hostname";
+
+
 
 function CardBank_Rank() {
+  const [profile, setProfile] = useState({});
+
+  const getProfile = async () => {
+    try {
+      let res = await axios({
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("access_token"),
+        },
+        method: "get",
+        url: `${hostname}/user/profile`,
+      });
+
+      setProfile(res.data);
+    } catch (error) {
+      console.log(error);
+      // if (
+      //   error.response.status === 401 &&
+      //   error.response.data === "Unauthorized"
+      // ) {
+      //   dispatch(signOut());
+      //   localStorage.clear();
+      //   router.push("/auth/login");
+      // }
+    }
+  };
+  
+  useEffect(() => {
+    getProfile()
+  }, [])
+
   return (
     <>
 
@@ -34,9 +68,9 @@ function CardBank_Rank() {
               </Box>
             </Grid>
             <Grid item xs={7}>
-              <Typography sx={{ color: 'white', mb: '2px', mt: 1 }}>SCB (ไทยพาณิชย์)</Typography>
-              <Typography sx={{ color: 'white', mb: '2px' }}>095-2-78718-8</Typography>
-              <Typography sx={{ color: 'white' }}>ผู้ใช้ ผู้ใช้</Typography>
+              <Typography sx={{ color: 'white', mb: '2px', mt: 1 }}>{profile.bank_name}</Typography>
+              <Typography sx={{ color: 'white', mb: '2px' }}>{profile.bank_number}</Typography>
+              <Typography sx={{ color: 'white' }}>{profile.name}</Typography>
             </Grid>
           </Grid>
         </CardContent>
@@ -60,9 +94,9 @@ function CardBank_Rank() {
             </Box>
           </Grid>
           <Grid item xs={8}>
-            <Typography sx={{ color: 'white' }}>The VIP</Typography>
-            <Typography sx={{ color: 'white', ml: 2 }}>500 pts</Typography>
-            <Typography sx={{ color: 'white', fontSize: '8px' }}>450 pts จะหมดอายุใช้งาน</Typography>
+            <Typography sx={{ color: 'white' }}>{profile.rank}</Typography>
+            <Typography sx={{ color: 'white', ml: 2 }}>{profile.points} pts</Typography>
+            <Typography sx={{ color: 'white', fontSize: '8px' }}>{profile.point_affiliate} pts จะหมดอายุใช้งาน</Typography>
 
           </Grid>
         </Grid>
