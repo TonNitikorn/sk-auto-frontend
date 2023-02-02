@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Box,
   Button,
@@ -31,8 +31,9 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Slide from '@mui/material/Slide';
 import { signIn } from "../store/slices/userSlice";
-import hostname from "../utils/hostname";
 import { useAppDispatch } from "../store/store";
+import axios from 'axios';
+import hostname from '../utils/hostname';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -45,6 +46,11 @@ function index() {
   const [categoryType, setCategoryType] = useState('game')
   const [rowData, setRowData] = useState({})
   const [openDialogContact, setOpenDialogContact] = useState(false)
+  const [logo, setLogo] = useState([])
+  const [banner, setBanner] = useState([])
+  const [slide, setSlide] = useState([])
+  const [gameType, setGameType] = useState([])
+  const [subGameType, setSubGameType] = useState([])
   const [values, setValues] = useState({
     amount: "",
     password: "",
@@ -70,6 +76,25 @@ function index() {
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
+  };
+
+  const getAssets = async () => {
+    try {
+      setLoading(true)
+      let res = await axios({
+        method: "get",
+        url: `${hostname}/menu/get_web_setting`,
+      });
+      let resData = res.data
+      let banner = resData.filter((item) => item.type === "banner")
+      let slide = resData.filter((item) => item.type === "slide")
+
+      setBanner(banner)
+      setSlide(slide)
+      setLoading(false)
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // useEffect(() => {
@@ -177,6 +202,50 @@ function index() {
       img: 'game'
     },
   ];
+
+  const getLogo = async () => {
+    try {
+      let res = await axios({
+        method: "get",
+        url: `${hostname}/menu/get_web_setting_logo`,
+      });
+
+      setLogo(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getGameType = async () => {
+    setLoading(true);
+    try {
+      let res = await axios({
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("access_token"),
+        },
+        method: "get",
+        url: `${hostname}/menu/game_menu`,
+      });
+
+      let resData = res.data;
+      // console.log('resData', resData[0].sub_game_type)
+      setGameType(resData)
+      setSubGameType(resData[0].sub_game_type)
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+     
+    }
+  };
+
+
+  useEffect(() => {
+    getLogo()
+    getAssets()
+    getGameType()
+  }, [])
+
+
   return (
     <div style={{ padding: 0 }}>
       <AppBar position="fixed" color="primary" elevation={0} sx={{ borderBottomLeftRadius: '30px', borderBottomRightRadius: '30px' }}>
@@ -184,7 +253,10 @@ function index() {
           <Toolbar disableGutters>
             <Grid container>
               <Grid item xs={6}>
-                <Typography sx={{ mt: 1 }}>LOGO</Typography>
+                <Box sx={{ pl: 1, mt: "5px" }}>
+                  {/* <Image alt="banner" src={logo_angpao_white} width={40} height={30} /> */}
+                  <img src={logo[0]?.img_url} width={40} height={30} />
+                </Box>
               </Grid>
               <Grid item xs={6} container justifyContent="flex-end">
                 {/* <Typography sx={{ mt: 1.5, mr: 2, color: "#fff", fontSize: '14px' }}
@@ -366,53 +438,26 @@ function index() {
             modules={[Autoplay, Pagination, Navigation]}
             className="mySwiper"
           >
-            {images.map((item) => (
+            {banner.map((item) => (
               <SwiperSlide>
                 <Box sx={{ display: { xs: "block", sm: "none", md: "none" } }}>
-                  <Image alt="banner" src={item} width={'400px'} height={'170px'} />
+                  <img src={item.img_url} width={375} height={140} style={{ borderRadius: '5px' }} />
+                  {/* <Image alt="banner" src={item} width={'400px'} height={'170px'} /> */}
                 </Box>
-                <Box sx={{ display: { xs: "none", sm: "block", md: "none" } }}>
-                  <Image alt="banner" src={item} width={'800%'} height={'330px'} />
+                <Box sx={{ display: { xs: "none", sm: "block", md: "none" }, mt: 1 }}>
+                  <img src={item.img_url} width={800} height={180} style={{ borderRadius: '5px' }} />
+                  {/* <Image alt="banner" src={item} width={'800%'} height={'330px'} /> */}
                 </Box>
                 <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
-                  <Image alt="banner" src={item} width={'800%'} height={350} />
+                  <img src={item.img_url} width={715} height={180} style={{ borderRadius: '5px' }} />
+                  {/* <Image alt="banner" src={item} width={'800%'} height={350} /> */}
                 </Box>
               </SwiperSlide>
 
             ))}
           </Swiper>
         </Box>
-        {/* <Box sx={{ my: 1, }}>
-          <Swiper
-            loop={true}
-            spaceBetween={10}
-            slidesPerView={3}
-            loopFillGroupWithBlank={true}
-            freeMode={true}
-            watchSlidesProgress={true}
-            autoplay={{
-              delay: 500,
-              disableOnInteraction: false,
-            }}
-            modules={[FreeMode, Navigation, Thumbs, Autoplay]}
-            className="mySwiper"
-          >
-            {images.map((item) => (
-              <SwiperSlide>
-                <Box sx={{ display: { xs: "block", sm: "none", md: "none" } }}>
-                  <Image alt="banner" src={item} width={600} height={350} />
-                </Box>
-                <Box sx={{ display: { xs: "none", sm: "block", md: "none" } }}>
-                  <Image alt="banner" src={item} width={350} height={180} />
-                </Box>
-                <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
-                  <Image alt="banner" src={item} width={400} height={200} />
-                </Box>
-              </SwiperSlide>
 
-            ))}
-          </Swiper>
-        </Box> */}
 
         <Box sx={{ mt: 2, mb: 8 }}>
           <Grid container>
@@ -422,59 +467,41 @@ function index() {
               alignItems="flex-start"
             // sx={{ bgcolor: 'red' }}
             >
-              {category.map((item) => (
+              {gameType.map((item) => (
                 <>
                   <Button
-                    variant="contained"
                     // fullWidth
-                    color='secondary2'
-                    sx={{ mt: 1, bgcolor: "#41A3E3", height: '80px', width: '90%' }}
+                    sx={{ mt: 1, height: '80px', width: '90%', borderRadius: '20px' }}
+                    // sx={{ mt: 1 }}
 
                     onClick={() => {
-                      setCategoryType(item.category)
+                      console.log('item.sub_game_type', item.sub_game_type)
+                      setSubGameType(item.sub_game_type)
+
                     }}
                   >
-                    <Typography
-                      sx={{ fontWeight: "bold", textAlign: "center", color: "black" }}
-                    >
-                      {item.type}
-                    </Typography>
+                    <Box >
+                      {/* <Image alt="game type" src={item.type_logo} width={120} height={65} /> */}
+                      <img src={item.type_logo} width={80} height={80} style={{ borderRadius: '20px' }} />
+                    </Box>
                   </Button>
 
                 </>
               ))}
-
             </Grid>
             <Grid item xs={9}
               justifyContent="center"
               alignItems="flex-start"
             // sx={{ bgcolor: 'green' }}
             >
-              {categoryType === "game" ? games1.map((item) => (
+              {subGameType.map((item) => (
                 <Button
-                  variant="contained"
                   // fullWidth
-                  sx={{ mt: 1, mr: "2px", bgcolor: "#fff", height: '70px', width: '49%' }}
-                // onClick={() => setPrice(100)}
+                  sx={{ mt: 1, mr: "2px", height: '70px', width: '49%' }}
+                  onClick={() => handelAddData()}
                 >
-                  <Typography
-                    sx={{ fontWeight: "bold", textAlign: "center", color: "black" }}
-                  >
-                    {item.type}
-                  </Typography>
-                </Button>
-              )) : games2.map((item) => (
-                <Button
-                  variant="contained"
-                  // fullWidth
-                  sx={{ mt: 1, mr: "2px", bgcolor: "#fff", height: '70px', width: '49%' }}
-                // onClick={() => setPrice(100)}
-                >
-                  <Typography
-                    sx={{ fontWeight: "bold", textAlign: "center", color: "black" }}
-                  >
-                    {item.type}
-                  </Typography>
+                  <img src={item.game_icon} width={135} height={80} style={{ borderRadius: '5px' }} />
+
                 </Button>
               ))}
 
@@ -639,16 +666,19 @@ function index() {
                   modules={[Autoplay, Pagination, Navigation]}
                   className="mySwiper"
                 >
-                  {images.map((item) => (
+                  {banner.map((item) => (
                     <SwiperSlide>
                       <Box sx={{ display: { xs: "block", sm: "none", md: "none" } }}>
-                        <Image alt="banner" src={item} width={'400px'} height={'170px'} />
+                        <img src={item.img_url} width={375} height={140} style={{ borderRadius: '5px' }} />
+                        {/* <Image alt="banner" src={item} width={'400px'} height={'170px'} /> */}
                       </Box>
-                      <Box sx={{ display: { xs: "none", sm: "block", md: "none" } }}>
-                        <Image alt="banner" src={item} width={'800%'} height={'330px'} />
+                      <Box sx={{ display: { xs: "none", sm: "block", md: "none" }, mt: 1 }}>
+                        <img src={item.img_url} width={800} height={180} style={{ borderRadius: '5px' }} />
+                        {/* <Image alt="banner" src={item} width={'800%'} height={'330px'} /> */}
                       </Box>
                       <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
-                        <Image alt="banner" src={item} width={'800%'} height={350} />
+                        <img src={item.img_url} width={715} height={180} style={{ borderRadius: '5px' }} />
+                        {/* <Image alt="banner" src={item} width={'800%'} height={350} /> */}
                       </Box>
                     </SwiperSlide>
 
@@ -670,16 +700,19 @@ function index() {
                   modules={[FreeMode, Navigation, Thumbs, Autoplay]}
                   className="mySwiper"
                 >
-                  {images.map((item) => (
+                  {slide.map((item) => (
                     <SwiperSlide>
                       <Box sx={{ display: { xs: "block", sm: "none", md: "none" } }}>
-                        <Image alt="banner" src={item} width={600} height={350} />
+                        <img src={item.img_url} width={120} height={70} style={{ borderRadius: '5px' }} />
+                        {/* <Image alt="banner" src={item} width={600} height={350} /> */}
                       </Box>
                       <Box sx={{ display: { xs: "none", sm: "block", md: "none" } }}>
-                        <Image alt="banner" src={item} width={350} height={180} />
+                        <img src={item.img_url} width={260} height={100} style={{ borderRadius: '5px' }} />
+                        {/* <Image alt="banner" src={item} width={350} height={180} /> */}
                       </Box>
                       <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
-                        <Image alt="banner" src={item} width={400} height={200} />
+                        <img src={item.img_url} width={230} height={90} style={{ borderRadius: '5px' }} />
+                        {/* <Image alt="banner" src={item} width={400} height={200} /> */}
                       </Box>
                     </SwiperSlide>
 
@@ -794,7 +827,7 @@ function index() {
               color: '#fff'
             }}
           >
-           ติดต่อผ่าน โทรศัพท์
+            ติดต่อผ่าน โทรศัพท์
           </Button>
           <Button
             variant="outlined"

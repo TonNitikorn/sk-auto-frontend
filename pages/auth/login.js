@@ -27,8 +27,9 @@ import { useAppDispatch } from "../../store/store";
 
 function Login() {
   const router = useRouter();
-  const line ='line'
+  const line = 'line'
   const dispatch = useAppDispatch();
+  const [logo, setLogo] = useState([])
   const [rowData, setRowData] = useState({});
   const [values, setValues] = useState({
     amount: "",
@@ -57,6 +58,24 @@ function Login() {
     event.preventDefault();
   };
 
+  const getLogo = async () => {
+    try {
+      let res = await axios({
+        method: "get",
+        url: `${hostname}/menu/get_web_setting_logo`,
+      });
+
+      setLogo(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  useEffect(() => {
+    getLogo()
+  }, [])
+
   return (
     <>
       <div style={{ padding: "0 2rem" }}>
@@ -66,10 +85,13 @@ function Login() {
             <Toolbar disableGutters>
               <Grid container>
                 <Grid item xs={6}>
-                  <Typography sx={{ mt: 1 }}
+                  <Box
                     onClick={() => {
                       router.push('/')
-                    }}>LOGO</Typography>
+                    }}
+                    sx={{ pl: 1, mt: "5px" }}>
+                    <img src={logo[0]?.img_url} width={40} height={30} />
+                  </Box>
                 </Grid>
               </Grid>
             </Toolbar>

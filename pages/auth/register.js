@@ -36,6 +36,7 @@ function register() {
     const [rowData, setRowData] = useState({});
     const [loading, setLoading] = useState(false);
     const [tabOtp, setTabOtp] = useState(new Array(6).fill(""))
+    const [logo, setLogo] = useState([])
 
     const [page, setPage] = useState(0)
     const [values, setValues] = useState({
@@ -136,6 +137,25 @@ function register() {
         }
     }
 
+    const getLogo = async () => {
+        try {
+            let res = await axios({
+                method: "get",
+                url: `${hostname}/menu/get_web_setting_logo`,
+            });
+
+            setLogo(res.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+
+    useEffect(() => {
+        getLogo()
+    }, [])
+
+
     return (
         <div style={{ padding: "0 2rem" }}>
             <CssBaseline />
@@ -145,10 +165,14 @@ function register() {
                     <Toolbar disableGutters>
                         <Grid container>
                             <Grid item xs={6}>
-                                <Typography sx={{ mt: 1 }}
+                                <Box
                                     onClick={() => {
                                         router.push('/')
-                                    }}>LOGO</Typography>
+                                    }}
+                                    sx={{ pl: 1, mt: "5px" }}>
+                                    {/* <Image alt="banner" src={logo_angpao_white} width={40} height={30} /> */}
+                                    <img src={logo[0]?.img_url} width={40} height={30} />
+                                </Box>
                             </Grid>
                         </Grid>
                     </Toolbar>

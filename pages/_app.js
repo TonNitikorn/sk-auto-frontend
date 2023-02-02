@@ -21,7 +21,10 @@ function MyApp({ Component, pageProps }) {
         main: "#0072B1",
         light: "#7190c4",
       },
-     
+      background: {
+        // default: "#30323e"
+        default: "#eee"
+      }
       
     },
     typography: {

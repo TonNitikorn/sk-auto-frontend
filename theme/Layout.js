@@ -31,14 +31,13 @@ import PaidIcon from '@mui/icons-material/Paid';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import ViewListIcon from '@mui/icons-material/ViewList';
 
-
-
 function Layout({ children, page }) {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [value, setValue] = useState(page);
   const [credit, setCredit] = useState({});
+  const [logo, setLogo] = useState([])
 
   const getProfile = async () => {
     try {
@@ -63,8 +62,21 @@ function Layout({ children, page }) {
       // }
     }
   };
-  
- 
+
+  const getLogo = async () => {
+    try {
+      let res = await axios({
+        method: "get",
+        url: `${hostname}/menu/get_web_setting_logo`,
+      });
+
+      setLogo(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -86,6 +98,7 @@ function Layout({ children, page }) {
 
   useEffect(() => {
     getProfile()
+    getLogo()
   }, [])
   return (
     <div>
@@ -103,14 +116,14 @@ function Layout({ children, page }) {
             <Toolbar disableGutters>
               <Grid container>
                 <Grid item xs={6}>
-                  <Typography sx={{ mt: 1 }}
-                    onClick={() => {
-                      router.push('home')
-                    }}
-                  >LOGO</Typography>
+                  <Box sx={{ pl: 1, mt: "5px" }}>
+                    {/* <Image alt="banner" src={logo_angpao_white} width={40} height={30} /> */}
+                    <img src={logo[0]?.img_url} width={40} height={30} />
+                  </Box>
+
                 </Grid>
                 <Grid item xs={6} container justifyContent="flex-end">
-                  <Typography sx={{ mt: 0.5, mr: 1, color: "#fff", fontSize: '14px' ,bgcolor:'#0885CA' ,borderRadius:"20px" , py:1 ,px:2}}>{Intl.NumberFormat("THB").format(credit)} ฿</Typography>
+                  <Typography sx={{ mt: 0.5, mr: 1, color: "#fff", fontSize: '14px', bgcolor: '#0885CA', borderRadius: "20px", py: 1, px: 2 }}>{Intl.NumberFormat("THB").format(credit)} ฿</Typography>
 
                   <Box sx={{ flexGrow: 0 }}>
                     <Tooltip title="Open settings">
@@ -207,12 +220,13 @@ function Layout({ children, page }) {
             <Toolbar disableGutters>
               <Grid container>
                 <Grid item xs={6}>
-                  <Typography sx={{ mt: 1 }} onClick={() => {
-                    router.push('home')
-                  }}>LOGO</Typography>
+                  <Box sx={{ pl: 1, mt: "5px" }}>
+                    {/* <Image alt="banner" src={logo_angpao_white} width={40} height={30} /> */}
+                    <img src={logo[0]?.img_url} width={40} height={30} />
+                  </Box>
                 </Grid>
                 <Grid item xs={6} container justifyContent="flex-end">
-                  <Typography sx={{ mt: 0.5, mr: 2, color: "#fff", fontSize: '14px' ,bgcolor:'#0885CA' ,borderRadius:"20px" , py:1 ,px:2}}>{Intl.NumberFormat("THB").format(credit)} ฿</Typography>
+                  <Typography sx={{ mt: 0.5, mr: 2, color: "#fff", fontSize: '14px', bgcolor: '#0885CA', borderRadius: "20px", py: 1, px: 2 }}>{Intl.NumberFormat("THB").format(credit)} ฿</Typography>
                   <Box sx={{ flexGrow: 0 }}>
                     <Tooltip title="Open settings">
                       <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
