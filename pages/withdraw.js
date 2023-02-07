@@ -12,7 +12,7 @@ import {
 import scbL from "../assets/scbL.png";
 import Image from "next/image";
 import Swal from "sweetalert2";
-import CardBank_Rank from "../components/CardBank_Rank";
+import CardBankRank from "../components/CardBankRank";
 
 
 
@@ -39,7 +39,7 @@ function Withdraw() {
   return (
     <Layout page="withdraw">
        <Box sx={{ m: 3, mt: 10 , mb: 20}}>
-        <CardBank_Rank />
+        <CardBankRank />
         <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 3 }}>ถอนเครดิต</Typography>
         <Typography sx={{ fontSize: '12px' }}>เลือกจำนวนเครดิต</Typography>
 

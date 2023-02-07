@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import scbL from "../assets/scbL.png";
 import Image from "next/image";
-import CardBank_Rank from "../components/CardBank_Rank";
+import CardBankRank from "../components/CardBankRank";
 
 
 function History() {
@@ -20,7 +20,7 @@ function History() {
   return (
     <Layout page="history">
       <Box sx={{ m: 3, mt: 10, mb: 10 }}>
-        <CardBank_Rank />
+        <CardBankRank />
         <Typography sx={{ fontWeight: 'bold', mt: 3 }}>ประวัติรายการย้อนหลัง</Typography>
 
         <Paper sx={{ mt: 1, borderRadius: 5 }}>

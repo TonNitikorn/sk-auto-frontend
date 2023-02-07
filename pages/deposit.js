@@ -12,7 +12,7 @@ import scbL from "../assets/scbL.png";
 import trueL from "../assets/trueL.png";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import CardBank_Rank from "../components/CardBank_Rank";
+import CardBankRank from "../components/CardBankRank";
 import axios from "axios";
 import hostname from "../utils/hostname";
 
@@ -57,7 +57,7 @@ function Deposit() {
   return (
     <Layout page="deposit">
       <Box sx={{ m: 3, mt: 10, mb: 10 }}>
-        <CardBank_Rank setProfileDeposit={setProfileDeposit} />
+        <CardBankRank setProfileDeposit={setProfileDeposit} />
         {/* <Box
           sx={{
             borderRadius: 3,
