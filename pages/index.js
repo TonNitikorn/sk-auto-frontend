@@ -234,7 +234,7 @@ function Index() {
       setLoading(false);
     } catch (error) {
       console.log(error);
-     
+
     }
   };
 
@@ -439,21 +439,22 @@ function Index() {
             className="mySwiper"
           >
             {banner.map((item) => (
-              <SwiperSlide>
-                <Box sx={{ display: { xs: "block", sm: "none", md: "none" } }}>
-                  <img src={item.img_url} width={375} height={140} style={{ borderRadius: '5px' }} />
-                  {/* <Image alt="banner" src={item} width={'400px'} height={'170px'} /> */}
-                </Box>
-                <Box sx={{ display: { xs: "none", sm: "block", md: "none" }, mt: 1 }}>
-                  <img src={item.img_url} width={800} height={180} style={{ borderRadius: '5px' }} />
-                  {/* <Image alt="banner" src={item} width={'800%'} height={'330px'} /> */}
-                </Box>
-                <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
-                  <img src={item.img_url} width={715} height={180} style={{ borderRadius: '5px' }} />
-                  {/* <Image alt="banner" src={item} width={'800%'} height={350} /> */}
-                </Box>
-              </SwiperSlide>
-
+              <>
+                <SwiperSlide>
+                  <Box sx={{ display: { xs: "block", sm: "none", md: "none" } }}>
+                    <img src={item.img_url} width={375} height={140} style={{ borderRadius: '5px' }} />
+                    {/* <Image alt="banner" src={item} width={'400px'} height={'170px'} /> */}
+                  </Box>
+                  <Box sx={{ display: { xs: "none", sm: "block", md: "none" }, mt: 1 }}>
+                    <img src={item.img_url} width={800} height={180} style={{ borderRadius: '5px' }} />
+                    {/* <Image alt="banner" src={item} width={'800%'} height={'330px'} /> */}
+                  </Box>
+                  <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
+                    <img src={item.img_url} width={715} height={180} style={{ borderRadius: '5px' }} />
+                    {/* <Image alt="banner" src={item} width={'800%'} height={350} /> */}
+                  </Box>
+                </SwiperSlide>
+              </>
             ))}
           </Swiper>
         </Box>
@@ -495,14 +496,16 @@ function Index() {
             // sx={{ bgcolor: 'green' }}
             >
               {subGameType.map((item) => (
-                <Button
-                  // fullWidth
-                  sx={{ mt: 1, mr: "2px", height: '70px', width: '49%' }}
-                  onClick={() => handelAddData()}
-                >
-                  <img src={item.game_icon} width={135} height={80} style={{ borderRadius: '5px' }} />
+                <>
+                  <Button
+                    // fullWidth
+                    sx={{ mt: 1, mr: "2px", height: '70px', width: '49%' }}
+                    onClick={() => handelAddData()}
+                  >
+                    <img src={item.game_icon} width={135} height={80} style={{ borderRadius: '5px' }} />
 
-                </Button>
+                  </Button>
+                </>
               ))}
 
             </Grid>
@@ -667,21 +670,22 @@ function Index() {
                   className="mySwiper"
                 >
                   {banner.map((item) => (
-                    <SwiperSlide>
-                      <Box sx={{ display: { xs: "block", sm: "none", md: "none" } }}>
-                        <img src={item.img_url} width={375} height={140} style={{ borderRadius: '5px' }} />
-                        {/* <Image alt="banner" src={item} width={'400px'} height={'170px'} /> */}
-                      </Box>
-                      <Box sx={{ display: { xs: "none", sm: "block", md: "none" }, mt: 1 }}>
-                        <img src={item.img_url} width={800} height={180} style={{ borderRadius: '5px' }} />
-                        {/* <Image alt="banner" src={item} width={'800%'} height={'330px'} /> */}
-                      </Box>
-                      <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
-                        <img src={item.img_url} width={715} height={180} style={{ borderRadius: '5px' }} />
-                        {/* <Image alt="banner" src={item} width={'800%'} height={350} /> */}
-                      </Box>
-                    </SwiperSlide>
-
+                    <>
+                      <SwiperSlide>
+                        <Box sx={{ display: { xs: "block", sm: "none", md: "none" } }}>
+                          <img src={item.img_url} width={375} height={140} style={{ borderRadius: '5px' }} />
+                          {/* <Image alt="banner" src={item} width={'400px'} height={'170px'} /> */}
+                        </Box>
+                        <Box sx={{ display: { xs: "none", sm: "block", md: "none" }, mt: 1 }}>
+                          <img src={item.img_url} width={800} height={180} style={{ borderRadius: '5px' }} />
+                          {/* <Image alt="banner" src={item} width={'800%'} height={'330px'} /> */}
+                        </Box>
+                        <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
+                          <img src={item.img_url} width={715} height={180} style={{ borderRadius: '5px' }} />
+                          {/* <Image alt="banner" src={item} width={'800%'} height={350} /> */}
+                        </Box>
+                      </SwiperSlide>
+                    </>
                   ))}
                 </Swiper>
               </Box>
@@ -701,21 +705,22 @@ function Index() {
                   className="mySwiper"
                 >
                   {slide.map((item) => (
-                    <SwiperSlide>
-                      <Box sx={{ display: { xs: "block", sm: "none", md: "none" } }}>
-                        <img src={item.img_url} width={120} height={70} style={{ borderRadius: '5px' }} />
-                        {/* <Image alt="banner" src={item} width={600} height={350} /> */}
-                      </Box>
-                      <Box sx={{ display: { xs: "none", sm: "block", md: "none" } }}>
-                        <img src={item.img_url} width={260} height={100} style={{ borderRadius: '5px' }} />
-                        {/* <Image alt="banner" src={item} width={350} height={180} /> */}
-                      </Box>
-                      <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
-                        <img src={item.img_url} width={230} height={90} style={{ borderRadius: '5px' }} />
-                        {/* <Image alt="banner" src={item} width={400} height={200} /> */}
-                      </Box>
-                    </SwiperSlide>
-
+                    <>
+                      <SwiperSlide>
+                        <Box sx={{ display: { xs: "block", sm: "none", md: "none" } }}>
+                          <img src={item.img_url} width={120} height={70} style={{ borderRadius: '5px' }} />
+                          {/* <Image alt="banner" src={item} width={600} height={350} /> */}
+                        </Box>
+                        <Box sx={{ display: { xs: "none", sm: "block", md: "none" } }}>
+                          <img src={item.img_url} width={260} height={100} style={{ borderRadius: '5px' }} />
+                          {/* <Image alt="banner" src={item} width={350} height={180} /> */}
+                        </Box>
+                        <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
+                          <img src={item.img_url} width={230} height={90} style={{ borderRadius: '5px' }} />
+                          {/* <Image alt="banner" src={item} width={400} height={200} /> */}
+                        </Box>
+                      </SwiperSlide>
+                    </>
                   ))}
                 </Swiper>
               </Box>
