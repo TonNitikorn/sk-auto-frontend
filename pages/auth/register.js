@@ -30,7 +30,7 @@ import axios from "axios";
 import hostname from "../../utils/hostname";
 
 
-function register() {
+function Register() {
     const router = useRouter()
     const [bonus, setBonus] = useState(true);
     const [rowData, setRowData] = useState({});
@@ -930,4 +930,4 @@ function register() {
     )
 }
 
-export default register
+export default Register

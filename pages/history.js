@@ -15,7 +15,7 @@ import Image from "next/image";
 import CardBank_Rank from "../components/CardBank_Rank";
 
 
-function history() {
+function History() {
   const [price, setPrice] = useState(0)
   return (
     <Layout page="history">
@@ -122,4 +122,4 @@ function history() {
   )
 }
 
-export default history
+export default History

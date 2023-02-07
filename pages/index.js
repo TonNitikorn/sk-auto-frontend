@@ -39,7 +39,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-function index() {
+function Index() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false)
@@ -849,5 +849,5 @@ function index() {
   )
 }
 
-export default index
+export default Index
 // export default withAuth(index)

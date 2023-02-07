@@ -20,7 +20,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import EditIcon from '@mui/icons-material/Edit';
 
 
-function profile() {
+function Profile() {
   const [open, setOpen] = useState(false);
   const [editData, setEditData] = useState(false)
   const [rowData, setRowData] = useState({})
@@ -260,4 +260,4 @@ function profile() {
   )
 }
 
-export default profile
+export default Profile

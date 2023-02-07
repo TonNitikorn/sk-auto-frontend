@@ -16,7 +16,7 @@ import CardBank_Rank from "../components/CardBank_Rank";
 
 
 
-function withdraw() {
+function Withdraw() {
   const [price, setPrice] = useState(0)
 
   const handelwithdraw = () => {
@@ -203,4 +203,4 @@ function withdraw() {
   )
 }
 
-export default withdraw
+export default Withdraw

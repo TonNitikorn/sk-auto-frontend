@@ -26,7 +26,7 @@ import Image from 'next/image'
 import axios from 'axios'
 import hostname from '../utils/hostname'
 
-function home() {
+function Home() {
    const router = useRouter();
    const [rowData, setRowData] = useState({});
    const [loading, setLoading] = useState(false)
@@ -334,4 +334,4 @@ function home() {
    )
 }
 
-export default withAuth(home)
+export default withAuth(Home)

@@ -16,7 +16,7 @@ import hostname from "../utils/hostname";
 
 
 
-function CardBank_Rank(props) {
+function CardBankRank(props) {
   const [profile, setProfile] = useState({});
 
   const getProfile = async () => {

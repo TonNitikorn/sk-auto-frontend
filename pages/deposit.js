@@ -16,7 +16,7 @@ import CardBank_Rank from "../components/CardBank_Rank";
 import axios from "axios";
 import hostname from "../utils/hostname";
 
-function deposit() {
+function Deposit() {
   const [open, setOpen] = useState(false);
   const [bank, setBank] = useState([])
   const [profileDeposit, setProfileDeposit] = useState({})
@@ -133,4 +133,4 @@ function deposit() {
   )
 }
 
-export default deposit
+export default Deposit
