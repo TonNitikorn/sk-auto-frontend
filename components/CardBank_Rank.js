@@ -105,4 +105,4 @@ function CardBankRank(props) {
   )
 }
 
-export default CardBank_Rank
+export default CardBankRank
