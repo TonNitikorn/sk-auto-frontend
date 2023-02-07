@@ -762,31 +762,36 @@ function Index() {
                   // sx={{ bgcolor: 'green' }}
                   >
                     {categoryType === "game" ? games1.map((item) => (
-                      <Button
-                        variant="contained"
-                        // fullWidth
-                        sx={{ mt: 1, mr: "2px", bgcolor: "#fff", height: '70px', width: '49%' }}
-                      // onClick={() => setPrice(100)}
-                      >
-                        <Typography
-                          sx={{ fontWeight: "bold", textAlign: "center", color: "black" }}
+                      <>
+                        <Button
+                          variant="contained"
+                          // fullWidth
+                          sx={{ mt: 1, mr: "2px", bgcolor: "#fff", height: '70px', width: '49%' }}
+                        // onClick={() => setPrice(100)}
                         >
-                          {item.type}
-                        </Typography>
-                      </Button>
+                          <Typography
+                            sx={{ fontWeight: "bold", textAlign: "center", color: "black" }}
+                          >
+                            {item.type}
+                          </Typography>
+                        </Button>
+                      </>
+
                     )) : games2.map((item) => (
-                      <Button
-                        variant="contained"
-                        // fullWidth
-                        sx={{ mt: 1, mr: "2px", bgcolor: "#fff", height: '70px', width: '49%' }}
-                      // onClick={() => setPrice(100)}
-                      >
-                        <Typography
-                          sx={{ fontWeight: "bold", textAlign: "center", color: "black" }}
+                      <>
+                        <Button
+                          variant="contained"
+                          // fullWidth
+                          sx={{ mt: 1, mr: "2px", bgcolor: "#fff", height: '70px', width: '49%' }}
+                        // onClick={() => setPrice(100)}
                         >
-                          {item.type}
-                        </Typography>
-                      </Button>
+                          <Typography
+                            sx={{ fontWeight: "bold", textAlign: "center", color: "black" }}
+                          >
+                            {item.type}
+                          </Typography>
+                        </Button>
+                      </>
                     ))}
 
                   </Grid>
