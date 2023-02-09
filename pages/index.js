@@ -238,41 +238,11 @@ function Index() {
     }
   };
 
-  const [pictureUrl, setPictureUrl] = useState('');
-  const [idToken, setIdToken] = useState("");
-  const [displayName, setDisplayName] = useState("");
-  const [statusMessage, setStatusMessage] = useState("");
-  const [userId, setUserId] = useState("");
-
-  const logout = () => {
-    liff.logout();
-    window.location.reload();
-  }
-
-
-  const runApp = () => {
-    const idToken = liff.getIDToken();
-    setIdToken(idToken);
-    localStorage.setItem("access_token", idToken)
-    liff.getProfile().then(profile => {
-      console.log(profile);
-      setDisplayName(profile.displayName);
-      setPictureUrl(profile.pictureUrl);
-      setStatusMessage(profile.statusMessage);
-      setUserId(profile.userId);
-    }).catch(err => console.error(err));
-  }
-
 
   useEffect(() => {
-    // if (localStorage.getItem('access_token')) {
-    //   router.push('/home')
-    // } else {
-      getLogo()
-      getAssets()
-      getGameType()
-    // }
-
+    getLogo()
+    getAssets()
+    getGameType()
   }, [])
 
 
@@ -444,17 +414,8 @@ function Index() {
               borderRadius: 5,
               color: '#fff'
             }}
-            onClick={async () => {
+            onClick={() => {
               router.push('/auth/line')
-              // const liff = await import('@line/liff')
-              // liff.init({ liffId: '1657892994-04KMLPvK' }, () => {
-              //   if (liff.isLoggedIn()) {
-              //     runApp();
-              //   } else {
-              //     liff.login();
-              //   }
-              // }, err => console.error(err));
-
             }}
 
           >
