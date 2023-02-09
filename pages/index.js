@@ -445,15 +445,15 @@ function Index() {
               color: '#fff'
             }}
             onClick={async () => {
-              // router.push('/auth/line')
-              const liff = await import('@line/liff')
-              liff.init({ liffId: '1657892994-04KMLPvK' }, () => {
-                if (liff.isLoggedIn()) {
-                  runApp();
-                } else {
-                  liff.login();
-                }
-              }, err => console.error(err));
+              router.push('/auth/line')
+              // const liff = await import('@line/liff')
+              // liff.init({ liffId: '1657892994-04KMLPvK' }, () => {
+              //   if (liff.isLoggedIn()) {
+              //     runApp();
+              //   } else {
+              //     liff.login();
+              //   }
+              // }, err => console.error(err));
 
             }}
 
