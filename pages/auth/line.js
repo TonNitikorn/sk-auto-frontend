@@ -1,5 +1,5 @@
 // import logo from './logo.svg';
-import liff from '@line/liff';
+// import liff from '@line/liff';
 import { useEffect, useState } from 'react';
 
 function Line() {
@@ -14,7 +14,8 @@ function Line() {
         window.location.reload();
     }
 
-    const initLine = () => {
+    const initLine = async () => {
+        const liff = await import('@line/liff')
         liff.init({ liffId: '1657892994-04KMLPvK' }, () => {
             if (liff.isLoggedIn()) {
                 runApp();
@@ -27,7 +28,7 @@ function Line() {
     const runApp = () => {
         const idToken = liff.getIDToken();
         setIdToken(idToken);
-        localStorage.setItem("access_token" , idToken)
+        localStorage.setItem("access_token", idToken)
         liff.getProfile().then(profile => {
             console.log(profile);
             setDisplayName(profile.displayName);
