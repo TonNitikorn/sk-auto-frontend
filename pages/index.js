@@ -265,13 +265,13 @@ function Index() {
 
 
   useEffect(() => {
-    if (localStorage.getItem('access_token')) {
-      router.push('/home')
-    } else {
+    // if (localStorage.getItem('access_token')) {
+    //   router.push('/home')
+    // } else {
       getLogo()
       getAssets()
       getGameType()
-    }
+    // }
 
   }, [])
 
