@@ -32,6 +32,7 @@ import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import ViewListIcon from '@mui/icons-material/ViewList';
 
 function Layout({ children, page }) {
+  const liff = import('@line/liff')
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -154,9 +155,10 @@ function Layout({ children, page }) {
                             handleCloseUserMenu()
                             router.push("/deposit");
                           } else if (item.page === "logout") {
-                            dispatch(signOut());
+                            // dispatch(signOut());
                             handleCloseUserMenu()
                             localStorage.clear();
+                            liff.logout();
                             router.push("/auth/login");
                           }
 
