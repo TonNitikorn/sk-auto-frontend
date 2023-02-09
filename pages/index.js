@@ -414,6 +414,9 @@ function Index() {
               borderRadius: 5,
               color: '#fff'
             }}
+            onClick={() => {
+              router.push('/auth/line')
+            }}
 
           >
             เข้าสู่ระบบด้วยไลน์
