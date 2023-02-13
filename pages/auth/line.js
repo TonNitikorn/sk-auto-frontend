@@ -44,7 +44,7 @@ function Line() {
                     Authorization: "Bearer " + localStorage.getItem("access_token"),
                 },
                 method: "post",
-                url: `${hostname}/auth/line_id`,
+                url: `${hostname}/auth/login_line`,
                 data: {
                     token: idToken
                 }
