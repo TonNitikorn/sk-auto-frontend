@@ -19,9 +19,9 @@ function Line() {
 
     // const test = new URLSearchParams(document.location.search).get("code");
     // console.log('test', test)
-    const queryParams = new URLSearchParams(window.location.search);
-    const code1 = queryParams.get('code');
-    console.log('code1', code1)
+    // const queryParams = new URLSearchParams(window.location.search);
+    // const code1 = queryParams.get('code');
+    // console.log('code1', code1)
 
     const logout = () => {
         liff.logout();
