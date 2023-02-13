@@ -13,6 +13,8 @@ function Line() {
     const [userId, setUserId] = useState("");
     const [loading, setLoading] = useState(false)
 
+    const code = new URLSearchParams(window.location.search).get("code");
+
     const logout = () => {
         liff.logout();
         window.location.reload();
@@ -38,6 +40,8 @@ function Line() {
         const idToken = liff.getIDToken();
         setIdToken(idToken);
 
+        console.log('code', code)
+
         try {
             let res = await axios({
                 headers: {
@@ -46,7 +50,7 @@ function Line() {
                 method: "post",
                 url: `${hostname}/auth/login_line`,
                 data: {
-                    token: idToken
+                    code: code
                 }
             });
 

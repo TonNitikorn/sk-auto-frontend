@@ -239,8 +239,6 @@ function Home() {
                   </Grid>
                </Grid>
             </Paper>
-
-
          </Box>
 
          <Box sx={{
