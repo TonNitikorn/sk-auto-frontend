@@ -13,29 +13,27 @@ function Callback() {
 
     console.log('code', code)
 
+    const runApp = async () => {
+        try {
+            let res = await axios({
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("access_token"),
+                },
+                method: "post",
+                url: `${hostname}/auth/login_line`,
+                data: {
+                    code: code
+                }
+            });
 
+            let resData = res.data
 
-    // const runApp = async () => {
-    //     try {
-    //         let res = await axios({
-    //             headers: {
-    //                 Authorization: "Bearer " + localStorage.getItem("access_token"),
-    //             },
-    //             method: "post",
-    //             url: `${hostname}/auth/login_line`,
-    //             data: {
-    //                 code: code
-    //             }
-    //         });
+            console.log('resData', resData)
 
-    //         let resData = res.data
-
-    //         console.log('resData', resData)
-
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <>
