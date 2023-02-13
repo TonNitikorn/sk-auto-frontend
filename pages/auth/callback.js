@@ -35,6 +35,11 @@ function Callback() {
         }
     }
 
+    useEffect(() => {
+        runApp()
+    }, [])
+
+
     return (
         <>
             <LoadingModal open={loading} />
