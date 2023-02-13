@@ -6,7 +6,7 @@ import hostname from '../../utils/hostname';
 import { useRouter } from 'next/router'
 
 
-function callback() {
+function Callback() {
     const [loading, setLoading] = useState(false)
     const router = useRouter()
     const { code, state } = router.query
@@ -44,4 +44,4 @@ function callback() {
     )
 }
 
-export default callback
+export default Callback
