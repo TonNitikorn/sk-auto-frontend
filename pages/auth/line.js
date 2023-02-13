@@ -45,7 +45,7 @@ function Line() {
         setIdToken(idToken);
 
         // const { code } = router.query
-        console.log('code', "ttt")
+        console.log('code', code)
 
         // try {
         //     let res = await axios({
