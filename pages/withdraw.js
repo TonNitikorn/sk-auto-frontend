@@ -38,7 +38,7 @@ function Withdraw() {
 
   return (
     <Layout page="withdraw">
-       <Box sx={{ m: 3, mt: 10 , mb: 20}}>
+       <Box sx={{ m: 2, mt: 10 , mb: 20}}>
         <CardBankRank />
         <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 3 }}>ถอนเครดิต</Typography>
         <Typography sx={{ fontSize: '12px' }}>เลือกจำนวนเครดิต</Typography>

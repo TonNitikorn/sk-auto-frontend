@@ -22,10 +22,8 @@ function MyApp({ Component, pageProps }) {
         light: "#7190c4",
       },
       background: {
-        // default: "#30323e"
         default: "#eee"
-      }
-      
+      },
     },
     typography: {
       fontFamily: 'Noto Sans Thai',

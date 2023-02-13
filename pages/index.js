@@ -417,7 +417,6 @@ function Index() {
             onClick={() => {
               router.push('/auth/line')
             }}
-
           >
             เข้าสู่ระบบด้วยไลน์
           </Button>
@@ -502,7 +501,7 @@ function Index() {
                 <>
                   <Button
                     // fullWidth
-                    sx={{ mt: 1, mr: "2px", height: '70px', width: '49%' }}
+                    sx={{ my: 1, mr: "2px", height: '70px', width: '49%' }}
                     onClick={() => handelAddData()}
                   >
                     <img src={item.game_icon} width={135} height={80} style={{ borderRadius: '5px' }} />

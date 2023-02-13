@@ -19,7 +19,7 @@ function History() {
   const [price, setPrice] = useState(0)
   return (
     <Layout page="history">
-      <Box sx={{ m: 3, mt: 10, mb: 10 }}>
+      <Box sx={{ m: 2, mt: 10, mb: 10 }}>
         <CardBankRank />
         <Typography sx={{ fontWeight: 'bold', mt: 3 }}>ประวัติรายการย้อนหลัง</Typography>
 

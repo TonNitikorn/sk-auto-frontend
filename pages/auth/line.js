@@ -1,6 +1,9 @@
 // import logo from './logo.svg';
 // import liff from '@line/liff';
 import { useEffect, useState } from 'react';
+import LoadingModal from '../../theme/LoadingModal'
+import axios from 'axios';
+import hostname from '../../utils/hostname';
 
 function Line() {
     const [pictureUrl, setPictureUrl] = useState('');
@@ -8,6 +11,7 @@ function Line() {
     const [displayName, setDisplayName] = useState("");
     const [statusMessage, setStatusMessage] = useState("");
     const [userId, setUserId] = useState("");
+    const [loading, setLoading] = useState(false)
 
     const logout = () => {
         liff.logout();
@@ -15,27 +19,53 @@ function Line() {
     }
 
     const initLine = async () => {
+        setLoading(true)
         const liff = await import('@line/liff')
         liff.init({ liffId: '1657892994-04KMLPvK' }, () => {
             if (liff.isLoggedIn()) {
                 runApp();
+                setLoading(false)
+
             } else {
                 liff.login();
+                setLoading(false)
+
             }
         }, err => console.error(err));
     }
 
-    const runApp = () => {
+    const runApp = async () => {
         const idToken = liff.getIDToken();
         setIdToken(idToken);
-        localStorage.setItem("access_token", idToken)
-        liff.getProfile().then(profile => {
-            console.log(profile);
-            setDisplayName(profile.displayName);
-            setPictureUrl(profile.pictureUrl);
-            setStatusMessage(profile.statusMessage);
-            setUserId(profile.userId);
-        }).catch(err => console.error(err));
+
+        try {
+            let res = await axios({
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("access_token"),
+                },
+                method: "get",
+                url: `${hostname}/auth/line_id`,
+                data: {
+                    token: idToken
+                }
+            });
+
+            let resData = res.data
+
+            console.log('resData', resData)
+
+        } catch (error) {
+            console.log(error);
+        }
+
+        // localStorage.setItem("access_token", idToken)
+        // liff.getProfile().then(profile => {
+        //     console.log(profile);
+        //     setDisplayName(profile.displayName);
+        //     setPictureUrl(profile.pictureUrl);
+        //     setStatusMessage(profile.statusMessage);
+        //     setUserId(profile.userId);
+        // }).catch(err => console.error(err));
     }
 
     useEffect(() => {
@@ -44,7 +74,7 @@ function Line() {
 
     return (
         <div >
-            <header >
+            {/* <header >
                 <div style={{ textAlign: "center" }}>
                     <h1>React with LINE Login test bot1</h1>
                     <hr />
@@ -56,7 +86,9 @@ function Line() {
 
                     <button onClick={() => logout()} style={{ width: "100%", height: 30 }}>Logout</button>
                 </div>
-            </header>
+            </header> */}
+            <LoadingModal open={loading} />
+
         </div>
     );
 }

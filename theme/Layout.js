@@ -112,7 +112,7 @@ function Layout({ children, page }) {
       >
         {/* ----- header ----- */}
 
-        <AppBar position="fixed" color="primary" elevation={0} sx={{ borderBottomLeftRadius: '30px', borderBottomRightRadius: '30px' }}>
+        <AppBar position="fixed" elevation={0} sx={{ background: "linear-gradient(#0072B1, #41A3E3)", borderBottomLeftRadius: '30px', borderBottomRightRadius: '30px' }}>
           <Container maxWidth="xl">
             <Toolbar disableGutters>
               <Grid container>
@@ -177,7 +177,13 @@ function Layout({ children, page }) {
         </AppBar>
 
         {/* ----- body ----- */}
-        <Box sx={{ my: 8 }}>
+        <Box sx={{
+          my: 8,
+          // backgroundImage: `url('https://cdn.softkingdoms.sgp1.digitaloceanspaces.com/BKSCAN.jpg')`,
+          // backgroundPosition: 'center',
+          // backgroundSize: 'cover',
+          // backgroundRepeat: 'no-repeat',
+        }}>
           {children}
         </Box>
 

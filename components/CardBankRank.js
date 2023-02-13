@@ -5,15 +5,16 @@ import {
   Typography,
   Box,
   Card,
-  CardContent,
+  CardContent, Paper, Divider
 } from "@mui/material";
 import Image from 'next/image';
 import kbank from "../assets/kbank.png";
 import scbL from "../assets/scbL.png";
 import trueL from "../assets/trueL.png";
+import rank1 from "../assets/rank-1.png";
 import axios from "axios";
 import hostname from "../utils/hostname";
-
+import AppsIcon from "@mui/icons-material/Apps";
 
 
 function CardBankRank(props) {
@@ -52,8 +53,9 @@ function CardBankRank(props) {
     <>
       <Card sx={{
         mt: 1,
-        borderRadius: 3,
+        borderRadius: 1,
         bgcolor: '#78BEFF',
+        // background: "linear-gradient(#41A3E3, #0072B1, #0072B1)",
         border: "2px solid #41A3E3"
 
       }}>
@@ -76,7 +78,7 @@ function CardBankRank(props) {
         </CardContent>
       </Card>
 
-      <Card sx={{
+      {/* <Card sx={{
         mt: 1,
         borderRadius: 1,
         bgcolor: '#47B8AD',
@@ -100,7 +102,41 @@ function CardBankRank(props) {
 
           </Grid>
         </Grid>
-      </Card>
+      </Card> */}
+      <Paper sx={{
+        // bgcolor: "#0072B1",
+        background: "linear-gradient(#0072B1, #41A3E3)", p: 1, width: "100%", mt: 1
+      }}>
+        <Grid container>
+          <Grid item sx={{ mt: 1 }}>
+            <Image src={rank1} alt="diamond" width={60} height={50} />
+          </Grid>
+          <Grid item sx={{ ml: 1, mt: 1 }}>
+            <Typography sx={{ color: "#fff" }}>
+              Diamond
+            </Typography>
+            <Typography sx={{ color: "#fff", fontSize: "10px", mt: 1 }}>
+              เติม 1000฿ จะได้ Commander
+            </Typography>
+          </Grid>
+          <Divider
+            orientation="vertical"
+            flexItem
+            sx={{ color: "white", bgcolor: "white", mx: 1 }}
+          />
+          <Grid item sx={{ ml: 1, mt: 1 }}>
+            <Grid container>
+              <AppsIcon sx={{ color: "white" }} />
+              <Typography sx={{ mx: 1, color: "white", fontSize: "14px" }}>
+                500 pts
+              </Typography>
+            </Grid>
+            <Typography sx={{ mt: 1, ml: 1, fontSize: "10px", color: "white" }}>
+              450 pts จะหมดอายุ
+            </Typography>
+          </Grid>
+        </Grid>
+      </Paper>
     </>
   )
 }

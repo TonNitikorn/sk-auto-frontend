@@ -56,7 +56,7 @@ function Deposit() {
 
   return (
     <Layout page="deposit">
-      <Box sx={{ m: 3, mt: 10, mb: 10 }}>
+      <Box sx={{ m: 2, mt: 10, mb: 10 }}>
         <CardBankRank setProfileDeposit={setProfileDeposit} />
         {/* <Box
           sx={{

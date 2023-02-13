@@ -10,6 +10,7 @@ import {
    FormControl,
    InputAdornment,
    OutlinedInput,
+   Card, Paper, Divider
 } from '@mui/material'
 import withAuth from '../routes/withAuth'
 import Layout from '../theme/Layout'
@@ -25,6 +26,8 @@ import Swal from "sweetalert2";
 import Image from 'next/image'
 import axios from 'axios'
 import hostname from '../utils/hostname'
+import rank1 from '../assets/rank-1.png'
+import AppsIcon from "@mui/icons-material/Apps";
 
 function Home() {
    const router = useRouter();
@@ -183,20 +186,20 @@ function Home() {
                modules={[FreeMode, Navigation, Thumbs, Autoplay]}
                className="mySwiper"
             >
-               {images.map((item) => (
+               {slide.map((item) => (
                   <>
                      <SwiperSlide>
                         <Box sx={{ display: { xs: "block", sm: "none", md: "none" } }}>
-                           {/* <img src={item.img_url} width={120} height={70} style={{ borderRadius: '5px' }} /> */}
-                           <Image alt="banner" src={item} width={600} height={350} />
+                           <img src={item.img_url} width={120} height={70} style={{ borderRadius: '5px' }} />
+                           {/* <Image alt="banner" src={item} width={600} height={350} /> */}
                         </Box>
                         <Box sx={{ display: { xs: "none", sm: "block", md: "none" } }}>
-                           {/* <img src={item.img_url} width={260} height={100} style={{ borderRadius: '5px' }} /> */}
-                           <Image alt="banner" src={item} width={350} height={180} />
+                           <img src={item.img_url} width={260} height={100} style={{ borderRadius: '5px' }} />
+                           {/* <Image alt="banner" src={item} width={350} height={180} /> */}
                         </Box>
                         <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
-                           {/* <img src={item.img_url} width={230} height={90} style={{ borderRadius: '5px' }} /> */}
-                           <Image alt="banner" src={item} width={400} height={200} />
+                           <img src={item.img_url} width={230} height={90} style={{ borderRadius: '5px' }} />
+                           {/* <Image alt="banner" src={item} width={400} height={200} /> */}
                         </Box>
                      </SwiperSlide>
                   </>
@@ -204,7 +207,51 @@ function Home() {
             </Swiper>
          </Box>
 
-         <Box sx={{ m: 1, mb: 8 }}>
+         <Box sx={{ m: 1 }}>
+            <Paper sx={{ background: "linear-gradient(#0072B1, #41A3E3)", p: 1, width: "100%" }}>
+               <Grid container>
+                  <Grid item sx={{ mt: 1 }}>
+                     <Image src={rank1} alt="diamond" width={60} height={50} />
+                  </Grid>
+                  <Grid item sx={{ ml: 1, mt: 1 }}>
+                     <Typography sx={{ color: "#fff" }}>
+                        Diamond
+                     </Typography>
+                     <Typography sx={{ color: "#fff", fontSize: "10px", mt: 1 }}>
+                        เติม 1000฿ จะได้ Commander
+                     </Typography>
+                  </Grid>
+                  <Divider
+                     orientation="vertical"
+                     flexItem
+                     sx={{ color: "white", bgcolor: "white", mx: 1 }}
+                  />
+                  <Grid item sx={{ ml: 1, mt: 1 }}>
+                     <Grid container>
+                        <AppsIcon sx={{ color: "white" }} />
+                        <Typography sx={{ mx: 1, color: "white", fontSize: "14px" }}>
+                           500 pts
+                        </Typography>
+                     </Grid>
+                     <Typography sx={{ mt: 1, ml: 1, fontSize: "10px", color: "white" }}>
+                        450 pts จะหมดอายุ
+                     </Typography>
+                  </Grid>
+               </Grid>
+            </Paper>
+
+
+         </Box>
+
+         <Box sx={{
+            m: 1, mb: 8,
+            backgroundImage: `url('https://cdn.softkingdoms.sgp1.digitaloceanspaces.com/BKSCAN.jpg')`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            // background: "linear-gradient(#0072B1, #0072B1,#0072B1,#41A3E3)",
+            borderRadius:3
+         }}>
             <Grid container>
                <Grid item xs={3} container
                   direction="column"
@@ -239,7 +286,7 @@ function Home() {
                      <>
                         <Button
                            // fullWidth
-                           sx={{ mt: 1, mr: "2px", height: '70px', width: '49%' }}
+                           sx={{ my: 1, mr: "2px", height: '70px', width: '49%' }}
                            onClick={() => handelAddData()}
                         >
                            <img src={item.game_icon} width={135} height={80} style={{ borderRadius: '5px' }} />
