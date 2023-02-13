@@ -16,7 +16,8 @@ function Line() {
     const router = useRouter()
 
 
-    // const code = new URLSearchParams(window.location.search).get("code");
+    const test = new URLSearchParams(location.search).get("code");
+    console.log('test', test)
 
     const logout = () => {
         liff.logout();
@@ -28,8 +29,7 @@ function Line() {
         const liff = await import('@line/liff')
         liff.init({ liffId: '1657892994-04KMLPvK' }, () => {
             if (liff.isLoggedIn()) {
-                const { code } = router.query
-                runApp(code);
+                runApp();
                 setLoading(false)
 
             } else {
@@ -40,11 +40,11 @@ function Line() {
         }, err => console.error(err));
     }
 
-    const runApp = async (code) => {
+    const runApp = async () => {
         const idToken = liff.getIDToken();
         setIdToken(idToken);
 
-        // const { code } = router.query
+        const { code } = router.query
         console.log('code', code)
 
         // try {
