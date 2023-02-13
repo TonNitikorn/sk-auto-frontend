@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import LoadingModal from '../../theme/LoadingModal'
 import axios from 'axios';
 import hostname from '../../utils/hostname';
+import { useRouter } from 'next/router'
 
 function Line() {
     const [pictureUrl, setPictureUrl] = useState('');
@@ -12,8 +13,10 @@ function Line() {
     const [statusMessage, setStatusMessage] = useState("");
     const [userId, setUserId] = useState("");
     const [loading, setLoading] = useState(false)
+    const router = useRouter()
+    const { code } = router.query
 
-    const code = new URLSearchParams(window.location.search).get("code");
+    // const code = new URLSearchParams(window.location.search).get("code");
 
     const logout = () => {
         liff.logout();
