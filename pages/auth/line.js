@@ -45,7 +45,7 @@ function Line() {
         setIdToken(idToken);
 
         // const { code } = router.query
-        console.log('code', code)
+        console.log('code', "ttt")
 
         // try {
         //     let res = await axios({
@@ -67,14 +67,14 @@ function Line() {
         //     console.log(error);
         // }
 
-        // localStorage.setItem("access_token", idToken)
-        // liff.getProfile().then(profile => {
-        //     console.log(profile);
-        //     setDisplayName(profile.displayName);
-        //     setPictureUrl(profile.pictureUrl);
-        //     setStatusMessage(profile.statusMessage);
-        //     setUserId(profile.userId);
-        // }).catch(err => console.error(err));
+        localStorage.setItem("access_token", idToken)
+        liff.getProfile().then(profile => {
+            console.log(profile);
+            setDisplayName(profile.displayName);
+            setPictureUrl(profile.pictureUrl);
+            setStatusMessage(profile.statusMessage);
+            setUserId(profile.code);
+        }).catch(err => console.error(err));
     }
 
     useEffect(() => {
@@ -83,7 +83,7 @@ function Line() {
 
     return (
         <div >
-            {/* <header >
+            <header >
                 <div style={{ textAlign: "center" }}>
                     <h1>React with LINE Login test bot1</h1>
                     <hr />
@@ -95,7 +95,7 @@ function Line() {
 
                     <button onClick={() => logout()} style={{ width: "100%", height: 30 }}>Logout</button>
                 </div>
-            </header> */}
+            </header>
             <LoadingModal open={loading} />
 
         </div>
