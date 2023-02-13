@@ -16,13 +16,6 @@ function Line() {
     const router = useRouter()
     const [code, setCode] = useState('')
 
-
-    // const test = new URLSearchParams(document.location.search).get("code");
-    // console.log('test', test)
-    // const queryParams = new URLSearchParams(window.location.search);
-    // const code1 = queryParams.get('code');
-    // console.log('code1', code1)
-
     const logout = () => {
         liff.logout();
         window.location.reload();
@@ -48,7 +41,6 @@ function Line() {
         const idToken = liff.getIDToken();
         setIdToken(idToken);
 
-        const { code, state } = router.query
 
 
         // try {
@@ -70,21 +62,15 @@ function Line() {
         // } catch (error) {
         //     console.log(error);
         // }
-        await localStorage.setItem("code", code)
 
-        localStorage.setItem("access_token", idToken)
-        liff.getProfile().then(profile => {
-            console.log(profile);
-            setDisplayName(profile.displayName);
-            setPictureUrl(profile.pictureUrl);
-            setStatusMessage(profile.statusMessage);
-            setUserId(profile.code);
-        }).catch(err => console.error(err));
-
-        await setCode(code)
-        await console.log('code', code)
-        await console.log('state', state)
-
+        // localStorage.setItem("access_token", idToken)
+        // liff.getProfile().then(profile => {
+        //     console.log(profile);
+        //     setDisplayName(profile.displayName);
+        //     setPictureUrl(profile.pictureUrl);
+        //     setStatusMessage(profile.statusMessage);
+        //     setUserId(profile.code);
+        // }).catch(err => console.error(err));
 
     }
 
@@ -94,7 +80,7 @@ function Line() {
 
     return (
         <div >
-            <header >
+            {/* <header >
                 <div style={{ textAlign: "center" }}>
                     <h1>React with LINE Login test bot1</h1>
                     <hr />
@@ -106,7 +92,7 @@ function Line() {
 
                     <button onClick={() => logout()} style={{ width: "100%", height: 30 }}>Logout</button>
                 </div>
-            </header>
+            </header> */}
             <LoadingModal open={loading} />
 
         </div>
