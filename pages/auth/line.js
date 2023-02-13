@@ -19,6 +19,9 @@ function Line() {
 
     // const test = new URLSearchParams(document.location.search).get("code");
     // console.log('test', test)
+    const queryParams = new URLSearchParams(window.location.search);
+    const code1 = queryParams.get('code');
+    console.log('code1', code1)
 
     const logout = () => {
         liff.logout();
@@ -47,9 +50,6 @@ function Line() {
 
         const { code, state } = router.query
 
-        setCode(code)
-        console.log('code', code)
-        console.log('state', state)
 
         // try {
         //     let res = await axios({
@@ -70,6 +70,7 @@ function Line() {
         // } catch (error) {
         //     console.log(error);
         // }
+        await localStorage.setItem("code", code)
 
         localStorage.setItem("access_token", idToken)
         liff.getProfile().then(profile => {
@@ -79,6 +80,12 @@ function Line() {
             setStatusMessage(profile.statusMessage);
             setUserId(profile.code);
         }).catch(err => console.error(err));
+
+        await setCode(code)
+        await console.log('code', code)
+        await console.log('state', state)
+
+
     }
 
     useEffect(() => {
