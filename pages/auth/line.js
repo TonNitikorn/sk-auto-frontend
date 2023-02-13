@@ -16,8 +16,8 @@ function Line() {
     const router = useRouter()
 
 
-    const test = new URLSearchParams(document.location.search).get("code");
-    console.log('test', test)
+    // const test = new URLSearchParams(document.location.search).get("code");
+    // console.log('test', test)
 
     const logout = () => {
         liff.logout();
