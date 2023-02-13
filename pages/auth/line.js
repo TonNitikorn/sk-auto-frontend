@@ -14,6 +14,7 @@ function Line() {
     const [userId, setUserId] = useState("");
     const [loading, setLoading] = useState(false)
     const router = useRouter()
+    const [code, setCode] = useState('')
 
 
     // const test = new URLSearchParams(document.location.search).get("code");
@@ -44,8 +45,11 @@ function Line() {
         const idToken = liff.getIDToken();
         setIdToken(idToken);
 
-        const { code } = router.query
+        const { code, state } = router.query
+
+        setCode(code)
         console.log('code', code)
+        console.log('state', state)
 
         // try {
         //     let res = await axios({
@@ -91,7 +95,7 @@ function Line() {
                     <p style={{ textAlign: "left", marginLeft: "20%", marginRight: "20%", wordBreak: "break-all" }}><b>id token: </b> {idToken}</p>
                     <p style={{ textAlign: "left", marginLeft: "20%", marginRight: "20%", wordBreak: "break-all" }}><b>display name: </b> {displayName}</p>
                     <p style={{ textAlign: "left", marginLeft: "20%", marginRight: "20%", wordBreak: "break-all" }}><b>status message: </b> {statusMessage}</p>
-                    <p style={{ textAlign: "left", marginLeft: "20%", marginRight: "20%", wordBreak: "break-all" }}><b>user id: </b> {userId}</p>
+                    <p style={{ textAlign: "left", marginLeft: "20%", marginRight: "20%", wordBreak: "break-all" }}><b>user id: </b> {code}</p>
 
                     <button onClick={() => logout()} style={{ width: "100%", height: 30 }}>Logout</button>
                 </div>
