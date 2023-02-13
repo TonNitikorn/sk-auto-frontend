@@ -14,7 +14,7 @@ function Line() {
     const [userId, setUserId] = useState("");
     const [loading, setLoading] = useState(false)
     const router = useRouter()
-    const { code } = router.query
+    
 
     // const code = new URLSearchParams(window.location.search).get("code");
 
@@ -42,7 +42,8 @@ function Line() {
     const runApp = async () => {
         const idToken = liff.getIDToken();
         setIdToken(idToken);
-
+        
+        const { code } = router.query
         console.log('code', code)
 
         try {
