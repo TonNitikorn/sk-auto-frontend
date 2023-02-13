@@ -47,25 +47,25 @@ function Line() {
         // const { code } = router.query
         console.log('code', code)
 
-        try {
-            let res = await axios({
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("access_token"),
-                },
-                method: "post",
-                url: `${hostname}/auth/login_line`,
-                data: {
-                    code: code
-                }
-            });
+        // try {
+        //     let res = await axios({
+        //         headers: {
+        //             Authorization: "Bearer " + localStorage.getItem("access_token"),
+        //         },
+        //         method: "post",
+        //         url: `${hostname}/auth/login_line`,
+        //         data: {
+        //             code: code
+        //         }
+        //     });
 
-            let resData = res.data
+        //     let resData = res.data
 
-            console.log('resData', resData)
+        //     console.log('resData', resData)
 
-        } catch (error) {
-            console.log(error);
-        }
+        // } catch (error) {
+        //     console.log(error);
+        // }
 
         // localStorage.setItem("access_token", idToken)
         // liff.getProfile().then(profile => {
