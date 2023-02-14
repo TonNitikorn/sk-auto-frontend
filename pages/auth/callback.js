@@ -9,39 +9,28 @@ import { useRouter } from 'next/router'
 function Callback() {
     const [loading, setLoading] = useState(false)
     const router = useRouter()
-    const { code, state } = router.query
-    let token;
+    let code;
+    let state;
     const ISSERVER = typeof window === "undefined";
     if (!ISSERVER) {
-        token = new URLSearchParams(window.location.search).get("code");
+        code = new URLSearchParams(window.location.search).get("code");
+        state = new URLSearchParams(window.location.search).get("state");
+
     }
-    // console.log('token', token)
 
-    // if (code) {
-    //     console.log('if')
-
-    //     setLoading(false)
-    //     runApp()
-    // }
 
     const runApp = async () => {
-        console.log('code', code)
-        console.log('token', token)
-        // if (!code) {
-        //     console.log('if')
-        //     setLoading(false)
-        // } else {
         try {
-            console.log('code else', code)
+            console.log('code', code)
+            console.log('state', state)
+
 
             let res = await axios({
-                // headers: {
-                //     Authorization: "Bearer " + localStorage.getItem("access_token"),
-                // },
                 method: "post",
                 url: `${hostname}/auth/login_line`,
                 data: {
-                    code: code
+                    code: code,
+                    state: state
                 }
             });
 
@@ -52,8 +41,6 @@ function Callback() {
         } catch (error) {
             console.log(error);
         }
-        // }
-
 
     }
 
