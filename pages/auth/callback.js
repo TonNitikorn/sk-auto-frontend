@@ -7,50 +7,59 @@ import { useRouter } from 'next/router'
 
 
 function Callback() {
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const router = useRouter()
     const { code, state } = router.query
 
-    console.log('code', code)
+    // console.log('code', code)
 
-    if (code) {
-    console.log('if')
+    // if (code) {
+    //     console.log('if')
 
-        setLoading(false)
-        runApp()
-    }
+    //     setLoading(false)
+    //     runApp()
+    // }
 
     const runApp = async () => {
         console.log('code', code)
+        if (!code) {
+            console.log('if')
+            setLoading(false)
+        } else {
+            try {
+                console.log('code else', code)
 
-        try {
-            let res = await axios({
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("access_token"),
-                },
-                method: "post",
-                url: `${hostname}/auth/login_line`,
-                data: {
-                    code: code
-                }
-            });
+                let res = await axios({
+                    headers: {
+                        Authorization: "Bearer " + localStorage.getItem("access_token"),
+                    },
+                    method: "post",
+                    url: `${hostname}/auth/login_line`,
+                    data: {
+                        code: code
+                    }
+                });
 
-            let resData = res.data
+                let resData = res.data
 
-            console.log('resData', resData)
+                console.log('resData', resData)
 
-        } catch (error) {
-            console.log(error);
+            } catch (error) {
+                console.log(error);
+            }
         }
+
+
     }
 
-    // useEffect(() => {
-    //     // runApp()
-    // }, [])
+    useEffect(() => {
+        runApp()
+    }, [])
 
 
     return (
         <>
+            callback
             <LoadingModal open={loading} />
         </>
     )
