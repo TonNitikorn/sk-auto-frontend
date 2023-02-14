@@ -7,13 +7,22 @@ import { useRouter } from 'next/router'
 
 
 function Callback() {
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const router = useRouter()
     const { code, state } = router.query
 
     console.log('code', code)
 
+    if (code) {
+    console.log('if')
+
+        setLoading(false)
+        runApp()
+    }
+
     const runApp = async () => {
+        console.log('code', code)
+
         try {
             let res = await axios({
                 headers: {
@@ -35,9 +44,9 @@ function Callback() {
         }
     }
 
-    useEffect(() => {
-        runApp()
-    }, [])
+    // useEffect(() => {
+    //     // runApp()
+    // }, [])
 
 
     return (
