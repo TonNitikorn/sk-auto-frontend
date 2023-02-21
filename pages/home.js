@@ -28,6 +28,15 @@ import axios from 'axios'
 import hostname from '../utils/hostname'
 import rank1 from '../assets/rank-1.png'
 import AppsIcon from "@mui/icons-material/Apps";
+import gameIn from "../assets/gameIn.png";
+import gameOut from "../assets/gameOut.png";
+import problam from "../assets/problam.png";
+import event from "../assets/event.png";
+import promotion from "../assets/promotion.png";
+import ban from '../assets/banner.png'
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 function Home() {
    const router = useRouter();
@@ -39,6 +48,7 @@ function Home() {
    const [slide, setSlide] = useState([])
    const [gameType, setGameType] = useState([])
    const [subGameType, setSubGameType] = useState([])
+   const [selectGame, setSelectGame] = useState(false)
 
    const handleClickOpen = () => {
       setOpen(true);
@@ -116,15 +126,6 @@ function Home() {
          console.log(error);
       }
    };
-
-   const images = [
-      "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-      "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
-      "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-   ];
-
-
-
 
    useEffect(() => {
       getAssets()
@@ -240,26 +241,93 @@ function Home() {
                </Grid>
             </Paper>
          </Box>
+         {selectGame === false ?
+            <Box>
+               <Grid container spacing={1} sx={{ p: 1, textAlign: "center" }}>
+                  <Grid item xs={6} md={3}>
+                     <Image
+                        src={gameIn}
+                        alt="diamond"
+                        onClick={() => {
+                           // router.push("/Games");
+                           setSelectGame(true)
+                        }}
+                     />
+                     <Typography sx={{ fontSize: '14px' }}>
+                        เล่นเกมส์
+                     </Typography>
+                  </Grid>
+                  <Grid item xs={6} md={3}>
+                     <Image
+                        src={problam}
+                        alt="diamond"
+                        onClick={() => {
+                           // router.push("https://lin.ee/F8pxLTg");
+                        }}
+                     />
+                     <Typography sx={{ fontSize: '14px' }}>
+                        แจ้งปัญหา
+                     </Typography>
+                  </Grid>
+               </Grid>
 
-         <Box sx={{
-            m: 1, mb: 8,
-            backgroundImage: `url('https://cdn.softkingdoms.sgp1.digitaloceanspaces.com/BKSCAN.jpg')`,
-            backgroundPosition: 'center',
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            // background: "linear-gradient(#0072B1, #0072B1,#0072B1,#41A3E3)",
-            borderRadius:3
-         }}>
-            <Grid container>
-               <Grid item xs={3} container
-                  direction="column"
-                  justifyContent="flex-start"
-                  alignItems="flex-start"
-               // sx={{ bgcolor: 'red' }}
-               >
+               <Grid container spacing={1} sx={{ p: 2 }} item md={12}>
+                  <Grid item xs={12} md={6}>
+                     <Grid
+                        container
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                     >
+                        <Grid item md={3}>
+                           <Typography sx={{ color: "#000" }}>โปรโมชัน</Typography>
+                        </Grid>
+                        <Grid item md={3}>
+                           <Grid container>
+                              <Typography sx={{ color: "#000" }}>ดูทั้งหมด</Typography>
+                              <ChevronRightIcon sx={{ color: "#000" }} />
+                           </Grid>
+                        </Grid>
+                     </Grid>
+
+                     <Grid sx={{ mt: 2 }}>
+                        <Image src={promotion} alt="diamond" />
+                     </Grid>
+                  </Grid>
+
+                  {/* <Grid item md={6}>
+           <Grid
+              container
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+           >
+              <Grid item md={3}>
+                 <Typography sx={{ color: "#000" }}>เกม</Typography>
+              </Grid>
+              <Grid item md={3}>
+                 <Grid container>
+                    <Typography sx={{ color: "#000" }}>ดูทั้งหมด</Typography>
+                    <ChevronRightIcon sx={{ color: "#000" }} />
+                 </Grid>
+              </Grid>
+           </Grid>
+
+           <Grid sx={{ mt: 2, ml: 1 }}>
+              <Image src={ban} alt="banner" />
+           </Grid>
+        </Grid> */}
+               </Grid>
+            </Box> :
+            <Box>
+               <Grid container sx={{ pl: 2 }}>
+                  <ArrowBackIosIcon fontSize='small' sx={{ my: 1 }} onClick={() => setSelectGame(false)} />
+                  <Typography sx={{ fontSize: '14px', mt: 1 }} onClick={() => setSelectGame(false)}  >ย้อนกลับ</Typography>
+               </Grid>
+               <Grid container spacing={1} sx={{ p: 1, textAlign: "center" }}>
                   {gameType.map((item) => (
                      <>
-                        <Button
+                        {/* <Button
                            sx={{ mt: 1, height: '80px', width: '90%', borderRadius: '20px' }}
                            onClick={() => {
                               console.log('item.sub_game_type', item.sub_game_type)
@@ -267,35 +335,23 @@ function Home() {
                            }}
                         >
                            <Box >
-                              {/* <Image alt="game type" src={item.type_logo} width={120} height={65} /> */}
                               <img src={item.type_logo} width={80} height={80} style={{ borderRadius: '20px' }} />
                            </Box>
-                        </Button>
+                        </Button> */}
+                        <Grid item xs={6} md={3}>
+                           <img src={item.type_logo} width={80} height={80} style={{ borderRadius: '20px' }} />
+
+                        </Grid>
+
 
                      </>
                   ))}
-
                </Grid>
-               <Grid item xs={9}
-                  justifyContent="center"
-                  alignItems="flex-start"
-               >
-                  {subGameType.map((item) => (
-                     <>
-                        <Button
-                           // fullWidth
-                           sx={{ my: 1, mr: "2px", height: '70px', width: '49%' }}
-                           onClick={() => handelAddData()}
-                        >
-                           <img src={item.game_icon} width={135} height={80} style={{ borderRadius: '5px' }} />
-                        </Button>
-                     </>
+            </Box>
+         }
 
-                  ))}
-               </Grid>
-            </Grid>
 
-         </Box>
+
          <Dialog
             open={open}
             onClose={handleClose}

@@ -13,12 +13,14 @@ export const signIn = createAsyncThunk("user/signin", async (credential) => {
   if (!response) {
     throw new Error("login failed");
   }
-  // httpClient.interceptors.request.use((config) => {
-  //   if (config && config.headers) {
-  //     config.headers["Authorization"] = `Bearer ${response.token}`;
-  //   }
-  //   return config;
-  // });
+  return response;
+});
+
+export const register = createAsyncThunk("user/register", async (credential) => {
+  const response = await serverService.register(credential);
+  if (!response) {
+    throw new Error("login failed");
+  }
   return response;
 });
 
@@ -50,6 +52,16 @@ const userSlice = createSlice({
       state.isAuthenticating = false;
     });
     builder.addCase(signIn.rejected, (state, action) => {
+      state.accessToken = "";
+      state.isAuthenticated = false;
+      state.isAuthenticating = false;
+    });
+    builder.addCase(register.fulfilled, (state, action) => {
+      state.accessToken = action.payload.accessToken;
+      state.isAuthenticated = true;
+      state.isAuthenticating = false;
+    });
+    builder.addCase(register.rejected, (state, action) => {
       state.accessToken = "";
       state.isAuthenticated = false;
       state.isAuthenticating = false;

@@ -34,6 +34,8 @@ import { signIn } from "../store/slices/userSlice";
 import { useAppDispatch } from "../store/store";
 import axios from 'axios';
 import hostname from '../utils/hostname';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import Swal from "sweetalert2";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -46,6 +48,9 @@ function Index() {
   const [categoryType, setCategoryType] = useState('game')
   const [rowData, setRowData] = useState({})
   const [openDialogContact, setOpenDialogContact] = useState(false)
+  const [otp, setOtp] = useState(false)
+  const [tabOtp, setTabOtp] = useState(new Array(6).fill(""))
+  const [dataOTP, setDataOTP] = useState()
   const [logo, setLogo] = useState([])
   const [banner, setBanner] = useState([])
   const [slide, setSlide] = useState([])
@@ -58,6 +63,16 @@ function Index() {
     weightRange: "",
     showPassword: false,
   });
+
+  const handleChangeOtp = (element, index) => {
+    if (isNaN(element.value)) return false
+
+    setTabOtp([...tabOtp.map((d, idx) => (idx === index) ? element.value : d)])
+
+    if (element.nextSibling) {
+      element.nextSibling.focus()
+    }
+  }
 
   const handleChangeData = async (e) => {
     setRowData({ ...rowData, [e.target.name]: e.target.value });
@@ -238,6 +253,46 @@ function Index() {
     }
   };
 
+  const sendOTP = async () => {
+    setLoading(true)
+
+    try {
+      let res = await axios({
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("access_token"),
+        },
+        method: "post",
+        url: `${hostname}/v2/auth/login`,
+        data: {
+          "tel": rowData.tel
+        }
+      });
+
+      let resData = res.data
+
+      setDataOTP(resData)
+      setOtp(true)
+      setLoading(false)
+    } catch (error) {
+      console.log(error);
+      setLoading(false)
+
+      if (
+        error.response.data.error.status_code === 401 &&
+        error.response.data.error.message === "ไม่มีข้อมูลผู้ใช้งานนี้"
+      ) {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'ไม่มีข้อมูลผู้ใช้งานนี้',
+          showConfirmButton: false,
+          timer: 2000
+        })
+        // router.push("/auth/login")
+      }
+    }
+  }
+
 
   useEffect(() => {
     getLogo()
@@ -289,141 +344,186 @@ function Index() {
       {/* ----- on Mobile ----- */}
 
       <Box sx={{ display: { xs: "block", md: "none" } }}>
-        <Box
-          sx={{
-            mt: 8.5,
-            flexGrow: 1,
-            p: 2,
-            bgcolor: '#fff',
-            borderRadius: 5,
-            boxShadow: '2px 2px 5px #C1B9B9',
-            border: "1px solid #C1B9B9"
-          }}
-        >
-          <Grid
-            container
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
+        {otp === false ?
+          <Box
+            sx={{
+              mt: 8.5,
+              flexGrow: 1,
+              p: 2,
+              bgcolor: '#fff',
+              borderRadius: 5,
+              boxShadow: '2px 2px 5px #C1B9B9',
+              border: "1px solid #C1B9B9"
+            }}
           >
-            <Typography variant="h5" sx={{ color: "#41A3E3" }}>เข้าสู่ระบบ</Typography>
-          </Grid>
-          <Typography sx={{ mt: 1, color: "#707070", fontSize: "14px" }}>
-            เบอร์โทรศัพท์
-          </Typography>
-          <TextField
-            name="tel"
-            type="text"
-            value={rowData.tel || ""}
-            placeholder="000-000-000"
-            fullWidth
-            size="small"
-            onChange={(e) => handleChangeData(e)}
-            variant="outlined"
-            sx={{ bgcolor: "white" }}
-            inputProps={{ maxLength: 10 }}
-          />
-          <Typography sx={{ mt: 1, color: "#707070", fontSize: "14px" }}>รหัสผ่าน</Typography>
-          <div>
-            <FormControl fullWidth variant="outlined" size="small">
-              <OutlinedInput
-                id="outlined-adornment-password"
-                type={values.showPassword ? "text" : "password"}
-                value={values.password}
-                placeholder="password"
-                onChange={handleChange("password")}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                sx={{ bgcolor: "white" }}
-              />
-            </FormControl>
             <Grid
               container
-              direction="row-reverse"
-              justifyContent="flex-start"
+              direction="column"
+              justifyContent="center"
               alignItems="center"
             >
-              <Button
-                variant="text"
-                sx={{ textDecoration: "underline ", color: "#000" }}
-              >
-                ลืมรหัสผ่าน
-              </Button>
+              <Typography variant="h5" sx={{ color: "#41A3E3" }}>เข้าสู่ระบบ</Typography>
             </Grid>
-          </div>
-          <Grid container spacing={1}>
-            <Grid item xs={6}>
-              <Button
-                variant="outlined"
-                fullWidth
-                sx={{
-                  bgcolor: '#fff',
-                  borderRadius: 5,
-                  border: "2px solid #41A3E3",
-                  color: '#41A3E3'
-                }}
-                onClick={() => router.push(`/auth/register`)}
-              >
-                สมัครสมาชิก
-              </Button></Grid>
-            <Grid item xs={6}>
-              <Button
-                variant="contained"
-                fullWidth
-                sx={{
-                  bgcolor: '#41A3E3',
-                  borderRadius: 5,
-                  color: '#fff'
-                }}
-                onClick={async () => {
-                  const response = await dispatch(
-                    signIn({ tel: rowData.tel, password: values.password })
-                  );
+            <Typography sx={{ my: 1, color: "#707070", fontSize: "14px" }}>
+              เบอร์โทรศัพท์
+            </Typography>
+            <TextField
+              name="tel"
+              type="text"
+              value={rowData.tel || ""}
+              placeholder="000-000-000"
+              fullWidth
+              size="small"
+              onChange={(e) => handleChangeData(e)}
+              variant="outlined"
+              sx={{ bgcolor: "white" }}
+              inputProps={{ maxLength: 10 }}
+            />
 
-                  if (response.meta.requestStatus === "rejected") {
-                    alert("Login failed");
-                  } else {
-                    router.push("/home");
-                  }
-                }}
-              >
-                เข้าสู่ระบบ
-              </Button>
+            <Grid container spacing={1} sx={{ mt: 1 }}>
+              <Grid item xs={6}>
+                <Button
+                  variant="outlined"
+                  fullWidth
+                  sx={{
+                    bgcolor: '#fff',
+                    borderRadius: 5,
+                    border: "2px solid #41A3E3",
+                    color: '#41A3E3'
+                  }}
+                  onClick={() => router.push(`/auth/register`)}
+                >
+                  สมัครสมาชิก
+                </Button></Grid>
+              <Grid item xs={6}>
+                <Button
+                  variant="contained"
+                  fullWidth
+                  sx={{
+                    bgcolor: '#41A3E3',
+                    borderRadius: 5,
+                    color: '#fff'
+                  }}
+                  onClick={async () => {
+                    sendOTP()
+
+                    // setOtp(true)
+                    // setOpenDialogOTP(true)
+                    // const response = await dispatch(
+                    //   signIn({ tel: rowData.tel, password: values.password })
+                    // );
+
+                    // if (response.meta.requestStatus === "rejected") {
+                    //   alert("Login failed");
+                    // } else {
+                    //   router.push("/home");
+                    // }
+                  }}
+                >
+                  เข้าสู่ระบบ
+                </Button>
+              </Grid>
             </Grid>
-          </Grid>
 
-          <Grid container justifyContent="center">
-            <Typography sx={{ my: 1, color: "#707070", fontSize: "14px" }}>หรือ</Typography>
-          </Grid>
-
-          <Button
-            variant="contained"
-            fullWidth
+          </Box>
+          :
+          <Box
             sx={{
-              bgcolor: '#00BB00',
+              mt: 8.5,
+              flexGrow: 1,
+              p: 2,
+              bgcolor: '#fff',
               borderRadius: 5,
-              color: '#fff'
-            }}
-            onClick={() => {
-              router.push('/auth/line')
+              boxShadow: '2px 2px 5px #C1B9B9',
+              border: "1px solid #C1B9B9"
             }}
           >
-            เข้าสู่ระบบด้วยไลน์
-          </Button>
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-between"
+            >
+              <Grid item xs={4}>
+                <ArrowBackIosIcon fontSize='small' onClick={() => setOtp(false)} />
+              </Grid>
+              <Grid item xs={4} container justifyContent="center">
+                <Typography variant="h5" sx={{ color: "#41A3E3" }}>เข้าสู่ระบบ</Typography>
+              </Grid>
+              <Grid item xs={4} />
+            </Grid>
 
+            <Grid container
+              direction="column"
+              sx={{ mt: 1 }}>
+              <Typography sx={{ color: "#4B4949", fontSize: "16px" }}>ยืนยันตัวตน OTP</Typography>
 
+              <Typography sx={{ mt: 1, color: "#707070", fontSize: "14px" }}>ส่งรหัส 6 หลักไปที่ {rowData.tel}</Typography>
+              <Box sx={{ textAlign: 'center', mt: 2, mb: -4 }}>
+                {tabOtp.map((data, index) => {
+                  return (
+                    <input
+                      style={{ width: 30, height: 40, marginLeft: '2%', textAlign: 'center', borderRadius: '10px', border: '1px solid #41A3E3' }}
+                      type="number"
+                      name="otp"
+                      maxLength="1"
+                      key={index}
+                      value={data}
+                      onChange={e => handleChangeOtp(e.target, index)}
+                      onFocus={e => e.target.select()}
+                    />
+                  )
+                })}
+              </Box>
+              <Typography sx={{ color: "#707070", fontSize: "14px" }}>รหัสอ้างอิง : {dataOTP.refno}</Typography>
+            </Grid>
+            <Grid container
+              direction="row">
+              <Typography sx={{ color: "#707070", fontSize: "12px", mt: 1 }}>ไม่ได้รับรหัส OTP ? </Typography>
+              <Button
+                variant="text"
+                onClick={() => sendOTP()}
+              >
+                <Typography sx={{ color: "#41A3E3", fontSize: "12px", textDecoration: 'underline' }} >ส่งรหัสอีกครั้ง</Typography>
+              </Button>
+            </Grid>
 
-        </Box>
+            <Grid
+              container
+              direction="row"
+              justifyContent="flex-end"
+            >
+              {/* <Grid item xs={4}>
+                <ArrowBackIosIcon fontSize='small' onClick={() => setOtp(false)} />
+              </Grid> */}
+              <Grid item xs={4}>
+                <Button
+                  variant="contained"
+                  fullWidth
+                  sx={{
+                    bgcolor: '#41A3E3',
+                    borderRadius: 5,
+                    color: '#fff'
+                  }}
+                  onClick={async () => {
+                    const response = await dispatch(
+                      signIn({ tel: rowData.tel, token: dataOTP.token, pin: tabOtp[0] + tabOtp[1] + tabOtp[2] + tabOtp[3] + tabOtp[4] + tabOtp[5] })
+                    );
+
+                    if (response.meta.requestStatus === "rejected") {
+                      alert("Login failed");
+                    } else {
+                      setTabOtp([...tabOtp.map(data => "")])
+                      router.push("/home");
+                    }
+                  }}
+                >
+                  ยืนยัน
+                </Button>
+              </Grid>
+              {/* <Grid item xs={4} /> */}
+            </Grid>
+          </Box>
+        }
 
         <Box sx={{ mt: 2, mb: 1 }}>
           <Swiper
@@ -525,137 +625,189 @@ function Index() {
           <Grid item xs={3} />
           <Grid item xs={6}>
             <Paper elevation={10} v sx={{ py: 2 }}>
-              <Box
-                sx={{
-                  m: 1,
-                  mt: 8.5,
-                  flexGrow: 1,
-                  p: 2,
-                  bgcolor: '#fff',
-                  borderRadius: 5,
-                  boxShadow: '2px 2px 5px #C1B9B9',
-                  border: "1px solid #C1B9B9"
-                }}
-              >
-                <Grid
-                  container
-                  direction="column"
-                  justifyContent="center"
-                  alignItems="center"
+              {otp === false ?
+                <Box
+                  sx={{
+                    mt: 8.5,
+                    mx: 1,
+                    flexGrow: 1,
+                    p: 2,
+                    bgcolor: '#fff',
+                    borderRadius: 5,
+                    boxShadow: '2px 2px 5px #C1B9B9',
+                    border: "1px solid #C1B9B9"
+                  }}
                 >
-                  <Typography variant="h5" sx={{ color: "#41A3E3" }}>เข้าสู่ระบบ</Typography>
-                </Grid>
-                <Typography sx={{ mt: 1, color: "#707070", fontSize: "14px" }}>
-                  เบอร์โทรศัพท์
-                </Typography>
-                <TextField
-                  name="tel"
-                  type="text"
-                  value={rowData.tel || ""}
-                  placeholder="000-000-000"
-                  fullWidth
-                  size="small"
-                  onChange={(e) => handleChangeData(e)}
-                  variant="outlined"
-                  sx={{ bgcolor: "white" }}
-                  inputProps={{ maxLength: 10 }}
-                />
-                <Typography sx={{ mt: 1, color: "#707070", fontSize: "14px" }}>รหัสผ่าน</Typography>
-                <div>
-                  <FormControl fullWidth variant="outlined" size="small">
-                    <OutlinedInput
-                      id="outlined-adornment-password"
-                      type={values.showPassword ? "text" : "password"}
-                      value={values.password}
-                      placeholder="password"
-                      onChange={handleChange("password")}
-                      endAdornment={
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowPassword}
-                            onMouseDown={handleMouseDownPassword}
-                            edge="end"
-                          >
-                            {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                          </IconButton>
-                        </InputAdornment>
-                      }
-                      sx={{ bgcolor: "white" }}
-                    />
-                  </FormControl>
                   <Grid
                     container
-                    direction="row-reverse"
-                    justifyContent="flex-start"
+                    direction="column"
+                    justifyContent="center"
                     alignItems="center"
                   >
+                    <Typography variant="h5" sx={{ color: "#41A3E3" }}>เข้าสู่ระบบ</Typography>
+                  </Grid>
+                  <Typography sx={{ my: 1, color: "#707070", fontSize: "14px" }}>
+                    เบอร์โทรศัพท์
+                  </Typography>
+                  <TextField
+                    name="tel"
+                    type="text"
+                    value={rowData.tel || ""}
+                    placeholder="000-000-000"
+                    fullWidth
+                    size="small"
+                    onChange={(e) => handleChangeData(e)}
+                    variant="outlined"
+                    sx={{ bgcolor: "white" }}
+                    inputProps={{ maxLength: 10 }}
+                  />
+
+                  <Grid container spacing={1} sx={{ mt: 1 }}>
+                    <Grid item xs={6}>
+                      <Button
+                        variant="outlined"
+                        fullWidth
+                        sx={{
+                          bgcolor: '#fff',
+                          borderRadius: 5,
+                          border: "2px solid #41A3E3",
+                          color: '#41A3E3'
+                        }}
+                        onClick={() => router.push(`/auth/register`)}
+                      >
+                        สมัครสมาชิก
+                      </Button></Grid>
+                    <Grid item xs={6}>
+                      <Button
+                        variant="contained"
+                        fullWidth
+                        sx={{
+                          bgcolor: '#41A3E3',
+                          borderRadius: 5,
+                          color: '#fff'
+                        }}
+                        onClick={async () => {
+                          sendOTP()
+
+                          // setOtp(true)
+                          // setOpenDialogOTP(true)
+                          // const response = await dispatch(
+                          //   signIn({ tel: rowData.tel, password: values.password })
+                          // );
+
+                          // if (response.meta.requestStatus === "rejected") {
+                          //   alert("Login failed");
+                          // } else {
+                          //   router.push("/home");
+                          // }
+                        }}
+                      >
+                        เข้าสู่ระบบ
+                      </Button>
+                    </Grid>
+                  </Grid>
+
+                </Box>
+                :
+                <Box
+                  sx={{
+                    mt: 8.5,
+                    flexGrow: 1,
+                    mx: 1,
+                    p: 2,
+                    bgcolor: '#fff',
+                    borderRadius: 5,
+                    boxShadow: '2px 2px 5px #C1B9B9',
+                    border: "1px solid #C1B9B9"
+                  }}
+                >
+                  <Grid
+                    container
+                    direction="row"
+                    justifyContent="space-between"
+                  >
+                    <Grid item xs={4}>
+                      <ArrowBackIosIcon fontSize='small' onClick={() => setOtp(false)} />
+                    </Grid>
+                    <Grid item xs={4} container justifyContent="center">
+                      <Typography variant="h5" sx={{ color: "#41A3E3" }}>เข้าสู่ระบบ</Typography>
+                    </Grid>
+                    <Grid item xs={4} />
+                  </Grid>
+
+                  <Grid container
+                    direction="column"
+                    sx={{ mt: 1 }}>
+                    <Typography sx={{ color: "#4B4949", fontSize: "16px" }}>ยืนยันตัวตน OTP</Typography>
+
+                    <Typography sx={{ mt: 1, color: "#707070", fontSize: "14px" }}>ส่งรหัส 6 หลักไปที่ {rowData.tel}</Typography>
+                    <Box sx={{ textAlign: 'center', mt: 2, mb: -4 }}>
+                      {tabOtp.map((data, index) => {
+                        return (
+                          <input
+                            style={{ width: 30, height: 40, marginLeft: '2%', textAlign: 'center', borderRadius: '10px', border: '1px solid #41A3E3' }}
+                            type="number"
+                            name="otp"
+                            maxLength="1"
+                            key={index}
+                            value={data}
+                            onChange={e => handleChangeOtp(e.target, index)}
+                            onFocus={e => e.target.select()}
+                          />
+                        )
+                      })}
+                    </Box>
+                    <Typography sx={{ color: "#707070", fontSize: "14px" }}>รหัสอ้างอิง : {dataOTP.refno}</Typography>
+                  </Grid>
+                  <Grid container
+                    direction="row">
+                    <Typography sx={{ color: "#707070", fontSize: "12px", mt: 1 }}>ไม่ได้รับรหัส OTP ? </Typography>
                     <Button
                       variant="text"
-                      sx={{ textDecoration: "underline ", color: "#000" }}
+                      onClick={() => sendOTP()}
                     >
-                      ลืมรหัสผ่าน
+                      <Typography sx={{ color: "#41A3E3", fontSize: "12px", textDecoration: 'underline' }} >ส่งรหัสอีกครั้ง</Typography>
                     </Button>
                   </Grid>
-                </div>
-                <Grid container spacing={1}>
-                  <Grid item xs={6}>
-                    <Button
-                      variant="outlined"
-                      fullWidth
-                      sx={{
-                        bgcolor: '#fff',
-                        borderRadius: 5,
-                        border: "2px solid #41A3E3",
-                        color: '#41A3E3'
-                      }}
-                      onClick={() => router.push(`/auth/register`)}
-                    >
-                      สมัครสมาชิก
-                    </Button></Grid>
-                  <Grid item xs={6}>
-                    <Button
-                      variant="contained"
-                      fullWidth
-                      sx={{
-                        bgcolor: '#41A3E3',
-                        borderRadius: 5,
-                        color: '#fff'
-                      }}
-                      onClick={async () => {
-                        const response = await dispatch(
-                          signIn({ tel: rowData.tel, password: values.password })
-                        );
 
-                        if (response.meta.requestStatus === "rejected") {
-                          alert("Login failed");
-                        } else {
-                          router.push("/home");
-                        }
-                      }}
-                    >
-                      เข้าสู่ระบบ
-                    </Button>
+                  <Grid
+                    container
+                    direction="row"
+                    justifyContent="flex-end"
+                  >
+                    {/* <Grid item xs={4}>
+                <ArrowBackIosIcon fontSize='small' onClick={() => setOtp(false)} />
+              </Grid> */}
+                    <Grid item xs={4}>
+                      <Button
+                        variant="contained"
+                        fullWidth
+                        sx={{
+                          bgcolor: '#41A3E3',
+                          borderRadius: 5,
+                          color: '#fff'
+                        }}
+                        onClick={async () => {
+                          const response = await dispatch(
+                            signIn({ tel: rowData.tel, token: dataOTP.token, pin: tabOtp[0] + tabOtp[1] + tabOtp[2] + tabOtp[3] + tabOtp[4] + tabOtp[5] })
+                          );
+
+                          if (response.meta.requestStatus === "rejected") {
+                            alert("Login failed");
+                          } else {
+                            setTabOtp([...tabOtp.map(data => "")])
+                            router.push("/home");
+                          }
+                        }}
+                      >
+                        ยืนยัน
+                      </Button>
+                    </Grid>
+                    {/* <Grid item xs={4} /> */}
                   </Grid>
-                </Grid>
+                </Box>
+              }
 
-                <Grid container justifyContent="center">
-                  <Typography sx={{ my: 1, color: "#707070", fontSize: "14px" }}>หรือ</Typography>
-                </Grid>
-
-                <Button
-                  variant="contained"
-                  fullWidth
-                  sx={{
-                    bgcolor: '#00BB00',
-                    borderRadius: 5,
-                    color: '#fff'
-                  }}
-
-                >
-                  เข้าสู่ระบบด้วยไลน์
-                </Button>
-              </Box>
               <Box sx={{ m: 1, mt: 2 }}>
                 <Swiper
                   spaceBetween={30}
@@ -807,6 +959,7 @@ function Index() {
           <Grid item xs={3} />
         </Grid>
       </Box>
+
 
       <Dialog
         fullWidth
