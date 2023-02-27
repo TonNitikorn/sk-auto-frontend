@@ -1,443 +1,600 @@
-import React, { useState, useEffect } from 'react'
 import {
-   Box, Grid, Button, Typography, MenuList, MenuItem, Dialog,
+   Box,
+   Button,
+   Divider,
+   Grid,
+   Paper,
+   Typography,
+   BottomNavigation,
+   BottomNavigationAction,
+   Skeleton,
+   IconButton,
    DialogTitle,
    DialogContentText,
    DialogContent,
    DialogActions,
-   IconButton,
-   TextField,
-   FormControl,
-   InputAdornment,
-   OutlinedInput,
-   Card, Paper, Divider
-} from '@mui/material'
-import withAuth from '../routes/withAuth'
-import Layout from '../theme/Layout'
-import LoadingModal from '../theme/LoadingModal'
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation, FreeMode, Thumbs } from "swiper";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
+   Dialog,
+   TextField, Table, TableRow, TableCell, Avatar
+} from "@mui/material";
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import CssBaseline from "@mui/material/CssBaseline";
 import { useRouter } from "next/router";
-import DescriptionIcon from '@mui/icons-material/Description';
-import Swal from "sweetalert2";
-import Image from 'next/image'
-import axios from 'axios'
-import hostname from '../utils/hostname'
+import { signOut } from "../store/slices/userSlice";
+import { useAppDispatch } from "../store/store";
+import hostname from "../utils/hostname";
+import axios from "axios";
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Menu from '@mui/material/Menu';
+import Container from '@mui/material/Container';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import HomeIcon from '@mui/icons-material/Home';
+import PaidIcon from '@mui/icons-material/Paid';
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+import ViewListIcon from '@mui/icons-material/ViewList';
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import ConfirmationNumberOutlinedIcon from "@mui/icons-material/ConfirmationNumberOutlined";
 import rank1 from '../assets/rank-1.png'
 import AppsIcon from "@mui/icons-material/Apps";
-import gameIn from "../assets/gameIn.png";
-import gameOut from "../assets/gameOut.png";
-import problam from "../assets/problam.png";
-import event from "../assets/event.png";
-import promotion from "../assets/promotion.png";
-import ban from '../assets/banner.png'
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import HomeComponent from "../components/page/home";
+import DepositComponent from "../components/page/deposit";
+import WithdrawComponent from "../components/page/withdraw";
+import HistoryComponent from "../components/page/history";
+import withAuth from "../routes/withAuth";
+import LoadingModal from '../theme/LoadingModal'
+import LogoutIcon from '@mui/icons-material/Logout';
+import Swal from "sweetalert2";
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-
-function Home() {
+function Home({ children }) {
    const router = useRouter();
-   const [rowData, setRowData] = useState({});
+   const dispatch = useAppDispatch();
+   const [value, setValue] = useState(0);
+   const [credit, setCredit] = useState({});
+   const [logo, setLogo] = useState([])
+   const [profile, setProfile] = useState({})
+   const [page, setPage] = useState('home')
    const [loading, setLoading] = useState(false)
-   const { by } = router.query
-   const [open, setOpen] = useState(false);
-   const [banner, setBanner] = useState([])
-   const [slide, setSlide] = useState([])
-   const [gameType, setGameType] = useState([])
-   const [subGameType, setSubGameType] = useState([])
-   const [selectGame, setSelectGame] = useState(false)
+   const [openDialog, setOpenDialog] = useState(false)
 
-   const handleClickOpen = () => {
-      setOpen(true);
-   };
-
-   const handleClose = () => {
-      setOpen(false);
-   };
-   const handleChangeData = async (e) => {
-      setRowData({ ...rowData, [e.target.name]: e.target.value });
-   };
-
-   const handelAddData = () => {
-      if (by === 'line') {
-         Swal.fire({
-            title: "ยืนยันการทำรายการ",
-            text: `ท่านต้องการถอนเครดิตจำนวน`,
-            icon: "info",
-            showCancelButton: true,
-            cancelButtonColor: "#7C7C7C",
-            confirmButtonColor: "#41A3E3",
-            cancelButtonText: "ตกลง",
-            confirmButtonText: "ไปยังข้อมูลส่วนตัว",
-         }).then((result) => {
-            if (result.isConfirmed) {
-               router.push(`/profile?by=${'line'}`)
-            }
-         });
-      }
-
-   };
-
-   const getAssets = async () => {
+   const getProfile = async () => {
+      setLoading(true)
       try {
-         setLoading(true)
+         let credit = await axios({
+            headers: {
+               Authorization: "Bearer " + localStorage.getItem("access_token"),
+            },
+            method: "get",
+            url: `${hostname}/user/credit`,
+         });
+
+         let profile = await axios({
+            headers: {
+               Authorization: "Bearer " + localStorage.getItem("access_token"),
+            },
+            method: "get",
+            url: `${hostname}/user/profile`,
+         });
+
+         setProfile(profile.data);
+
+         setCredit(credit.data);
+         setLoading(false)
+      } catch (error) {
+         console.log(error);
+         // if (
+         //   error.response.status === 401 &&
+         //   error.response.data === "Unauthorized"
+         // ) {
+         //   dispatch(signOut());
+         //   localStorage.clear();
+         //   router.push("/auth/login");
+         // }
+      }
+   };
+
+   const getLogo = async () => {
+      setLoading(true)
+      try {
          let res = await axios({
             method: "get",
-            url: `${hostname}/menu/get_web_setting`,
+            url: `${hostname}/menu/get_web_setting_logo`,
          });
-         let resData = res.data
-         let banner = resData.filter((item) => item.type === "banner")
-         let slide = resData.filter((item) => item.type === "slide")
 
-         setBanner(banner)
-         setSlide(slide)
+
+
+         setLogo(res.data);
          setLoading(false)
       } catch (error) {
          console.log(error);
       }
    };
 
-   // useEffect(() => {
-   //     setTimeout(() => {
-   //         setLoading(false)
-   //     }, 2000);
-   // }, [])
 
-   const getGameType = async () => {
-      setLoading(true);
-      try {
-         let res = await axios({
-            headers: {
-               Authorization: "Bearer " + localStorage.getItem("access_token"),
-            },
-            method: "get",
-            url: `${hostname}/menu/game_menu`,
-         });
-
-         let resData = res.data;
-         // console.log('resData', resData[0].sub_game_type)
-         setGameType(resData)
-         setSubGameType(resData[0].sub_game_type)
-         setLoading(false);
-      } catch (error) {
-         console.log(error);
-      }
-   };
 
    useEffect(() => {
-      getAssets()
-      getGameType()
-      if (by === 'line') {
-         // จะเช็คจากบัญชีว่ามีรึเปล่า ถ้าไม่มีให้แสดง Dialog
-         handleClickOpen()
-      }
+      getProfile()
+      getLogo()
    }, [])
+
    return (
-      <Layout page="home">
-         <Box sx={{ m: 1, mt: 8.5 }}>
-            <Swiper
-               spaceBetween={30}
-               centeredSlides={true}
-               autoplay={{
-                  delay: 2500,
-                  disableOnInteraction: false,
-               }}
-               pagination={{
-                  clickable: true,
-               }}
+      <div>
+         <CssBaseline />
+         {/* ------------ on Mobile ------------ */}
+         <Box
+            sx={{
+               display: { xs: "block", md: "none" },
+            }}
+         >
+            {/* ----- header ----- */}
 
-               modules={[Autoplay, Pagination, Navigation]}
-               className="mySwiper"
+            <Grid
+               container
+               direction="row"
+               justifyContent="start"
+               alignItems="center"
             >
-               {banner.map((item) => (
-                  <>
-                     <SwiperSlide>
-                        <Box sx={{ display: { xs: "block", sm: "none", md: "none" } }}>
-                           <img src={item.img_url} width={375} height={140} style={{ borderRadius: '5px' }} />
-                           {/* <Image alt="banner" src={item} width={'400px'} height={'170px'} /> */}
-                        </Box>
-                        <Box sx={{ display: { xs: "none", sm: "block", md: "none" }, mt: 1 }}>
-                           <img src={item.img_url} width={800} height={180} style={{ borderRadius: '5px' }} />
-                           {/* <Image alt="banner" src={item} width={'800%'} height={'330px'} /> */}
-                        </Box>
-                        <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
-                           <img src={item.img_url} width={715} height={180} style={{ borderRadius: '5px' }} />
-                           {/* <Image alt="banner" src={item} width={'800%'} height={350} /> */}
-                        </Box>
-                     </SwiperSlide>
-                  </>
-               ))}
-            </Swiper>
-         </Box>
-         <Box sx={{ my: 1, mx: 1 }}>
-            <Swiper
-               loop={true}
-               spaceBetween={10}
-               slidesPerView={3}
-               loopFillGroupWithBlank={true}
-               freeMode={true}
-               watchSlidesProgress={true}
-               autoplay={{
-                  delay: 500,
-                  disableOnInteraction: false,
-               }}
-               modules={[FreeMode, Navigation, Thumbs, Autoplay]}
-               className="mySwiper"
-            >
-               {slide.map((item) => (
-                  <>
-                     <SwiperSlide>
-                        <Box sx={{ display: { xs: "block", sm: "none", md: "none" } }}>
-                           <img src={item.img_url} width={120} height={70} style={{ borderRadius: '5px' }} />
-                           {/* <Image alt="banner" src={item} width={600} height={350} /> */}
-                        </Box>
-                        <Box sx={{ display: { xs: "none", sm: "block", md: "none" } }}>
-                           <img src={item.img_url} width={260} height={100} style={{ borderRadius: '5px' }} />
-                           {/* <Image alt="banner" src={item} width={350} height={180} /> */}
-                        </Box>
-                        <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
-                           <img src={item.img_url} width={230} height={90} style={{ borderRadius: '5px' }} />
-                           {/* <Image alt="banner" src={item} width={400} height={200} /> */}
-                        </Box>
-                     </SwiperSlide>
-                  </>
-               ))}
-            </Swiper>
-         </Box>
+               <Grid item xs={6} >
+                  <Box sx={{ pl: 1, mt: 1 }}>
+                     <img src={logo[0]?.img_url} width={70} height={45} />
+                  </Box>
+               </Grid>
+               <Grid container justifyContent="flex-end"
+                  item xs={6} sx={{ pr: 1 }}>
+                  <IconButton
+                     onClick={() => {
+                        Swal.fire({
+                           title: "ต้องการออกจากระบบ ?",
+                           icon: "info",
+                           showCancelButton: true,
+                           cancelButtonColor: "#D2042D",
+                           confirmButtonColor: "#0072B1",
+                           cancelButtonText: "ยกเลิก",
+                           confirmButtonText: "ยืนยัน",
+                        }).then((result) => {
+                           if (result.isConfirmed) {
+                              dispatch(signOut());
+                              localStorage.clear();
+                              router.push("/auth/login");
+                           }
+                        });
+                     }} >
+                     <LogoutIcon sx={{ color: "#0072B1", mr: "3px" }} />
+                  </IconButton>
+               </Grid>
 
-         <Box sx={{ m: 1 }}>
-            <Paper sx={{ background: "linear-gradient(#0072B1, #41A3E3)", p: 1, width: "100%" }}>
-               <Grid container>
-                  <Grid item sx={{ mt: 1 }}>
-                     <Image src={rank1} alt="diamond" width={60} height={50} />
+            </Grid>
+
+            <Box sx={{ m: 1, mt: 0 }}>
+               <Paper
+                  sx={{
+                     // background:
+                     //   "linear-gradient(to right,#01B843,#00A598,#00A2A4, #009BC5)",
+                     background: "linear-gradient(#0072B1, #41A3E3)",
+                     p: 2,
+                     width: "100%",
+                  }}
+               >
+                  <Grid container>
+                     <Box sx={{ textAlign: "center", mt: 1 }}>
+                        <Typography sx={{ color: "#fff" }}>User :</Typography>
+                     </Box>
+                     <Box sx={{ textAlign: "center", mt: 1, mx: 1 }}>
+                        <Typography align="center" sx={{ color: "#fff" }}>
+                           {profile.tel ? (
+                              profile.tel
+                           ) : (
+                              <Skeleton
+                                 variant="text"
+                                 sx={{ fontSize: "1rem", minWidth: "100px" }}
+                              />
+                           )}
+                        </Typography>
+                     </Box>
+                     <Box>
+                        <IconButton>
+                           {/* <CopyToClipboard text={profile.sb_username}>
+                            <ContentCopyIcon color="white" />
+                         </CopyToClipboard> */}
+                        </IconButton>
+                     </Box>
                   </Grid>
-                  <Grid item sx={{ ml: 1, mt: 1 }}>
-                     <Typography sx={{ color: "#fff" }}>
-                        Diamond
-                     </Typography>
-                     <Typography sx={{ color: "#fff", fontSize: "10px", mt: 1 }}>
-                        เติม 1000฿ จะได้ Commander
-                     </Typography>
+                  <Typography
+                     align="start"
+                     sx={{ color: "#fff", mt: 2, fontSize: "13px" }}
+                  >
+                     เงินในวอลเล็ท (บาท)
+                  </Typography>
+                  <Grid container justifyContent="space-between">
+                     {credit !== undefined ? (
+                        <Typography
+                           variant="h6"
+                           sx={{ color: "#fff", textAlign: "left" }}
+                        >
+                           {Intl.NumberFormat("THB").format(credit)} ฿{" "}
+                        </Typography>
+                     ) : (
+                        <Skeleton
+                           variant="text"
+                           sx={{ fontSize: "1rem", minWidth: "80px" }}
+                        />
+                     )}
+                     <Button
+                        variant="contained"
+                        sx={{ bgcolor: "#fff", borderRadius: 50 }}
+                        size="small"
+                        onClick={() => {
+                           setOpenDialog(true)
+                        }}
+                     >
+                        <PersonOutlineIcon
+                           sx={{ color: "#00897b", mr: "3px" }}
+                        />
+                        <Typography sx={{ color: "#000", fontWeight: 100, fontSize: '12px' }}>
+                           ข้อมูลส่วนตัว
+                        </Typography>
+                     </Button>
                   </Grid>
-                  <Divider
-                     orientation="vertical"
-                     flexItem
-                     sx={{ color: "white", bgcolor: "white", mx: 1 }}
-                  />
-                  <Grid item sx={{ ml: 1, mt: 1 }}>
-                     <Grid container>
-                        <AppsIcon sx={{ color: "white" }} />
-                        <Typography sx={{ mx: 1, color: "white", fontSize: "14px" }}>
-                           500 pts
+               </Paper>
+            </Box>
+
+            <Box sx={{ m: 1 }}>
+               <Paper sx={{ background: "linear-gradient(#0072B1, #41A3E3)", p: 1, width: "100%" }}>
+                  <Grid container>
+                     <Grid item sx={{ mt: 1 }}>
+                        <Image src={rank1} alt="diamond" width={60} height={50} />
+                     </Grid>
+                     <Grid item sx={{ ml: 1, mt: 1 }}>
+                        <Typography sx={{ color: "#fff" }}>
+                           Diamond
+                        </Typography>
+                        <Typography sx={{ color: "#fff", fontSize: "10px", mt: 1 }}>
+                           เติม 1000฿ จะได้ Commander
                         </Typography>
                      </Grid>
-                     <Typography sx={{ mt: 1, ml: 1, fontSize: "10px", color: "white" }}>
-                        450 pts จะหมดอายุ
-                     </Typography>
-                  </Grid>
-               </Grid>
-            </Paper>
-         </Box>
-         {selectGame === false ?
-            <Box>
-               <Grid container spacing={1} sx={{ p: 1, textAlign: "center" }}>
-                  <Grid item xs={6} md={3}>
-                     <Image
-                        src={gameIn}
-                        alt="diamond"
-                        onClick={() => {
-                           // router.push("/Games");
-                           setSelectGame(true)
-                        }}
+                     <Divider
+                        orientation="vertical"
+                        flexItem
+                        sx={{ color: "white", bgcolor: "white", mx: 1 }}
                      />
-                     <Typography sx={{ fontSize: '14px' }}>
-                        เล่นเกมส์
-                     </Typography>
+                     <Grid item sx={{ ml: 1, mt: 1 }}>
+                        <Grid container>
+                           <AppsIcon sx={{ color: "white" }} />
+                           <Typography sx={{ mx: 1, color: "white", fontSize: "14px" }}>
+                              500 pts
+                           </Typography>
+                        </Grid>
+                        <Typography sx={{ mt: 1, ml: 1, fontSize: "10px", color: "white" }}>
+                           450 pts จะหมดอายุ
+                        </Typography>
+                     </Grid>
                   </Grid>
-                  <Grid item xs={6} md={3}>
-                     <Image
-                        src={problam}
-                        alt="diamond"
-                        onClick={() => {
-                           // router.push("https://lin.ee/F8pxLTg");
-                        }}
-                     />
-                     <Typography sx={{ fontSize: '14px' }}>
-                        แจ้งปัญหา
-                     </Typography>
-                  </Grid>
-               </Grid>
+               </Paper>
+            </Box>
 
-               <Grid container spacing={1} sx={{ p: 2 }} item md={12}>
-                  <Grid item xs={12} md={6}>
+
+            {/* ----- body ----- */}
+            <Box sx={{
+               // backgroundImage: `url('https://cdn.softkingdoms.sgp1.digitaloceanspaces.com/BKSCAN.jpg')`,
+               // backgroundPosition: 'center',
+               // backgroundSize: 'cover',
+               // backgroundRepeat: 'no-repeat',
+               display: { xs: "block", md: "none" },
+            }}>
+               {/* {children} */}
+               {page === 'home' ? <HomeComponent /> :
+                  page === 'deposit' ? <DepositComponent /> :
+                     page === 'withdraw' ? <WithdrawComponent /> :
+                        page === 'history' ? <HistoryComponent /> : ''}
+
+
+            </Box>
+
+
+
+            {/* ----- footer ----- */}
+            <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, borderTopLeftRadius: '30px', borderTopRightRadius: '30px' }} elevation={3}>
+               <BottomNavigation
+                  showLabels
+                  value={value}
+                  sx={{
+                     background: "linear-gradient(#41A3E3, #0072B1)", borderTopLeftRadius: '30px', borderTopRightRadius: '30px',
+                     '& .Mui-selected': {
+                        '& .MuiBottomNavigationAction-label': {
+                           color: '#fff'
+                        },
+                        '& .MuiSvgIcon-root, & .MuiBottomNavigationAction-label': {
+                           color: '#fff'
+                        }
+                     }
+                  }}
+                  onChange={(event, newValue) => {
+                     setValue(newValue);
+                  }}
+               >
+                  <BottomNavigationAction label="หน้าหลัก" value="home" icon={<HomeIcon />} onClick={() => setPage('home')} />
+                  <BottomNavigationAction label="ฝากเงิน" value="deposit" icon={<PaidIcon />} onClick={() => setPage('deposit')} />
+                  <BottomNavigationAction label="ถอนเงิน" value="withdraw" icon={<CurrencyExchangeIcon />} onClick={() => setPage('withdraw')} />
+                  <BottomNavigationAction label="ประวัติ" value="history" icon={<ViewListIcon />} onClick={() => setPage('history')} />
+               </BottomNavigation>
+            </Paper>
+
+         </Box>
+
+
+         {/* ------------ on Desktop ------------ */}
+         <Box
+            sx={{
+               display: { xs: "none", md: "block" },
+            }}
+         >
+            <Grid container sx={{ mt: 1 }}>
+               <Grid item xs={3} />
+               <Grid item xs={6}>
+                  <Paper elevation={10} >
                      <Grid
                         container
                         direction="row"
-                        justifyContent="space-between"
+                        justifyContent="start"
                         alignItems="center"
                      >
-                        <Grid item md={3}>
-                           <Typography sx={{ color: "#000" }}>โปรโมชัน</Typography>
+                        <Grid item xs={6} >
+                           <Box sx={{ pl: 1, mt: 1 }}>
+                              <img src={logo[0]?.img_url} width={70} height={45} />
+                           </Box>
                         </Grid>
-                        <Grid item md={3}>
-                           <Grid container>
-                              <Typography sx={{ color: "#000" }}>ดูทั้งหมด</Typography>
-                              <ChevronRightIcon sx={{ color: "#000" }} />
-                           </Grid>
+                        <Grid container justifyContent="flex-end"
+                           item xs={6} sx={{ pr: 1 }}>
+                           <IconButton
+                              onClick={() => {
+                                 Swal.fire({
+                                    title: "ต้องการออกจากระบบ ?",
+                                    icon: "info",
+                                    showCancelButton: true,
+                                    cancelButtonColor: "#D2042D",
+                                    confirmButtonColor: "#0072B1",
+                                    cancelButtonText: "ยกเลิก",
+                                    confirmButtonText: "ยืนยัน",
+                                 }).then((result) => {
+                                    if (result.isConfirmed) {
+                                       dispatch(signOut());
+                                       localStorage.clear();
+                                       router.push("/auth/login");
+                                    }
+                                 });
+                              }} >
+                              <LogoutIcon sx={{ color: "#0072B1", mr: "3px" }} />
+                           </IconButton>
                         </Grid>
+
                      </Grid>
 
-                     <Grid sx={{ mt: 2 }}>
-                        <Image src={promotion} alt="diamond" />
-                     </Grid>
-                  </Grid>
 
-                  {/* <Grid item md={6}>
-           <Grid
-              container
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-           >
-              <Grid item md={3}>
-                 <Typography sx={{ color: "#000" }}>เกม</Typography>
-              </Grid>
-              <Grid item md={3}>
-                 <Grid container>
-                    <Typography sx={{ color: "#000" }}>ดูทั้งหมด</Typography>
-                    <ChevronRightIcon sx={{ color: "#000" }} />
-                 </Grid>
-              </Grid>
-           </Grid>
-
-           <Grid sx={{ mt: 2, ml: 1 }}>
-              <Image src={ban} alt="banner" />
-           </Grid>
-        </Grid> */}
-               </Grid>
-            </Box> :
-            <Box>
-               <Grid container sx={{ pl: 2 }}>
-                  <ArrowBackIosIcon fontSize='small' sx={{ my: 1 }} onClick={() => setSelectGame(false)} />
-                  <Typography sx={{ fontSize: '14px', mt: 1 }} onClick={() => setSelectGame(false)}  >ย้อนกลับ</Typography>
-               </Grid>
-               <Grid container spacing={1} sx={{ p: 1, textAlign: "center" }}>
-                  {gameType.map((item) => (
-                     <>
-                        {/* <Button
-                           sx={{ mt: 1, height: '80px', width: '90%', borderRadius: '20px' }}
-                           onClick={() => {
-                              console.log('item.sub_game_type', item.sub_game_type)
-                              setSubGameType(item.sub_game_type)
+                     <Box sx={{ m: 1, mt: 0 }}>
+                        <Paper
+                           sx={{
+                              // background:
+                              //   "linear-gradient(to right,#01B843,#00A598,#00A2A4, #009BC5)",
+                              background: "linear-gradient(#0072B1, #41A3E3)",
+                              p: 2,
+                              width: "100%",
                            }}
                         >
-                           <Box >
-                              <img src={item.type_logo} width={80} height={80} style={{ borderRadius: '20px' }} />
-                           </Box>
-                        </Button> */}
-                        <Grid item xs={6} md={3}>
-                           <img src={item.type_logo} width={80} height={80} style={{ borderRadius: '20px' }} />
+                           <Grid container>
+                              <Box sx={{ textAlign: "center", mt: 1 }}>
+                                 <Typography sx={{ color: "#fff" }}>User :</Typography>
+                              </Box>
+                              <Box sx={{ textAlign: "center", mt: 1, mx: 1 }}>
+                                 <Typography align="center" sx={{ color: "#fff" }}>
+                                    {profile.tel ? (
+                                       profile.tel
+                                    ) : (
+                                       <Skeleton
+                                          variant="text"
+                                          sx={{ fontSize: "1rem", minWidth: "100px" }}
+                                       />
+                                    )}
+                                 </Typography>
+                              </Box>
+                              <Box>
+                                 <IconButton>
+                                    {/* <CopyToClipboard text={profile.sb_username}>
+                            <ContentCopyIcon color="white" />
+                         </CopyToClipboard> */}
+                                 </IconButton>
+                              </Box>
+                           </Grid>
+                           <Typography
+                              align="start"
+                              sx={{ color: "#fff", mt: 2, fontSize: "13px" }}
+                           >
+                              เงินในวอลเล็ท (บาท)
+                           </Typography>
+                           <Grid container justifyContent="space-between">
+                              {credit !== undefined ? (
+                                 <Typography
+                                    variant="h6"
+                                    sx={{ color: "#fff", textAlign: "left" }}
+                                 >
+                                    {Intl.NumberFormat("THB").format(credit)} ฿{" "}
+                                 </Typography>
+                              ) : (
+                                 <Skeleton
+                                    variant="text"
+                                    sx={{ fontSize: "1rem", minWidth: "80px" }}
+                                 />
+                              )}
+                              <Button
+                                 variant="contained"
+                                 sx={{ bgcolor: "#fff", borderRadius: 50 }}
+                                 size="small"
+                                 onClick={() => {
+                                    setOpenDialog(true)
+                                 }}
+                              >
+                                 <PersonOutlineIcon
+                                    sx={{ color: "#00897b", mr: "3px" }}
+                                 />
+                                 <Typography sx={{ color: "#000", fontWeight: 100, fontSize: '12px' }}>
+                                    ข้อมูลส่วนตัว
+                                 </Typography>
+                              </Button>
+                           </Grid>
+                        </Paper>
+                     </Box>
 
-                        </Grid>
+                     <Box sx={{ m: 1 }}>
+                        <Paper sx={{ background: "linear-gradient(#0072B1, #41A3E3)", p: 1, width: "100%" }}>
+                           <Grid container>
+                              <Grid item sx={{ mt: 1 }}>
+                                 <Image src={rank1} alt="diamond" width={60} height={50} />
+                              </Grid>
+                              <Grid item sx={{ ml: 1, mt: 1 }}>
+                                 <Typography sx={{ color: "#fff" }}>
+                                    Diamond
+                                 </Typography>
+                                 <Typography sx={{ color: "#fff", fontSize: "10px", mt: 1 }}>
+                                    เติม 1000฿ จะได้ Commander
+                                 </Typography>
+                              </Grid>
+                              <Divider
+                                 orientation="vertical"
+                                 flexItem
+                                 sx={{ color: "white", bgcolor: "white", mx: 1 }}
+                              />
+                              <Grid item sx={{ ml: 1, mt: 1 }}>
+                                 <Grid container>
+                                    <AppsIcon sx={{ color: "white" }} />
+                                    <Typography sx={{ mx: 1, color: "white", fontSize: "14px" }}>
+                                       500 pts
+                                    </Typography>
+                                 </Grid>
+                                 <Typography sx={{ mt: 1, ml: 1, fontSize: "10px", color: "white" }}>
+                                    450 pts จะหมดอายุ
+                                 </Typography>
+                              </Grid>
+                           </Grid>
+                        </Paper>
+                     </Box>
+                     <Box sx={{ display: { xs: "none", md: "block" }, }}>
+                        {page === 'home' ? <HomeComponent /> :
+                           page === 'deposit' ? <DepositComponent /> :
+                              page === 'withdraw' ? <WithdrawComponent /> :
+                                 page === 'history' ? <HistoryComponent /> : ''}
+                     </Box>
+                     <Box sx={{ mt: 3 }} >
 
-
-                     </>
-                  ))}
+                        <BottomNavigation
+                           showLabels
+                           value={value}
+                           sx={{
+                              background: "linear-gradient(#41A3E3, #0072B1)", borderTopLeftRadius: '30px', borderTopRightRadius: '30px',
+                              '& .Mui-selected': {
+                                 '& .MuiBottomNavigationAction-label': {
+                                    color: '#fff'
+                                 },
+                                 '& .MuiSvgIcon-root, & .MuiBottomNavigationAction-label': {
+                                    color: '#fff'
+                                 }
+                              }
+                           }}
+                           onChange={(event, newValue) => {
+                              setValue(newValue);
+                           }}
+                        >
+                           <BottomNavigationAction label="หน้าหลัก" value="home" icon={<HomeIcon />} onClick={() => setPage('home')} />
+                           <BottomNavigationAction label="ฝากเงิน" value="deposit" icon={<PaidIcon />} onClick={() => setPage('deposit')} />
+                           <BottomNavigationAction label="ถอนเงิน" value="withdraw" icon={<CurrencyExchangeIcon />} onClick={() => setPage('withdraw')} />
+                           <BottomNavigationAction label="ประวัติ" value="history" icon={<ViewListIcon />} onClick={() => setPage('history')} />
+                        </BottomNavigation>
+                     </Box>
+                  </Paper>
                </Grid>
-            </Box>
-         }
+               <Grid item xs={3} />
+            </Grid>
 
 
+         </Box>
 
          <Dialog
-            open={open}
-            onClose={handleClose}
+            open={openDialog}
+            onClose={() => setOpenDialog(false)}
+            fullWidth
+            maxWidth='md'
+
          >
-            <DialogTitle >
-               {/* <DescriptionIcon sx={{ color: '#41A3E3' }} /><Typography>กรุณากรอกข้อมูลเพิ่มเติม</Typography> */}
-
-               <Grid container
-                  direction="row"
-                  sx={{ textAlign: 'center', mt: 1 }}>
-                  <DescriptionIcon sx={{ color: '#41A3E3' }} /><Typography>กรุณากรอกข้อมูลเพิ่มเติม</Typography>
-               </Grid>
+            <DialogTitle sx={{ background: "#0072B1", }}>
+               <Typography sx={{ color: '#eee', fontSize: '18px' }}> ข้อมูลส่วนตัว</Typography>
             </DialogTitle>
-            <DialogContent>
-               <Grid container
-                  direction="column"
-                  sx={{ mt: 3 }}>
-                  <Typography sx={{ color: "#707070", fontSize: "14px" }}>ธนาคารสำหรับฝาก - ถอนเงิน</Typography>
-                  <TextField
-                     name="bank_name"
-                     type="text"
-                     value={rowData.bank_name || ""}
-                     select
-                     fullWidth
-                     size="small"
-                     onChange={(e) => handleChangeData(e)}
-                     variant="outlined"
-                     sx={{ bgcolor: "white", borderRadius: 1 }}
-                  >
-                     <MenuItem selected disabled value>
-                        เลือก ธนาคาร
-                     </MenuItem>
-                     <MenuItem value="kbnk">ธนาคารกสิกรไทย</MenuItem>
-                     <MenuItem value="truemoney">TrueMoney Wallet</MenuItem>
-                     <MenuItem value="ktba">ธนาคารกรุงไทย</MenuItem>
-                     <MenuItem value="scb">ธนาคารไทยพาณิชย์</MenuItem>
-                     <MenuItem value="bay">ธนาคารกรุงศรีอยุธยา</MenuItem>
-                     <MenuItem value="bbla">ธนาคารกรุงเทพ</MenuItem>
-                     <MenuItem value="gsb">ธนาคารออมสิน</MenuItem>
-                     <MenuItem value="ttb">ธนาคารทหารไทยธนชาต (TTB)</MenuItem>
-                     <MenuItem value="BAAC">
-                        ธนาคารเพื่อการเกษตรและสหกรณ์การเกษตร
-                     </MenuItem>
-                     <MenuItem value="ICBC">ธนาคารไอซีบีซี (ไทย)</MenuItem>
-                     <MenuItem value="TCD">ธนาคารไทยเครดิตเพื่อรายย่อย</MenuItem>
-                     <MenuItem value="CITI">ธนาคารซิตี้แบงก์</MenuItem>
-                     <MenuItem value="SCBT">ธนาคารสแตนดาร์ดชาร์เตอร์ด (ไทย)</MenuItem>
-                     <MenuItem value="CIMB">ธนาคารซีไอเอ็มบีไทย</MenuItem>
-                     <MenuItem value="UOB">ธนาคารยูโอบี</MenuItem>
-                     <MenuItem value="HSBC">ธนาคารเอชเอสบีซี ประเทศไทย</MenuItem>
-                     <MenuItem value="MIZUHO">ธนาคารมิซูโฮ คอร์ปอเรต</MenuItem>
-                     <MenuItem value="GHB">ธนาคารอาคารสงเคราะห์</MenuItem>
-                     <MenuItem value="LHBANK">ธนาคารแลนด์ แอนด์ เฮ้าส์</MenuItem>
-                     <MenuItem value="TISCO">ธนาคารทิสโก้</MenuItem>
-                     <MenuItem value="kkba">ธนาคารเกียรตินาคิน</MenuItem>
-                     <MenuItem value="IBANK">ธนาคารอิสลามแห่งประเทศไทย</MenuItem>
-                  </TextField>
-
-                  <Typography sx={{ mt: 1, color: "#707070", fontSize: '12px' }}>
-                     หมายเลขบัญชี*
-                  </Typography>
-                  <TextField
-                     name="bank_number"
-                     type="number"
-                     value={rowData.bank_number || ""}
-                     placeholder="000-000-000"
-                     fullWidth
-                     size="small"
-                     onChange={(e) => handleChangeData(e)}
-                     variant="outlined"
-                     sx={{ bgcolor: "white", borderRadius: 1 }}
-                  />
-
-
+            <DialogContent
+               sx={{ background: "linear-gradient(#0072B1, #41A3E3)", }}>
+               <Grid container justifyContent='center'>
+                  <Avatar
+                     sx={{ width: 80, height: 80, my: 2 }}
+                  >H</Avatar>
                </Grid>
+               <Table sx={{ border: '1px solid #eee' }}>
+                  <TableRow>
+                     <TableCell
+                        sx={{ fontWeight: "bold", border: '1px solid #eee' }}
+                        variant="head"
+                     >
+                        ชื่อผู้ใช้งาน
+                     </TableCell>
+                     <TableCell>{profile.username}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                     <TableCell
+                        sx={{ fontWeight: "bold", border: '1px solid #eee' }}
+                        variant="head"
+                     >
+                        เครดิตคงเหลือ
+                     </TableCell>
+                     <TableCell>{profile.credit}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                     <TableCell
+                        sx={{ fontWeight: "bold", border: '1px solid #eee' }}
+                        variant="head"
+                     >
+                        โทรศัพท์
+                     </TableCell>
+                     <TableCell>{profile.tel}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                     <TableCell
+                        sx={{ fontWeight: "bold", border: '1px solid #eee' }}
+                        variant="head"
+                     >
+                        ธนาคาร
+                     </TableCell>
+                     <TableCell >{profile.bank_name}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                     <TableCell
+                        sx={{ fontWeight: "bold", border: '1px solid #eee' }}
+                        variant="head"
+                     >
+                        เลขบัญชี
+                     </TableCell>
+                     <TableCell >{profile.bank_number}</TableCell>
+                  </TableRow>
+               </Table>
+
             </DialogContent>
-            <DialogActions>
-               <Button onClick={handleClose}>ยกเลิก</Button>
-               <Button onClick={handleClose} autoFocus>
+            <DialogActions sx={{ background: " #41A3E3", }}>
+               <Button onClick={() => setOpenDialog(false)} sx={{ color: '#eee' }}>ยกเลิก</Button>
+               <Button onClick={() => setOpenDialog(false)} sx={{ color: '#eee' }} autoFocus>
                   ยืนยัน
                </Button>
             </DialogActions>
          </Dialog>
+
          <LoadingModal open={loading} />
-      </Layout >
-   )
+      </div >
+   );
 }
 
-export default withAuth(Home)
+export default withAuth(Home);
