@@ -98,8 +98,8 @@ function WithdrawComponent() {
             <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 3 }}>ถอนเครดิต</Typography>
             <Typography sx={{ fontSize: '12px' }}>เลือกจำนวนเครดิต</Typography>
 
-            <Grid container spacing={2} sx={{ mt: 2 }}>
-                {/* {amount.map((item) => (
+            {/* <Grid container spacing={2} sx={{ mt: 2 }}>
+                {amount.map((item) => (
                     <>
                         <Grid item xs={3}>
                             <Button
@@ -119,8 +119,8 @@ function WithdrawComponent() {
                             </Button>
                         </Grid>
                     </>
-                ))} */}
-            </Grid>
+                ))}
+            </Grid> */}
 
             <Typography sx={{ mt: 4, mb: 2 }}>
                 ระบุจำนวนที่ต้องการถอน
