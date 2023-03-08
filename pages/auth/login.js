@@ -26,6 +26,7 @@ import hostname from "../../utils/hostname";
 import { useAppDispatch } from "../../store/store";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Swal from "sweetalert2";
+import LoadingModal from '../../theme/LoadingModal'
 
 function Login() {
   const router = useRouter();
@@ -44,6 +45,7 @@ function Login() {
   const [otp, setOtp] = useState(false)
   const [tabOtp, setTabOtp] = useState(new Array(6).fill(""))
   const [dataOTP, setDataOTP] = useState()
+  const [loading, setLoading] = useState(false)
 
   const handleChangeOtp = (element, index) => {
     if (isNaN(element.value)) return false
@@ -501,6 +503,7 @@ function Login() {
           </Box>
         }
       </div>
+      <LoadingModal open={loading} />
     </>
   );
 }

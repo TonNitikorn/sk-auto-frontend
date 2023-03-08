@@ -36,6 +36,7 @@ import axios from 'axios';
 import hostname from '../utils/hostname';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Swal from "sweetalert2";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -303,25 +304,17 @@ function Index() {
 
   return (
     <div style={{ padding: 0 }}>
-      <AppBar position="fixed" color="primary" elevation={0} sx={{ borderBottomLeftRadius: '30px', borderBottomRightRadius: '30px' }}>
+      {/* <AppBar position="fixed" elevation={0} sx={{ background: "linear-gradient(#0072B1, #41A3E3)", borderBottomLeftRadius: '30px', borderBottomRightRadius: '30px' }}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Grid container>
               <Grid item xs={6}>
                 <Box sx={{ pl: 1, mt: "5px" }}>
-                  {/* <Image alt="banner" src={logo_angpao_white} width={40} height={30} /> */}
                   <img src={logo[0]?.img_url} width={40} height={30} />
                 </Box>
               </Grid>
               <Grid item xs={6} container justifyContent="flex-end">
-                {/* <Typography sx={{ mt: 1.5, mr: 2, color: "#fff", fontSize: '14px' }}
-                  onClick={() => {
-                    router.push('auth/register')
-                  }}>สมัครสมาชิก</Typography>
-                <Typography sx={{ mt: 1.5, mr: 2, color: "#fff", fontSize: '14px' }}
-                  onClick={() => {
-                    router.push('auth/login')
-                  }}>เข้าสู่ระบบ</Typography> */}
+          
                 <Button
                   variant="outlined"
                   sx={{
@@ -340,14 +333,52 @@ function Index() {
 
           </Toolbar>
         </Container>
-      </AppBar>
+      </AppBar> */}
+
+      <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+      >
+        {/* <Grid item xs={12} > */}
+        <Box sx={{ pl: 1, mt: 1 }}>
+          <img src={logo[0]?.img_url} width={70} height={45} />
+        </Box>
+        {/* </Grid> */}
+        {/* <Grid container justifyContent="flex-end"
+          item xs={6} sx={{ pr: 1 }}>
+          <IconButton
+            onClick={() => {
+              Swal.fire({
+                title: "ต้องการออกจากระบบ ?",
+                icon: "info",
+                showCancelButton: true,
+                cancelButtonColor: "#D2042D",
+                confirmButtonColor: "#0072B1",
+                cancelButtonText: "ยกเลิก",
+                confirmButtonText: "ยืนยัน",
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  dispatch(signOut());
+                  localStorage.clear();
+                  router.push("/auth/login");
+                }
+              });
+            }} >
+            <LogoutIcon sx={{ color: "#0072B1", mr: "3px" }} />
+          </IconButton>
+        </Grid> */}
+
+      </Grid>
+
       {/* ----- on Mobile ----- */}
 
       <Box sx={{ display: { xs: "block", md: "none" } }}>
         {otp === false ?
           <Box
             sx={{
-              mt: 8.5,
+              mt: 1,
               flexGrow: 1,
               p: 2,
               bgcolor: '#fff',
@@ -525,7 +556,7 @@ function Index() {
           </Box>
         }
 
-        <Box sx={{ mt: 2, mb: 1 }}>
+        {/* <Box sx={{ mt: 2, mb: 1 }}>
           <Swiper
             spaceBetween={30}
             centeredSlides={true}
@@ -545,77 +576,197 @@ function Index() {
                 <SwiperSlide>
                   <Box sx={{ display: { xs: "block", sm: "none", md: "none" } }}>
                     <img src={item.img_url} width={375} height={140} style={{ borderRadius: '5px' }} />
-                    {/* <Image alt="banner" src={item} width={'400px'} height={'170px'} /> */}
                   </Box>
                   <Box sx={{ display: { xs: "none", sm: "block", md: "none" }, mt: 1 }}>
                     <img src={item.img_url} width={800} height={180} style={{ borderRadius: '5px' }} />
-                    {/* <Image alt="banner" src={item} width={'800%'} height={'330px'} /> */}
                   </Box>
                   <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
                     <img src={item.img_url} width={715} height={180} style={{ borderRadius: '5px' }} />
-                    {/* <Image alt="banner" src={item} width={'800%'} height={350} /> */}
                   </Box>
                 </SwiperSlide>
               </>
             ))}
           </Swiper>
-        </Box>
-
+        </Box> */}
 
         <Box sx={{ mt: 2, mb: 8 }}>
-          <Grid container>
-            <Grid item xs={3} container
-              direction="column"
-              justifyContent="flex-start"
-              alignItems="flex-start"
-            // sx={{ bgcolor: 'red' }}
-            >
-              {gameType.map((item) => (
-                <>
-                  <Button
-                    // fullWidth
-                    sx={{ mt: 1, height: '80px', width: '90%', borderRadius: '20px' }}
-                    // sx={{ mt: 1 }}
+          <Grid container spacing={1} sx={{ mt: 1 }} item md={12}>
+            <Grid item xs={12} md={6}>
+              <Grid
+                container
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Grid item md={3}>
+                  <Typography sx={{ color: "#000" }}>โปรโมชัน</Typography>
+                </Grid>
+                <Grid item md={3}>
+                  <Grid container>
+                    <Typography sx={{ color: "#000" }}>ดูทั้งหมด</Typography>
+                    <ChevronRightIcon sx={{ color: "#000" }} />
+                  </Grid>
+                </Grid>
+              </Grid>
 
-                    onClick={() => {
-                      console.log('item.sub_game_type', item.sub_game_type)
-                      setSubGameType(item.sub_game_type)
-
+              <Grid sx={{ mt: 2 }}>
+                <Box >
+                  <Swiper
+                    spaceBetween={30}
+                    centeredSlides={true}
+                    autoplay={{
+                      delay: 2500,
+                      disableOnInteraction: false,
                     }}
+                    pagination={{
+                      clickable: true,
+                    }}
+
+                    modules={[Autoplay, Pagination, Navigation]}
+                    className="mySwiper"
                   >
-                    <Box >
-                      {/* <Image alt="game type" src={item.type_logo} width={120} height={65} /> */}
-                      <img src={item.type_logo} width={80} height={80} style={{ borderRadius: '20px' }} />
-                    </Box>
-                  </Button>
-
-                </>
-              ))}
-            </Grid>
-            <Grid item xs={9}
-              justifyContent="center"
-              alignItems="flex-start"
-            // sx={{ bgcolor: 'green' }}
-            >
-              {subGameType.map((item) => (
-                <>
-                  <Button
-                    // fullWidth
-                    sx={{ my: 1, mr: "2px", height: '70px', width: '49%' }}
-                    onClick={() => handelAddData()}
+                    {banner.map((item) => (
+                      <>
+                        <SwiperSlide>
+                          <Box sx={{ display: { xs: "block", sm: "none", md: "none" } }}>
+                            <img src={item.img_url} width={375} height={140} style={{ borderRadius: '5px' }} />
+                          </Box>
+                          <Box sx={{ display: { xs: "none", sm: "block", md: "none" }, mt: 1 }}>
+                            <img src={item.img_url} width={800} height={180} style={{ borderRadius: '5px' }} />
+                          </Box>
+                          <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
+                            <img src={item.img_url} width={715} height={180} style={{ borderRadius: '5px' }} />
+                          </Box>
+                        </SwiperSlide>
+                      </>
+                    ))}
+                  </Swiper>
+                </Box>
+                <Box sx={{ my: 1 }}>
+                  <Swiper
+                    loop={true}
+                    spaceBetween={10}
+                    slidesPerView={3}
+                    loopFillGroupWithBlank={true}
+                    freeMode={true}
+                    watchSlidesProgress={true}
+                    autoplay={{
+                      delay: 500,
+                      disableOnInteraction: false,
+                    }}
+                    modules={[FreeMode, Navigation, Thumbs, Autoplay]}
+                    className="mySwiper"
                   >
-                    <img src={item.game_icon} width={135} height={80} style={{ borderRadius: '5px' }} />
-
-                  </Button>
-                </>
-              ))}
-
+                    {slide.map((item) => (
+                      <>
+                        <SwiperSlide>
+                          <Box sx={{ display: { xs: "block", sm: "none", md: "none" } }}>
+                            <img src={item.img_url} width={120} height={70} style={{ borderRadius: '5px' }} />
+                          </Box>
+                          <Box sx={{ display: { xs: "none", sm: "block", md: "none" } }}>
+                            <img src={item.img_url} width={260} height={100} style={{ borderRadius: '5px' }} />
+                          </Box>
+                          <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
+                            <img src={item.img_url} width={230} height={90} style={{ borderRadius: '5px' }} />
+                          </Box>
+                        </SwiperSlide>
+                      </>
+                    ))}
+                  </Swiper>
+                </Box>
+              </Grid>
             </Grid>
 
+
+            <Grid item xs={12} md={6}>
+              <Grid
+                container
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Grid item md={3}>
+                  <Typography sx={{ color: "#000" }}>เกมทดลองเล่น</Typography>
+                </Grid>
+                <Grid item md={3}>
+                  <Grid container>
+                    <Typography sx={{ color: "#000" }}>ดูทั้งหมด</Typography>
+                    <ChevronRightIcon sx={{ color: "#000" }} />
+                  </Grid>
+                </Grid>
+              </Grid>
+
+              <Grid sx={{ mt: 2 }}>
+                <Box >
+                  <Swiper
+                    spaceBetween={30}
+                    centeredSlides={true}
+                    autoplay={{
+                      delay: 2500,
+                      disableOnInteraction: false,
+                    }}
+                    pagination={{
+                      clickable: true,
+                    }}
+
+                    modules={[Autoplay, Pagination, Navigation]}
+                    className="mySwiper"
+                  >
+                    {banner.map((item) => (
+                      <>
+                        <SwiperSlide>
+                          <Box sx={{ display: { xs: "block", sm: "none", md: "none" } }}>
+                            <img src={item.img_url} width={375} height={140} style={{ borderRadius: '5px' }} />
+                          </Box>
+                          <Box sx={{ display: { xs: "none", sm: "block", md: "none" }, mt: 1 }}>
+                            <img src={item.img_url} width={800} height={180} style={{ borderRadius: '5px' }} />
+                          </Box>
+                          <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
+                            <img src={item.img_url} width={715} height={180} style={{ borderRadius: '5px' }} />
+                          </Box>
+                        </SwiperSlide>
+                      </>
+                    ))}
+                  </Swiper>
+                </Box>
+                <Box sx={{ my: 1 }}>
+                  <Swiper
+                    loop={true}
+                    spaceBetween={10}
+                    slidesPerView={3}
+                    loopFillGroupWithBlank={true}
+                    freeMode={true}
+                    watchSlidesProgress={true}
+                    autoplay={{
+                      delay: 500,
+                      disableOnInteraction: false,
+                    }}
+                    modules={[FreeMode, Navigation, Thumbs, Autoplay]}
+                    className="mySwiper"
+                  >
+                    {slide.map((item) => (
+                      <>
+                        <SwiperSlide>
+                          <Box sx={{ display: { xs: "block", sm: "none", md: "none" } }}>
+                            <img src={item.img_url} width={120} height={70} style={{ borderRadius: '5px' }} />
+                          </Box>
+                          <Box sx={{ display: { xs: "none", sm: "block", md: "none" } }}>
+                            <img src={item.img_url} width={260} height={100} style={{ borderRadius: '5px' }} />
+                          </Box>
+                          <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
+                            <img src={item.img_url} width={230} height={90} style={{ borderRadius: '5px' }} />
+                          </Box>
+                        </SwiperSlide>
+                      </>
+                    ))}
+                  </Swiper>
+                </Box>
+              </Grid>
+            </Grid>
 
           </Grid>
-
         </Box>
+
       </Box>
 
       {/* ----- on Desktop ----- */}

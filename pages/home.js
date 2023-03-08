@@ -285,7 +285,7 @@ function Home({ children }) {
             }}>
                {/* {children} */}
                {page === 'home' ? <HomeComponent /> :
-                  page === 'deposit' ? <DepositComponent /> :
+                  page === 'deposit' ? <DepositComponent bank_number={profile.bank_number} bank_name={profile.bank_name} /> :
                      page === 'withdraw' ? <WithdrawComponent /> :
                         page === 'history' ? <HistoryComponent /> : ''}
 
@@ -525,16 +525,15 @@ function Home({ children }) {
             maxWidth='md'
 
          >
-            <DialogTitle sx={{ background: "#0072B1", }}>
-               <Typography sx={{ color: '#eee', fontSize: '18px' }}> ข้อมูลส่วนตัว</Typography>
+            <DialogTitle >
+               <Typography sx={{ color: '#41A3E3', fontSize: '18px' }}> ข้อมูลส่วนตัว</Typography>
             </DialogTitle>
-            <DialogContent
-               sx={{ background: "linear-gradient(#0072B1, #41A3E3)", }}>
-               <Grid container justifyContent='center'>
+            <DialogContent >
+               {/* <Grid container justifyContent='center'>
                   <Avatar
                      sx={{ width: 80, height: 80, my: 2 }}
                   >H</Avatar>
-               </Grid>
+               </Grid> */}
                <Table sx={{ border: '1px solid #eee' }}>
                   <TableRow>
                      <TableCell
@@ -552,16 +551,16 @@ function Home({ children }) {
                      >
                         เครดิตคงเหลือ
                      </TableCell>
-                     <TableCell>{profile.credit}</TableCell>
+                     <TableCell sx={{ color: "#41A3E3" }}>{profile.credit}</TableCell>
                   </TableRow>
                   <TableRow>
                      <TableCell
-                        sx={{ fontWeight: "bold", border: '1px solid #eee' }}
+                        sx={{ fontWeight: "bold", border: '1px solid #eee'}}
                         variant="head"
                      >
                         โทรศัพท์
                      </TableCell>
-                     <TableCell>{profile.tel}</TableCell>
+                     <TableCell sx={{ color: "#41A3E3" }}>{profile.tel}</TableCell>
                   </TableRow>
                   <TableRow>
                      <TableCell
@@ -570,7 +569,7 @@ function Home({ children }) {
                      >
                         ธนาคาร
                      </TableCell>
-                     <TableCell >{profile.bank_name}</TableCell>
+                     <TableCell sx={{ color: "#41A3E3" }}>{profile.bank_name}</TableCell>
                   </TableRow>
                   <TableRow>
                      <TableCell
@@ -579,15 +578,14 @@ function Home({ children }) {
                      >
                         เลขบัญชี
                      </TableCell>
-                     <TableCell >{profile.bank_number}</TableCell>
+                     <TableCell sx={{ color: "#41A3E3" }} >{profile.bank_number}</TableCell>
                   </TableRow>
                </Table>
 
             </DialogContent>
-            <DialogActions sx={{ background: " #41A3E3", }}>
-               <Button onClick={() => setOpenDialog(false)} sx={{ color: '#eee' }}>ยกเลิก</Button>
-               <Button onClick={() => setOpenDialog(false)} sx={{ color: '#eee' }} autoFocus>
-                  ยืนยัน
+            <DialogActions>
+               <Button variant="outlined" onClick={() => setOpenDialog(false)} >
+                  ปิด
                </Button>
             </DialogActions>
          </Dialog>

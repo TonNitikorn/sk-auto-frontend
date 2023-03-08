@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Layout from '../../theme/Layout'
 import {
     Grid,
     Typography,
     Box,
-    IconButton,
+    IconButton, Snackbar
 } from "@mui/material";
 import Image from 'next/image';
 import kbank from "../../assets/kbank.png";
@@ -12,21 +11,36 @@ import scbL from "../../assets/scbL.png";
 import trueL from "../../assets/trueL.png";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import CardBankRank from "../../components/CardBankRank";
 import axios from "axios";
 import hostname from "../../utils/hostname";
+import MuiAlert from "@mui/material/Alert";
 import LoadingModal from '../../theme/LoadingModal'
+import { useRouter } from "next/router";
+import { signOut } from "../../store/slices/userSlice";
+import { useAppDispatch } from "../../store/store";
 
-function DepositComponent() {
-    const [open, setOpen] = useState(false);
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+
+function DepositComponent(props) {
+    const router = useRouter();
+    const dispatch = useAppDispatch();
     const [bank, setBank] = useState([])
-    const [profileDeposit, setProfileDeposit] = useState({})
     const [loading, setLoading] = useState(false)
+    const bank_number = props.bank_number
+    const bank_name = props.bank_name
+    const [openSnackbar, setOpenSnackbar] = useState(false);
 
-    const handleTooltipOpen = () => {
-        setOpen(true);
+
+    const handleClickSnackbar = () => {
+        setOpenSnackbar(true);
     };
 
+    const handleClose = (event, reason) => {
+        setOpenSnackbar(false);
+    };
 
     const getBank = async () => {
         setLoading(true)
@@ -43,14 +57,14 @@ function DepositComponent() {
             setLoading(false)
         } catch (error) {
             console.log(error);
-            // if (
-            //   error.response.status === 401 &&
-            //   error.response.data === "Unauthorized"
-            // ) {
-            //   dispatch(signOut());
-            //   localStorage.clear();
-            //   router.push("/auth/login");
-            // }
+            if (
+                error.response.status === 401 &&
+                error.response.data.error.message === "Unauthorized"
+            ) {
+                dispatch(signOut());
+                localStorage.clear();
+                router.push("/auth/login");
+            }
         }
     };
 
@@ -62,20 +76,23 @@ function DepositComponent() {
         <Box sx={{ m: 2, mb: 10 }}>
             <Box sx={{
                 pb: 9,
-                backgroundImage: `url('https://cdn.softkingdoms.sgp1.digitaloceanspaces.com/BKSCAN.jpg')`,
-                backgroundPosition: 'center',
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat',
+                // backgroundImage: `url('https://cdn.softkingdoms.sgp1.digitaloceanspaces.com/BKSCAN.jpg')`,
+                // backgroundPosition: 'center',
+                // backgroundSize: 'cover',
+                // backgroundRepeat: 'no-repeat',
             }}>
                 <Typography variant="h6" sx={{ fontWeight: 'bold', my: 3 }}>เติมเครดิต</Typography>
                 {bank.map((item) => (
                     <>
-                        <Box sx={{ my: 3 }}>
+                        <Box sx={{ my: 2 }}>
                             <Box
                                 sx={{
-                                    borderRadius: 4,
-                                    bgcolor: '#fff',
-                                    border: "2px solid #41A3E3",
+                                    // borderRadius: 4,
+                                    // bgcolor: '#fff',
+                                    // border: "2px solid #41A3E3",
+                                    // py: "30px"
+                                    borderRadius: 2,
+                                    background: "linear-gradient(#0072B1, #41A3E3)",
                                     py: "30px"
                                 }}
                             >
@@ -89,14 +106,14 @@ function DepositComponent() {
                                         </Box>
                                     </Grid>
                                     <Grid item xs={7} >
-                                        <Typography sx={{ color: '#0B5FAD', fontSize: '14px', pl: 3 }}>{item.bank_name} (กสิกรไทย)</Typography>
-                                        <Typography sx={{ color: '#0B5FAD', fontSize: '16px', fontWeight: 'bold', my: "2px", pl: 3 }}>{item.bank_number}</Typography>
-                                        <Typography sx={{ color: '#0B5FAD', fontSize: '12px', pl: 3 }}>{item.bank_account_name}</Typography>
+                                        <Typography sx={{ color: '#fff', fontSize: '14px', pl: 3 }}>{item.bank_name} (กสิกรไทย)</Typography>
+                                        <Typography sx={{ color: '#fff', fontSize: '18px', my: "5px", pl: 3 }}>{item.bank_number}</Typography>
+                                        <Typography sx={{ color: '#fff', fontSize: '14px', pl: 3 }}>{item.bank_account_name}</Typography>
                                     </Grid>
                                     <Grid item xs={2} >
-                                        <IconButton onClick={handleTooltipOpen}>
-                                            <CopyToClipboard text={"bank_number"}>
-                                                <ContentCopyIcon color="black" />
+                                        <IconButton onClick={handleClickSnackbar}>
+                                            <CopyToClipboard text={item.bank_number}>
+                                                <ContentCopyIcon color="secondary" />
                                             </CopyToClipboard>
                                         </IconButton>
                                     </Grid>
@@ -107,8 +124,20 @@ function DepositComponent() {
                     </>
                 ))}
 
-                <Typography sx={{ my: 3, fontSize: '12px' }}>โปรดใช้บัญชี {profileDeposit.bank_name} <b>{profileDeposit.bank_number}</b> โอนมาเท่านั้น</Typography>
+                <Typography sx={{ mt: 3, fontSize: '12px' }}>โปรดใช้บัญชี {bank_name} <b>{bank_number}</b> โอนมาเท่านั้น</Typography>
             </Box>
+
+            <Snackbar
+                open={openSnackbar}
+                autoHideDuration={3000}
+                onClose={handleClose}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            >
+                <Alert severity="success" sx={{ width: "80%" }}>
+                    Copy success !
+                </Alert>
+            </Snackbar>
+
             <LoadingModal open={loading} />
         </Box>
     )
