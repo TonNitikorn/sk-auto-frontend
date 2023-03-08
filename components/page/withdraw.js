@@ -100,23 +100,25 @@ function WithdrawComponent() {
 
             <Grid container spacing={2} sx={{ mt: 2 }}>
                 {amount.map((item) => (
-                    <Grid item xs={3}>
-                        <Button
-                            variant="contained"
-                            fullWidth
-                            sx={{
-                                p: 1,
-                                bgcolor: '#0072B1'
-                            }}
-                            onClick={() => setPrice(item)}
-                        >
-                            <Typography
-                                sx={{ textAlign: "center", color: "#fff" }}
+                    <>
+                        <Grid item xs={3}>
+                            <Button
+                                variant="contained"
+                                fullWidth
+                                sx={{
+                                    p: 1,
+                                    bgcolor: '#0072B1'
+                                }}
+                                onClick={() => setPrice(item)}
                             >
-                                {Intl.NumberFormat("THB").format(item)}
-                            </Typography>
-                        </Button>
-                    </Grid>
+                                <Typography
+                                    sx={{ textAlign: "center", color: "#fff" }}
+                                >
+                                    {Intl.NumberFormat("THB").format(item)}
+                                </Typography>
+                            </Button>
+                        </Grid>
+                    </>
                 ))}
             </Grid>
 
