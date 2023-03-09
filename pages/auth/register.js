@@ -1,27 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-// import logo from "/assets/logo.png";
 import {
    Button,
    Grid,
    Typography,
-   IconButton,
    TextField,
-   FormControl,
    Box,
-   InputAdornment,
-   OutlinedInput,
-   Switch,
    MenuItem,
    Paper,
 } from "@mui/material";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useRouter } from "next/router";
 import Swal from "sweetalert2";
-import AppBar from '@mui/material/AppBar';
-import Container from '@mui/material/Container';
-import Toolbar from '@mui/material/Toolbar';
 import CssBaseline from "@mui/material/CssBaseline";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
@@ -34,7 +23,6 @@ import { useAppDispatch } from "../../store/store";
 function Register() {
    const router = useRouter()
    const dispatch = useAppDispatch();
-   const [bonus, setBonus] = useState(true);
    const [rowData, setRowData] = useState({});
    const [loading, setLoading] = useState(false);
    const [tabOtp, setTabOtp] = useState(new Array(6).fill(""))
@@ -42,14 +30,6 @@ function Register() {
    const [dataOTP, setDataOTP] = useState({})
 
    const [page, setPage] = useState(0)
-   const [values, setValues] = useState({
-      password: "",
-      showPassword: false,
-   });
-   const [valuesCf, setValuesCf] = useState({
-      password: "",
-      showPassword: false,
-   });
 
    const handleChangeData = async (e) => {
       setRowData({ ...rowData, [e.target.name]: e.target.value });
@@ -65,37 +45,6 @@ function Register() {
       }
    }
 
-   const handleChangeBonus = (event) => {
-      setBonus(event.target.checked);
-   };
-
-   const handleChange = (prop) => (event) => {
-      setValues({ ...values, [prop]: event.target.value });
-   };
-   const handleClickShowPassword = () => {
-      setValues({
-         ...values,
-         showPassword: !values.showPassword,
-      });
-   };
-
-   const handleMouseDownPassword = (event) => {
-      event.preventDefault();
-   };
-
-   const handleChangeCf = (prop) => (event) => {
-      setValuesCf({ ...valuesCf, [prop]: event.target.value });
-   };
-   const handleClickShowPasswordCf = () => {
-      setValuesCf({
-         ...valuesCf,
-         showPassword: !valuesCf.showPassword,
-      });
-   };
-
-   const handleMouseDownPasswordCf = (event) => {
-      event.preventDefault();
-   };
 
    const getLogo = async () => {
       try {
@@ -135,7 +84,6 @@ function Register() {
       } catch (error) {
          console.log(error);
          // setLoading(false)
-
          if (
             error.response.data.error.status_code === 401 &&
             error.response.data.error.message === "มีข้อมูลผู้ใช้งานนี้แล้ว"
@@ -147,51 +95,9 @@ function Register() {
                showConfirmButton: false,
                timer: 2000
             })
-            // router.push("/auth/login")
          }
       }
    }
-
-   // const register = async () => {
-   //    try {
-   //       let res = await axios({
-   //          method: "post",
-   //          url: `${hostname}/v2/auth/register/verify`,
-   //          data: {
-   //             bank_number: rowData.bank_number,
-   //             bank_name: rowData.bank_name,
-   //             tel: rowData.tel,
-   //             affiliate_by: "-",
-   //             platform: "postman",
-   //             pin: tabOtp[0] + tabOtp[1] + tabOtp[2] + tabOtp[3] + tabOtp[4] + tabOtp[5],
-   //             token: dataOTP.token,
-   //          }
-   //       });
-
-   //       if (res.data.message === "Register success") {
-   //          Swal.fire({
-   //             position: 'center',
-   //             icon: 'success',
-   //             title: 'สมัครสมาชิกสำเร็จ',
-   //             showConfirmButton: false,
-   //             timer: 2000
-   //          })
-   //          router.push("/auth/login")
-   //       }
-
-   //    } catch (error) {
-   //       console.log(error);
-   //       // if (
-   //       //   error.response.status === 401 &&
-   //       //   error.response.data === "Unauthorized"
-   //       // ) {
-   //       //   dispatch(signOut());
-   //       //   localStorage.clear();
-   //       //   router.push("/auth/login");
-   //       // }
-   //    }
-   // }
-
 
    useEffect(() => {
       getLogo()
@@ -202,25 +108,6 @@ function Register() {
       <div style={{ padding: "0 2rem" }}>
          <CssBaseline />
 
-         <AppBar position="fixed" color="primary" elevation={0} sx={{ borderBottomLeftRadius: '30px', borderBottomRightRadius: '30px' }}>
-            <Container maxWidth="xl">
-               <Toolbar disableGutters>
-                  <Grid container>
-                     <Grid item xs={6}>
-                        <Box
-                           onClick={() => {
-                              router.push('/')
-                           }}
-                           sx={{ pl: 1, mt: "5px" }}>
-                           {/* <Image alt="banner" src={logo_angpao_white} width={40} height={30} /> */}
-                           <img src={logo[0]?.img_url} width={40} height={30} />
-                        </Box>
-                     </Grid>
-                  </Grid>
-               </Toolbar>
-            </Container>
-         </AppBar>
-
          <Grid container direction="row"
             justifyContent="center"
             alignItems="center" >
@@ -229,11 +116,29 @@ function Register() {
                {
                   page === 0 ?
                      <Box sx={{ mt: 10 }}>
-                        <Paper elevation={1} sx={{ p: 3 }}>
+                        <Paper elevation={1} sx={{
+                           p: 3,
+                           flexGrow: 1,
+                           mt: 20,
+                           bgcolor: '#fff',
+                           borderRadius: 5,
+                           boxShadow: '2px 2px 5px #C1B9B9',
+                           border: "1px solid #C1B9B9"
+                        }}>
+                           <Grid
+                              container
+                              direction="column"
+                              justifyContent="center"
+                              alignItems="center"
+                           >
+                              <Box sx={{ pl: 1, mt: "5px" }}>
+                                 <img src={logo[0]?.img_url} width={150} height={90} />
+                              </Box></Grid>
                            <Grid container
                               direction="row"
                               justifyContent="center"
-                              alignItems="center"><AccountCircleIcon sx={{ color: '#41A3E3' }} />
+                              alignItems="center">
+                              <AccountCircleIcon sx={{ color: '#41A3E3' }} />
                               <Typography sx={{ color: "#41A3E3", ml: 1 }}>สมัครสมาชิก</Typography>
                            </Grid>
 
@@ -296,6 +201,7 @@ function Register() {
                               variant="contained"
                               sx={{ borderRadius: 10 }}
                               onClick={() => {
+                                 console.log('rowData.tel', rowData.tel)
                                  if (!rowData.tel) {
                                     Swal.fire({
                                        position: 'center',
@@ -317,7 +223,24 @@ function Register() {
                      </Box>
                      : page === 1 ?
                         <Box sx={{ mt: 10 }}>
-                           <Paper elevation={1} sx={{ p: 3 }}>
+                           <Paper elevation={1} sx={{
+                              p: 3,
+                              flexGrow: 1,
+                              mt: 20,
+                              bgcolor: '#fff',
+                              borderRadius: 5,
+                              boxShadow: '2px 2px 5px #C1B9B9',
+                              border: "1px solid #C1B9B9"
+                           }}>
+                              <Grid
+                                 container
+                                 direction="column"
+                                 justifyContent="center"
+                                 alignItems="center"
+                              >
+                                 <Box sx={{ pl: 1, mt: "5px" }}>
+                                    <img src={logo[0]?.img_url} width={150} height={90} />
+                                 </Box></Grid>
                               <Grid container
                                  direction="row"
                                  justifyContent="center"
@@ -435,7 +358,24 @@ function Register() {
                         : page === 2 ?
                            <>
                               <Box sx={{ mt: 10 }}>
-                                 <Paper elevation={1} sx={{ p: 3 }}>
+                                 <Paper elevation={1} sx={{
+                                    p: 3,
+                                    flexGrow: 1,
+                                    mt: 20,
+                                    bgcolor: '#fff',
+                                    borderRadius: 5,
+                                    boxShadow: '2px 2px 5px #C1B9B9',
+                                    border: "1px solid #C1B9B9"
+                                 }}>
+                                    <Grid
+                                       container
+                                       direction="column"
+                                       justifyContent="center"
+                                       alignItems="center"
+                                    >
+                                       <Box sx={{ pl: 1, mt: "5px" }}>
+                                          <img src={logo[0]?.img_url} width={150} height={90} />
+                                       </Box></Grid>
                                     <Grid container
                                        direction="row"
                                        justifyContent="center"
@@ -473,7 +413,9 @@ function Register() {
                                        <Typography sx={{ color: "#707070", fontSize: "12px", mt: 1 }}>ไม่ได้รับรหัส OTP ? ?  </Typography>
                                        <Button
                                           variant="text"
-                                          onClick={() => sendOTP()}
+                                          onClick={() => {
+                                             sendOTP()
+                                          }}
                                        >
                                           <Typography sx={{ color: "#41A3E3", fontSize: "12px", textDecoration: 'underline' }} >ส่งรหัสอีกครั้ง</Typography>
                                        </Button>
@@ -551,17 +493,35 @@ function Register() {
          <Box sx={{ display: { xs: "block", md: "none" }, }}>
             {page === 0 ?
                <Box sx={{ mt: 10 }}>
-                  <Paper elevation={1} sx={{ p: 3 }}>
+                  <Paper elevation={1} sx={{
+                     p: 3,
+                     flexGrow: 1,
+                     mt: 20,
+                     bgcolor: '#fff',
+                     borderRadius: 5,
+                     boxShadow: '2px 2px 5px #C1B9B9',
+                     border: "1px solid #C1B9B9"
+                  }}>
+                     <Grid
+                        container
+                        direction="column"
+                        justifyContent="center"
+                        alignItems="center"
+                     >
+                        <Box sx={{ pl: 1, mt: "5px" }}>
+                           <img src={logo[0]?.img_url} width={150} height={90} />
+                        </Box></Grid>
                      <Grid container
                         direction="row"
                         justifyContent="center"
-                        alignItems="center"><AccountCircleIcon sx={{ color: '#41A3E3' }} />
+                        alignItems="center">
+                        <AccountCircleIcon sx={{ color: '#41A3E3' }} />
                         <Typography sx={{ color: "#41A3E3", ml: 1 }}>สมัครสมาชิก</Typography>
                      </Grid>
 
                      <Grid container
                         direction="column"
-                        sx={{ mt: 3 }}>
+                        sx={{ mt: 2 }}>
                         <Typography sx={{ color: "#707070", fontSize: "14px" }}>เบอร์โทรศัพท์</Typography>
                         <TextField
                            name="tel"
@@ -616,7 +576,20 @@ function Register() {
                      <Button
                         variant="contained"
                         sx={{ borderRadius: 10 }}
-                        onClick={() => setPage(1)}
+                        onClick={() => {
+                           console.log('rowData.tel', rowData.tel)
+                           if (!rowData.tel || rowData.tel.length !== 10) {
+                              Swal.fire({
+                                 position: 'center',
+                                 icon: 'warning',
+                                 title: 'กรุณากรอกเบอร์โทรศัพท์',
+                                 showConfirmButton: false,
+                                 timer: 1500
+                              })
+                           } else {
+                              setPage(1)
+                           }
+                        }}
                      >
                         <Typography sx={{ color: '#fff', fontSize: '10px', mr: 1 }}> {" "}ต่อไป {"  "}</Typography>
                         <EastIcon fontSize="small" sx={{ color: '#fff' }} />
@@ -625,7 +598,24 @@ function Register() {
                </Box>
                : page === 1 ?
                   <Box sx={{ mt: 10 }}>
-                     <Paper elevation={1} sx={{ p: 3 }}>
+                     <Paper elevation={1} sx={{
+                        p: 3,
+                        flexGrow: 1,
+                        mt: 20,
+                        bgcolor: '#fff',
+                        borderRadius: 5,
+                        boxShadow: '2px 2px 5px #C1B9B9',
+                        border: "1px solid #C1B9B9"
+                     }}>
+                        <Grid
+                           container
+                           direction="column"
+                           justifyContent="center"
+                           alignItems="center"
+                        >
+                           <Box sx={{ pl: 1, mt: "5px" }}>
+                              <img src={logo[0]?.img_url} width={150} height={90} />
+                           </Box></Grid>
                         <Grid container
                            direction="row"
                            justifyContent="center"

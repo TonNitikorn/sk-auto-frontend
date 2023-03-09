@@ -1165,5 +1165,4 @@ function Index() {
   )
 }
 
-export default Index
-// export default withAuth(index)
+export default withAuth(Index)

@@ -529,11 +529,11 @@ function Home({ children }) {
                <Typography sx={{ color: '#41A3E3', fontSize: '18px' }}> ข้อมูลส่วนตัว</Typography>
             </DialogTitle>
             <DialogContent >
-               {/* <Grid container justifyContent='center'>
+               <Grid container justifyContent='center'>
                   <Avatar
                      sx={{ width: 80, height: 80, my: 2 }}
                   >H</Avatar>
-               </Grid> */}
+               </Grid>
                <Table sx={{ border: '1px solid #eee' }}>
                   <TableRow>
                      <TableCell
@@ -551,16 +551,16 @@ function Home({ children }) {
                      >
                         เครดิตคงเหลือ
                      </TableCell>
-                     <TableCell sx={{ color: "#41A3E3" }}>{profile.credit}</TableCell>
+                     <TableCell>{profile.credit}</TableCell>
                   </TableRow>
                   <TableRow>
                      <TableCell
-                        sx={{ fontWeight: "bold", border: '1px solid #eee'}}
+                        sx={{ fontWeight: "bold", border: '1px solid #eee' }}
                         variant="head"
                      >
                         โทรศัพท์
                      </TableCell>
-                     <TableCell sx={{ color: "#41A3E3" }}>{profile.tel}</TableCell>
+                     <TableCell>{profile.tel}</TableCell>
                   </TableRow>
                   <TableRow>
                      <TableCell
@@ -569,7 +569,7 @@ function Home({ children }) {
                      >
                         ธนาคาร
                      </TableCell>
-                     <TableCell sx={{ color: "#41A3E3" }}>{profile.bank_name}</TableCell>
+                     <TableCell>{profile.bank_name}</TableCell>
                   </TableRow>
                   <TableRow>
                      <TableCell
@@ -578,7 +578,7 @@ function Home({ children }) {
                      >
                         เลขบัญชี
                      </TableCell>
-                     <TableCell sx={{ color: "#41A3E3" }} >{profile.bank_number}</TableCell>
+                     <TableCell >{profile.bank_number}</TableCell>
                   </TableRow>
                </Table>
 

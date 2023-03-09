@@ -4,19 +4,9 @@ import {
   Button,
   Grid,
   Typography,
-  IconButton,
   TextField,
-  FormControl,
   Box,
-  InputAdornment,
-  OutlinedInput,
-  Paper,
-  AppBar,
-  Container,
-  Toolbar
 } from "@mui/material";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useRouter } from "next/router";
 import CssBaseline from "@mui/material/CssBaseline";
 import axios from "axios";
@@ -30,7 +20,6 @@ import LoadingModal from '../../theme/LoadingModal'
 
 function Login() {
   const router = useRouter();
-  const line = 'line'
   const dispatch = useAppDispatch();
   const [logo, setLogo] = useState([])
   const [rowData, setRowData] = useState({});
@@ -41,7 +30,6 @@ function Login() {
     weightRange: "",
     showPassword: false,
   });
-  const { code } = router.query
   const [otp, setOtp] = useState(false)
   const [tabOtp, setTabOtp] = useState(new Array(6).fill(""))
   const [dataOTP, setDataOTP] = useState()
@@ -57,25 +45,35 @@ function Login() {
     }
   }
 
-
   const sendOTP = async () => {
     setLoading(true)
     try {
-      let res = await axios({
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("access_token"),
-        },
-        method: "post",
-        url: `${hostname}/v2/auth/login`,
-        data: {
-          "tel": rowData.tel
-        }
-      });
+      if (!rowData.tel || rowData.tel.length !== 10) {
+        Swal.fire({
+          position: 'center',
+          icon: 'info',
+          title: 'กรุณากรอกหมายเลขโทรศัพท์',
+          showConfirmButton: false,
+          timer: 2000
+        })
+      } else {
+        let res = await axios({
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+          },
+          method: "post",
+          url: `${hostname}/v2/auth/login`,
+          data: {
+            "tel": rowData.tel
+          }
+        });
 
-      let resData = res.data
+        let resData = res.data
 
-      setDataOTP(resData)
-      setOtp(true)
+        setDataOTP(resData)
+        setOtp(true)
+      }
+
       setLoading(false)
     } catch (error) {
       console.log(error);
@@ -140,23 +138,6 @@ function Login() {
     <>
       <div style={{ padding: "0 2rem" }}>
         <CssBaseline />
-        <AppBar position="fixed" color="primary" elevation={0} sx={{ borderBottomLeftRadius: '30px', borderBottomRightRadius: '30px' }}>
-          <Container maxWidth="xl">
-            <Toolbar disableGutters>
-              <Grid container>
-                <Grid item xs={6}>
-                  <Box
-                    onClick={() => {
-                      router.push('/')
-                    }}
-                    sx={{ pl: 1, mt: "5px" }}>
-                    <img src={logo[0]?.img_url} width={40} height={30} />
-                  </Box>
-                </Grid>
-              </Grid>
-            </Toolbar>
-          </Container>
-        </AppBar>
 
         <Grid container >
           <Grid item xs={3} />
@@ -180,7 +161,10 @@ function Login() {
                   justifyContent="center"
                   alignItems="center"
                 >
-                  <Typography variant="h5" sx={{ mt: 3, color: "#41A3E3" }}>เข้าสู่ระบบ</Typography>
+                  <Box sx={{ pl: 1, mt: "5px" }}>
+                    <img src={logo[0]?.img_url} width={150} height={90} />
+                  </Box>
+                  {/* <Typography variant="h5" sx={{ mt: 3, color: "#41A3E3" }}>เข้าสู่ระบบ</Typography> */}
                 </Grid>
                 <Typography sx={{ mt: 3, mb: 1, color: "#707070", fontSize: "14px" }}>
                   เบอร์โทรศัพท์
@@ -252,7 +236,10 @@ function Login() {
                     <ArrowBackIosIcon fontSize='small' sx={{ mt: 3 }} onClick={() => setOtp(false)} />
                   </Grid>
                   <Grid item xs={4} container justifyContent="center">
-                    <Typography variant="h5" sx={{ mt: 3, color: "#41A3E3" }}>เข้าสู่ระบบ</Typography>
+                    <Box sx={{ pl: 1, mt: "5px" }}>
+                      <img src={logo[0]?.img_url} width={150} height={90} />
+                    </Box>
+                    {/* <Typography variant="h5" sx={{ mt: 3, color: "#41A3E3" }}>เข้าสู่ระบบ</Typography> */}
                   </Grid>
                   <Grid item xs={4} />
                 </Grid>
@@ -260,7 +247,7 @@ function Login() {
                 <Grid container
                   direction="column"
                   sx={{ mt: 1 }}>
-                  <Typography sx={{ mt: 3, ml: 2, color: "#4B4949", fontSize: "16px" }}>ยืนยันตัวตน OTP</Typography>
+                  <Typography sx={{ mt: 2, ml: 2, color: "#4B4949", fontSize: "16px" }}>ยืนยันตัวตน OTP</Typography>
 
                   <Typography sx={{ mt: 1, ml: 2, color: "#707070", fontSize: "14px" }}>ส่งรหัส 6 หลักไปที่ {rowData.tel}</Typography>
                   <Box sx={{ textAlign: 'center', mt: 2, mb: -4 }}>
@@ -279,7 +266,7 @@ function Login() {
                       )
                     })}
                   </Box>
-                  <Typography sx={{ ml: 2, color: "#707070", fontSize: "14px" }}>รหัสอ้างอิง : {dataOTP.refno}</Typography>
+                  <Typography sx={{ ml: 2, color: "#707070", fontSize: "14px" }}>รหัสอ้างอิง : {dataOTP.refno} </Typography>
                 </Grid>
                 <Grid container
                   direction="row">
@@ -346,15 +333,19 @@ function Login() {
               border: "1px solid #C1B9B9"
             }}
           >
+
             <Grid
               container
               direction="column"
               justifyContent="center"
               alignItems="center"
             >
-              <Typography variant="h5" sx={{ mt: 3, color: "#41A3E3" }}>เข้าสู่ระบบ</Typography>
+              <Box sx={{ pl: 1, mt: "5px" }}>
+                <img src={logo[0]?.img_url} width={150} height={90} />
+              </Box>
+              {/* <Typography variant="h5" sx={{ mt: 3, color: "#41A3E3" }}>เข้าสู่ระบบ</Typography> */}
             </Grid>
-            <Typography sx={{ mt: 3, color: "#707070", fontSize: "14px" }}>
+            <Typography sx={{ mt: 2, color: "#707070", fontSize: "14px" }}>
               เบอร์โทรศัพท์
             </Typography>
             <TextField
@@ -425,15 +416,16 @@ function Login() {
                 <ArrowBackIosIcon fontSize='small' sx={{ mt: 3 }} onClick={() => setOtp(false)} />
               </Grid>
               <Grid item xs={4} container justifyContent="center">
-                <Typography variant="h5" sx={{ mt: 3, color: "#41A3E3" }}>เข้าสู่ระบบ</Typography>
+                <Box sx={{ pl: 1, mt: "5px" }}>
+                  <img src={logo[0]?.img_url} width={150} height={90} />
+                </Box>
+                {/* <Typography variant="h5" sx={{ mt: 3, color: "#41A3E3" }}>เข้าสู่ระบบ</Typography> */}
               </Grid>
               <Grid item xs={4} />
             </Grid>
 
-            <Grid container
-              direction="column"
-              sx={{ mt: 1 }}>
-              <Typography sx={{ mt: 3, color: "#4B4949", fontSize: "16px" }}>ยืนยันตัวตน OTP</Typography>
+            <Grid container direction="column" >
+              <Typography sx={{ mt: 2, color: "#4B4949", fontSize: "16px" }}>ยืนยันตัวตน OTP</Typography>
 
               <Typography sx={{ mt: 1, color: "#707070", fontSize: "14px" }}>ส่งรหัส 6 หลักไปที่ {rowData.tel}</Typography>
               <Box sx={{ textAlign: 'center', mt: 2, mb: -4 }}>
