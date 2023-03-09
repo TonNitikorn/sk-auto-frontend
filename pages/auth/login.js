@@ -45,6 +45,7 @@ function Login() {
     }
   }
 
+
   const sendOTP = async () => {
     setLoading(true)
     try {
@@ -147,7 +148,7 @@ function Login() {
                 sx={{
                   display: { xs: "none", md: "block" },
                   flexGrow: 1,
-                  mt: 20,
+                  mt: 10,
                   p: 2,
                   bgcolor: '#fff',
                   borderRadius: 5,
@@ -219,7 +220,7 @@ function Login() {
                 sx={{
                   display: { xs: "none", md: "block" },
                   flexGrow: 1,
-                  mt: 20,
+                  mt: 10,
                   p: 2,
                   bgcolor: '#fff',
                   borderRadius: 5,
@@ -325,7 +326,7 @@ function Login() {
             sx={{
               display: { xs: "block", md: "none" },
               flexGrow: 1,
-              mt: 20,
+              mt: 10,
               p: 2,
               bgcolor: '#fff',
               borderRadius: 5,
@@ -399,7 +400,7 @@ function Login() {
             sx={{
               display: { xs: "block", md: "none" },
               flexGrow: 1,
-              mt: 20,
+              mt: 10,
               p: 2,
               bgcolor: '#fff',
               borderRadius: 5,

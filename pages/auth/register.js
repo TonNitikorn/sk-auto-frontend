@@ -119,7 +119,6 @@ function Register() {
                         <Paper elevation={1} sx={{
                            p: 3,
                            flexGrow: 1,
-                           mt: 20,
                            bgcolor: '#fff',
                            borderRadius: 5,
                            boxShadow: '2px 2px 5px #C1B9B9',
@@ -226,7 +225,6 @@ function Register() {
                            <Paper elevation={1} sx={{
                               p: 3,
                               flexGrow: 1,
-                              mt: 20,
                               bgcolor: '#fff',
                               borderRadius: 5,
                               boxShadow: '2px 2px 5px #C1B9B9',
@@ -361,7 +359,6 @@ function Register() {
                                  <Paper elevation={1} sx={{
                                     p: 3,
                                     flexGrow: 1,
-                                    mt: 20,
                                     bgcolor: '#fff',
                                     borderRadius: 5,
                                     boxShadow: '2px 2px 5px #C1B9B9',
@@ -496,7 +493,6 @@ function Register() {
                   <Paper elevation={1} sx={{
                      p: 3,
                      flexGrow: 1,
-                     mt: 20,
                      bgcolor: '#fff',
                      borderRadius: 5,
                      boxShadow: '2px 2px 5px #C1B9B9',
@@ -601,7 +597,6 @@ function Register() {
                      <Paper elevation={1} sx={{
                         p: 3,
                         flexGrow: 1,
-                        mt: 20,
                         bgcolor: '#fff',
                         borderRadius: 5,
                         boxShadow: '2px 2px 5px #C1B9B9',
