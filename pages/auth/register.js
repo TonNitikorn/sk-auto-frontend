@@ -731,7 +731,14 @@ function Register() {
                   : page === 2 ?
                      <>
                         <Box sx={{ mt: 10 }}>
-                           <Paper elevation={1} sx={{ p: 3 }}>
+                           <Paper elevation={1} sx={{
+                              p: 3,
+                              flexGrow: 1,
+                              bgcolor: '#fff',
+                              borderRadius: 5,
+                              boxShadow: '2px 2px 5px #C1B9B9',
+                              border: "1px solid #C1B9B9"
+                           }}>
                               <Grid container
                                  direction="row"
                                  justifyContent="center"

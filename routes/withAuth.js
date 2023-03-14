@@ -5,7 +5,9 @@ import { useRouter } from "next/router";
 import {
   isAuthenticatedSelector,
   isAuthenticatingSelector,
+  getToken
 } from "../store/slices/userSlice";
+import { useAppDispatch } from "../store/store";
 
 const withAuth = (WrappedComponent) => (props) => {
   // this hoc only supports client side rendering.
@@ -15,6 +17,7 @@ const withAuth = (WrappedComponent) => (props) => {
   if (isClient()) {
     const router = useRouter();
     const { route } = router;
+    const dispatch = useAppDispatch();
     const isAuthenticated = useSelector(isAuthenticatedSelector);
     const isAuthenticating = useSelector(isAuthenticatingSelector);
     // is fetching session (eg. show spinner)
@@ -26,13 +29,27 @@ const withAuth = (WrappedComponent) => (props) => {
     // If user is not logged in, return login component
     if (route !== "/auth/login") {
       if (!isAuthenticated) {
-        router.push(`/auth/login`);
+        if (route == "/") {
+          const token = new URLSearchParams(window.location.search).get("access_token");
+          const redirect = async () => {
+            dispatch(getToken({ token: localStorage.getItem("access_token") }))
+          };
+
+          if (token) {
+            localStorage.setItem("access_token", token);
+            redirect();
+          } else {
+            router.push(`/auth/login`);
+          }
+
+        } else {
+          router.push(`/auth/login`);
+          return null;
+        }
+      } else if (route == "/") {
+        router.push(`/home`); // default page after login when call root path
         return null;
-      } 
-      // else if (route == "/") {
-      //   router.push(`/home`); // default page after login when call root path
-      //   return null;
-      // }
+      }
     } else {
       if (isAuthenticated) {
         router.push(`/home`); // default page after login
