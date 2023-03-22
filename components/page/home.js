@@ -152,10 +152,11 @@ function Home() {
                                 แจ้งปัญหา
                             </Typography>
                         </Grid>
+                        
                     </Grid>
 
-                    <Grid container spacing={1} sx={{ p: 2, mt: 1 }} item md={12}>
-                        <Grid item xs={12} md={6}>
+                    <Grid container spacing={1} sx={{ p: 2, mt: 1  , mb:7 }} item md={12}>
+                        <Grid item xs={12} md={12}>
                             <Grid
                                 container
                                 direction="row"
@@ -165,7 +166,7 @@ function Home() {
                                 <Grid item md={3}>
                                     <Typography sx={{ color: "#000" }}>โปรโมชัน</Typography>
                                 </Grid>
-                                <Grid item md={3}>
+                                <Grid item md={2}>
                                     <Grid container>
                                         <Typography sx={{ color: "#000" }}>ดูทั้งหมด</Typography>
                                         <ChevronRightIcon sx={{ color: "#000" }} />
@@ -236,7 +237,7 @@ function Home() {
                                                         {/* <Image alt="banner" src={item} width={350} height={180} /> */}
                                                     </Box>
                                                     <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
-                                                        <img src={item.img_url} width={230} height={90} style={{ borderRadius: '5px' }} />
+                                                        <img src={item.img_url} width={190} height={90} style={{ borderRadius: '5px' }} />
                                                         {/* <Image alt="banner" src={item} width={400} height={200} /> */}
                                                     </Box>
                                                 </SwiperSlide>
