@@ -126,36 +126,118 @@ function Home() {
         <>
             {selectGame === false ?
                 <Box>
-                    <Grid container spacing={1} sx={{ p: 1, textAlign: "center" }}>
-                        <Grid item xs={6} md={3}>
-                            <Image
-                                src={gameIn}
-                                alt="diamond"
-                                onClick={() => {
-                                    // router.push("/Games");
-                                    setSelectGame(true)
-                                }}
-                            />
-                            <Typography sx={{ fontSize: '14px' }}>
-                                เล่นเกมส์
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={6} md={3}>
-                            <Image
-                                src={problam}
-                                alt="diamond"
-                                onClick={() => {
-                                    // router.push("https://lin.ee/F8pxLTg");
-                                }}
-                            />
-                            <Typography sx={{ fontSize: '14px' }}>
-                                แจ้งปัญหา
-                            </Typography>
-                        </Grid>
-                        
-                    </Grid>
+                    <Box sx={{ display: { xs: "block", sm: 'none', md: "none" }, }}>
+                        <Grid container spacing={1} sx={{ p: 1, textAlign: "center" }}>
+                            <Grid item xs={6} md={3}>
+                                <img src={"https://angpaos.games/wp-content/uploads/2023/03/Playgame-auto.jpg"}
+                                    width={172}
+                                    height={96}
+                                    style={{
+                                        borderRadius: '5px',
+                                        boxShadow: '2px 2px 5px gray'
+                                    }}
+                                    onClick={() => {
+                                        setSelectGame(true)
+                                    }}
+                                />
+                                <Typography sx={{ fontSize: '14px' }}>
+                                    เล่นเกมส์
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={6} md={3}>
+                                <img src={"https://angpaos.games/wp-content/uploads/2023/03/Admin-auto.jpg"}
+                                    width={172}
+                                    height={96}
+                                    style={{
+                                        borderRadius: '5px',
+                                        boxShadow: '2px 2px 5px gray'
+                                    }}
+                                    onClick={() => {
+                                        setSelectGame(true)
+                                    }}
+                                />
+                                <Typography sx={{ fontSize: '14px' }}>
+                                    แจ้งปัญหา
+                                </Typography>
+                            </Grid>
 
-                    <Grid container spacing={1} sx={{ p: 2, mt: 1  , mb:7 }} item md={12}>
+                        </Grid>
+                    </Box>
+                    <Box sx={{ display: { xs: "none", sm: 'block', md: "none" }, }}>
+                        <Grid container spacing={1} sx={{ p: 1, textAlign: "center" }}>
+                            <Grid item xs={6} >
+                                <img src={"https://angpaos.games/wp-content/uploads/2023/03/2Playgame-auto.jpg"}
+                                    width={'95%'}
+                                    height={126}
+                                    style={{
+                                        borderRadius: '5px',
+                                        boxShadow: '2px 2px 5px gray'
+                                    }}
+                                    onClick={() => {
+                                        setSelectGame(true)
+                                    }}
+                                />
+                                <Typography sx={{ fontSize: '14px' }}>
+                                    เล่นเกมส์
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={6} >
+                                <img src={"https://angpaos.games/wp-content/uploads/2023/03/2Admin-auto.jpg"}
+                                    width={'95%'}
+                                    height={126}
+                                    style={{
+                                        borderRadius: '5px',
+                                        boxShadow: '2px 2px 5px gray'
+                                    }}
+                                    onClick={() => {
+                                        setSelectGame(true)
+                                    }}
+                                />
+                                <Typography sx={{ fontSize: '14px' }}>
+                                    แจ้งปัญหา
+                                </Typography>
+                            </Grid>
+
+                        </Grid>
+                    </Box>
+                    <Box sx={{ display: { xs: "none", sm: 'none', md: "block" }, }}>
+                        <Grid container spacing={1} sx={{ p: 1, textAlign: "center" }}>
+                            <Grid item xs={6} >
+                                <img src={"https://angpaos.games/wp-content/uploads/2023/03/2Playgame-auto.jpg"}
+                                    width={'95%'}
+                                    height={126}
+                                    style={{
+                                        borderRadius: '5px',
+                                        boxShadow: '2px 2px 5px gray'
+                                    }}
+                                    onClick={() => {
+                                        setSelectGame(true)
+                                    }}
+                                />
+                                <Typography sx={{ fontSize: '14px' }}>
+                                    เล่นเกมส์
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={6} >
+                                <img src={"https://angpaos.games/wp-content/uploads/2023/03/2Admin-auto.jpg"}
+                                    width={'95%'}
+                                    height={126}
+                                    style={{
+                                        borderRadius: '5px',
+                                        boxShadow: '2px 2px 5px gray'
+                                    }}
+                                    onClick={() => {
+                                        setSelectGame(true)
+                                    }}
+                                />
+                                <Typography sx={{ fontSize: '14px' }}>
+                                    แจ้งปัญหา
+                                </Typography>
+                            </Grid>
+
+                        </Grid>
+                    </Box>
+                    <Grid container spacing={1} sx={{ p: 2, mt: 1, mb: 7 }} item md={12}>
                         <Grid item xs={12} md={12}>
                             <Grid
                                 container

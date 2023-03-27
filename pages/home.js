@@ -496,35 +496,35 @@ function Home({ children }) {
                <Grid item xs={3} />
 
                <Grid item xs={6}>
-               <Box sx={{ mt: 1 }} >
-               <BottomNavigation
-                  showLabels
-                  value={value}
-                  sx={{
-                     background: "linear-gradient(#41A3E3, #0072B1)", borderTopLeftRadius: '30px', borderTopRightRadius: '30px',
-                     '& .Mui-selected': {
-                        '& .MuiBottomNavigationAction-label': {
-                           color: '#fff'
-                        },
-                        '& .MuiSvgIcon-root, & .MuiBottomNavigationAction-label': {
-                           color: '#fff'
-                        }
-                     }
-                  }}
-                  onChange={(event, newValue) => {
-                     setValue(newValue);
-                  }}
-               >
-                  <BottomNavigationAction label="หน้าหลัก" value="home" icon={<HomeIcon />} onClick={() => setPage('home')} />
-                  <BottomNavigationAction label="ฝากเงิน" value="deposit" icon={<PaidIcon />} onClick={() => setPage('deposit')} />
-                  <BottomNavigationAction label="ถอนเงิน" value="withdraw" icon={<CurrencyExchangeIcon />} onClick={() => setPage('withdraw')} />
-                  <BottomNavigationAction label="ประวัติ" value="history" icon={<ViewListIcon />} onClick={() => setPage('history')} />
-               </BottomNavigation>
-            </Box>
+                  <Box sx={{ mt: 1 }} >
+                     <BottomNavigation
+                        showLabels
+                        value={value}
+                        sx={{
+                           background: "linear-gradient(#41A3E3, #0072B1)", borderTopLeftRadius: '30px', borderTopRightRadius: '30px',
+                           '& .Mui-selected': {
+                              '& .MuiBottomNavigationAction-label': {
+                                 color: '#fff'
+                              },
+                              '& .MuiSvgIcon-root, & .MuiBottomNavigationAction-label': {
+                                 color: '#fff'
+                              }
+                           }
+                        }}
+                        onChange={(event, newValue) => {
+                           setValue(newValue);
+                        }}
+                     >
+                        <BottomNavigationAction label="หน้าหลัก" value="home" icon={<HomeIcon />} onClick={() => setPage('home')} />
+                        <BottomNavigationAction label="ฝากเงิน" value="deposit" icon={<PaidIcon />} onClick={() => setPage('deposit')} />
+                        <BottomNavigationAction label="ถอนเงิน" value="withdraw" icon={<CurrencyExchangeIcon />} onClick={() => setPage('withdraw')} />
+                        <BottomNavigationAction label="ประวัติ" value="history" icon={<ViewListIcon />} onClick={() => setPage('history')} />
+                     </BottomNavigation>
+                  </Box>
                </Grid>
                <Grid item xs={3} />
             </Grid>
-          
+
 
 
          </Box>
@@ -583,7 +583,262 @@ function Home({ children }) {
                      >
                         ธนาคาร
                      </TableCell>
-                     <TableCell>{profile.bank_name}</TableCell>
+                     <TableCell>
+                        <Grid container >
+                           <Grid item xs={3}>
+                              {profile.bank_name === "kbnk" ? (
+                                 <Image
+                                    src={
+                                       "https://angpaos.games/wp-content/uploads/2023/03/kbnk.png"
+                                    }
+                                    alt="kbnk"
+                                    width={50}
+                                    height={50}
+                                 />
+                              ) : profile.bank_name === "truemoney" ? (
+                                 <Image
+                                    src={
+                                       "https://angpaos.games/wp-content/uploads/2023/03/truemoney.png"
+                                    }
+                                    alt="truemoney"
+                                    width={50}
+                                    height={50}
+                                 />
+                              ) : profile.bank_name === "ktba" ? (
+                                 <Image
+                                    src={
+                                       "https://angpaos.games/wp-content/uploads/2023/03/ktba.png"
+                                    }
+                                    alt="ktba"
+                                    width={50}
+                                    height={50}
+                                 />
+                              ) : profile.bank_name === "scb" ? (
+                                 <Image
+                                    src={
+                                       "https://angpaos.games/wp-content/uploads/2023/03/scb.png"
+                                    }
+                                    alt="scb"
+                                    width={50}
+                                    height={50}
+                                 />
+                              ) : profile.bank_name === "bay" ? (
+                                 <Image
+                                    src={
+                                       "https://angpaos.games/wp-content/uploads/2023/03/bay.png"
+                                    }
+                                    alt="bay"
+                                    width={50}
+                                    height={50}
+                                 />
+                              ) : profile.bank_name === "bbla" ? (
+                                 <Image
+                                    src={
+                                       "https://angpaos.games/wp-content/uploads/2023/03/bbl.png"
+                                    }
+                                    alt="bbla"
+                                    width={50}
+                                    height={50}
+                                 />
+                              ) : profile.bank_name === "gsb" ? (
+                                 <Image
+                                    src={
+                                       "https://angpaos.games/wp-content/uploads/2023/03/gsb.png"
+                                    }
+                                    alt="gsb"
+                                    width={50}
+                                    height={50}
+                                 />
+                              ) : profile.bank_name === "ttb" ? (
+                                 <Image
+                                    src={
+                                       "https://angpaos.games/wp-content/uploads/2023/03/ttb.png"
+                                    }
+                                    alt="ttb"
+                                    width={50}
+                                    height={50}
+                                 />
+                              ) : profile.bank_name === "bbac" ? (
+                                 <Image
+                                    src={
+                                       "https://angpaos.games/wp-content/uploads/2023/03/baac.png"
+                                    }
+                                    alt="bbac"
+                                    width={50}
+                                    height={50}
+                                 />
+                              ) : profile.bank_name === "icbc" ? (
+                                 <Image
+                                    src={
+                                       "https://angpaos.games/wp-content/uploads/2023/03/icbc.png"
+                                    }
+                                    alt="icbc"
+                                    width={50}
+                                    height={50}
+                                 />
+                              ) : profile.bank_name === "tcd" ? (
+                                 <Image
+                                    src={
+                                       "https://angpaos.games/wp-content/uploads/2023/03/tcd.png"
+                                    }
+                                    alt="tcd"
+                                    width={50}
+                                    height={50}
+                                 />
+                              ) : profile.bank_name === "citi" ? (
+                                 <Image
+                                    src={
+                                       "https://angpaos.games/wp-content/uploads/2023/03/citi.png"
+                                    }
+                                    alt="citi"
+                                    width={50}
+                                    height={50}
+                                 />
+                              ) : profile.bank_name === "scbt" ? (
+                                 <Image
+                                    src={
+                                       "https://angpaos.games/wp-content/uploads/2023/03/scbt.png"
+                                    }
+                                    alt="scbt"
+                                    width={50}
+                                    height={50}
+                                 />
+                              ) : profile.bank_name === "cimb" ? (
+                                 <Image
+                                    src={
+                                       "https://angpaos.games/wp-content/uploads/2023/03/cimb.png"
+                                    }
+                                    alt="cimb"
+                                    width={50}
+                                    height={50}
+                                 />
+                              ) : profile.bank_name === "uob" ? (
+                                 <Image
+                                    src={
+                                       "https://angpaos.games/wp-content/uploads/2023/03/uob.png"
+                                    }
+                                    alt="uob"
+                                    width={50}
+                                    height={50}
+                                 />
+                              ) : profile.bank_name === "hsbc" ? (
+                                 <Image
+                                    src={
+                                       "https://angpaos.games/wp-content/uploads/2023/03/hsbc.png"
+                                    }
+                                    alt="hsbc"
+                                    width={50}
+                                    height={50}
+                                 />
+                              ) : profile.bank_name === "mizuho" ? (
+                                 <Image
+                                    src={
+                                       "https://angpaos.games/wp-content/uploads/2023/03/mizuho.png"
+                                    }
+                                    alt="mizuho"
+                                    width={50}
+                                    height={50}
+                                 />
+                              ) : profile.bank_name === "ghb" ? (
+                                 <Image
+                                    src={
+                                       "https://angpaos.games/wp-content/uploads/2023/03/ghb.png"
+                                    }
+                                    alt="ghb"
+                                    width={50}
+                                    height={50}
+                                 />
+                              ) : profile.bank_name === "lhbank" ? (
+                                 <Image
+                                    src={
+                                       "https://angpaos.games/wp-content/uploads/2023/03/lhbank.png"
+                                    }
+                                    alt="lhbank"
+                                    width={50}
+                                    height={50}
+                                 />
+                              ) : profile.bank_name === "tisco" ? (
+                                 <Image
+                                    src={
+                                       "https://angpaos.games/wp-content/uploads/2023/03/tisco.png"
+                                    }
+                                    alt="tisco"
+                                    width={50}
+                                    height={50}
+                                 />
+                              ) : profile.bank_name === "kkba" ? (
+                                 <Image
+                                    src={
+                                       "https://angpaos.games/wp-content/uploads/2023/03/kkba.png"
+                                    }
+                                    alt="kkba"
+                                    width={50}
+                                    height={50}
+                                 />
+                              ) : profile.bank_name === "ibank" ? (
+                                 <Image
+                                    src={
+                                       "https://angpaos.games/wp-content/uploads/2023/03/ibank.png"
+                                    }
+                                    alt="ibank"
+                                    width={50}
+                                    height={50}
+                                 />
+                              ) : (
+                                 ""
+                              )}
+                           </Grid>
+                           <Grid item xs={6} sx={{ ml: 1, mt: '5px' }}>
+                              <Typography sx={{fontSize:'14px'}} >
+                                 {profile.bank_name === "kbnk"
+                                    ? "กสิกรไทย"
+                                    : profile.bank_name === "truemoney"
+                                       ? "TrueMoney"
+                                       : profile.bank_name === "ktba"
+                                          ? "กรุงไทย"
+                                          : profile.bank_name === "scb"
+                                             ? "ไทยพาณิชย์"
+                                             : profile.bank_name === "bay"
+                                                ? "กรุงศรีอยุธยา"
+                                                : profile.bank_name === "bbla"
+                                                   ? "กรุงเทพ"
+                                                   : profile.bank_name === "gsb"
+                                                      ? "ออมสิน"
+                                                      : profile.bank_name === "ttb"
+                                                         ? "ทหารไทยธนชาต (TTB)"
+                                                         : profile.bank_name === "BAAC"
+                                                            ? "เพื่อการเกษตรและสหกรณ์การเกษตร"
+                                                            : profile.bank_name === "ICBC"
+                                                               ? "ไอซีบีซี (ไทย)"
+                                                               : profile.bank_name === "TCD"
+                                                                  ? "ไทยเครดิตเพื่อรายย่อย"
+                                                                  : profile.bank_name === "CITI"
+                                                                     ? "ซิตี้แบงก์"
+                                                                     : profile.bank_name === "SCBT"
+                                                                        ? "สแตนดาร์ดชาร์เตอร์ด (ไทย)"
+                                                                        : profile.bank_name === "CIMB"
+                                                                           ? "ซีไอเอ็มบีไทย"
+                                                                           : profile.bank_name === "UOB"
+                                                                              ? "ยูโอบี"
+                                                                              : profile.bank_name === "HSBC"
+                                                                                 ? "เอชเอสบีซี ประเทศไทย"
+                                                                                 : profile.bank_name === "MIZUHO"
+                                                                                    ? "มิซูโฮ คอร์ปอเรต"
+                                                                                    : profile.bank_name === "GHB"
+                                                                                       ? "อาคารสงเคราะห์"
+                                                                                       : profile.bank_name === "LHBANK"
+                                                                                          ? "แลนด์ แอนด์ เฮ้าส์"
+                                                                                          : profile.bank_name === "TISCO"
+                                                                                             ? "ทิสโก้"
+                                                                                             : profile.bank_name === "kkba"
+                                                                                                ? "เกียรตินาคิน"
+                                                                                                : profile.bank_name === "IBANK"
+                                                                                                   ? "อิสลามแห่งประเทศไทย"
+                                                                                                   : ""
+                                 }
+                              </Typography>
+                           </Grid>
+                        </Grid></TableCell>
                   </TableRow>
                   <TableRow>
                      <TableCell

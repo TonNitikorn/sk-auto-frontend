@@ -6,7 +6,7 @@ import {
     IconButton, Snackbar
 } from "@mui/material";
 import Image from 'next/image';
-import kbank from "../../assets/kbank.png";
+import kbankL from "../../assets/kbankL.png";
 import scbL from "../../assets/scbL.png";
 import trueL from "../../assets/trueL.png";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -73,7 +73,7 @@ function DepositComponent(props) {
     }, [])
 
     return (
-        <Box sx={{ m: 2,}}>
+        <Box sx={{ m: 2, }}>
             <Box sx={{
                 pb: 9,
                 // backgroundImage: `url('https://cdn.softkingdoms.sgp1.digitaloceanspaces.com/BKSCAN.jpg')`,
@@ -87,13 +87,15 @@ function DepositComponent(props) {
                         <Box sx={{ my: 2 }}>
                             <Box
                                 sx={{
-                                    // borderRadius: 4,
-                                    // bgcolor: '#fff',
-                                    // border: "2px solid #41A3E3",
-                                    // py: "30px"
+                                    backgroundImage: `url("https://angpaos.games/wp-content/uploads/2023/03/2BG-Bank.jpg")`,
+                                    backgroundPosition: 'center',
+                                    backgroundSize: 'cover',
+                                    backgroundRepeat: 'no-repeat',
+
                                     borderRadius: 2,
-                                    background: "linear-gradient(#0072B1, #41A3E3)",
-                                    py: "30px"
+                                    // background: "linear-gradient(#0072B1, #41A3E3)",
+                                    py: "30px",
+                                    boxShadow: '2px 2px 10px gray'
                                 }}
                             >
                                 <Grid container
@@ -102,18 +104,18 @@ function DepositComponent(props) {
                                     alignItems="center">
                                     <Grid item xs={3}>
                                         <Box sx={{ ml: 4 }}>
-                                            <Image src={kbank} alt="kbank" width="100%" height="100%" />
+                                            <Image src={kbankL} alt="kbank" width="100%" height="100%" />
                                         </Box>
                                     </Grid>
                                     <Grid item xs={7} >
-                                        <Typography sx={{ color: '#fff', fontSize: '14px', pl: 3 }}>{item.bank_name} (กสิกรไทย)</Typography>
-                                        <Typography sx={{ color: '#fff', fontSize: '18px', my: "5px", pl: 3 }}>{item.bank_number}</Typography>
-                                        <Typography sx={{ color: '#fff', fontSize: '14px', pl: 3 }}>{item.bank_account_name}</Typography>
+                                        <Typography sx={{ fontSize: '14px', pl: 3 }}>{item.bank_name} (กสิกรไทย)</Typography>
+                                        <Typography sx={{ fontSize: '18px', my: "5px", pl: 3 }}>{item.bank_number}</Typography>
+                                        <Typography sx={{ fontSize: '14px', pl: 3 }}>{item.bank_account_name}</Typography>
                                     </Grid>
                                     <Grid item xs={2} >
                                         <IconButton onClick={handleClickSnackbar}>
                                             <CopyToClipboard text={item.bank_number}>
-                                                <ContentCopyIcon color="secondary" />
+                                                <ContentCopyIcon />
                                             </CopyToClipboard>
                                         </IconButton>
                                     </Grid>
