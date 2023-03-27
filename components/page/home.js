@@ -168,7 +168,7 @@ function Home() {
                             <Grid item xs={6} >
                                 <img src={"https://angpaos.games/wp-content/uploads/2023/03/2Playgame-auto.jpg"}
                                     width={'95%'}
-                                    height={126}
+                                    height={115}
                                     style={{
                                         borderRadius: '5px',
                                         boxShadow: '2px 2px 5px gray'
@@ -184,7 +184,7 @@ function Home() {
                             <Grid item xs={6} >
                                 <img src={"https://angpaos.games/wp-content/uploads/2023/03/2Admin-auto.jpg"}
                                     width={'95%'}
-                                    height={126}
+                                    height={115}
                                     style={{
                                         borderRadius: '5px',
                                         boxShadow: '2px 2px 5px gray'
