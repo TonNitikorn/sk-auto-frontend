@@ -328,12 +328,13 @@ function Home({ children }) {
          <Box
             sx={{
                display: { xs: "none", md: "block" },
+
             }}
          >
             <Grid container sx={{ mt: 1 }}>
                <Grid item xs={3} />
                <Grid item xs={6}>
-                  <Paper elevation={10} >
+                  <Paper elevation={10} sx={{ minHeight: '860px' }}>
                      <Grid
                         container
                         direction="row"
@@ -484,39 +485,52 @@ function Home({ children }) {
                               page === 'withdraw' ? <WithdrawComponent /> :
                                  page === 'history' ? <HistoryComponent /> : ''}
                      </Box>
-                     <Box sx={{ mt: 3 }} >
 
-                        <BottomNavigation
-                           showLabels
-                           value={value}
-                           sx={{
-                              background: "linear-gradient(#41A3E3, #0072B1)", borderTopLeftRadius: '30px', borderTopRightRadius: '30px',
-                              '& .Mui-selected': {
-                                 '& .MuiBottomNavigationAction-label': {
-                                    color: '#fff'
-                                 },
-                                 '& .MuiSvgIcon-root, & .MuiBottomNavigationAction-label': {
-                                    color: '#fff'
-                                 }
-                              }
-                           }}
-                           onChange={(event, newValue) => {
-                              setValue(newValue);
-                           }}
-                        >
-                           <BottomNavigationAction label="หน้าหลัก" value="home" icon={<HomeIcon />} onClick={() => setPage('home')} />
-                           <BottomNavigationAction label="ฝากเงิน" value="deposit" icon={<PaidIcon />} onClick={() => setPage('deposit')} />
-                           <BottomNavigationAction label="ถอนเงิน" value="withdraw" icon={<CurrencyExchangeIcon />} onClick={() => setPage('withdraw')} />
-                           <BottomNavigationAction label="ประวัติ" value="history" icon={<ViewListIcon />} onClick={() => setPage('history')} />
-                        </BottomNavigation>
-                     </Box>
                   </Paper>
+
                </Grid>
                <Grid item xs={3} />
             </Grid>
 
+            <Grid container >
+               <Grid item xs={3} />
+
+               <Grid item xs={6}>
+               <Box sx={{ mt: 1 }} >
+               <BottomNavigation
+                  showLabels
+                  value={value}
+                  sx={{
+                     background: "linear-gradient(#41A3E3, #0072B1)", borderTopLeftRadius: '30px', borderTopRightRadius: '30px',
+                     '& .Mui-selected': {
+                        '& .MuiBottomNavigationAction-label': {
+                           color: '#fff'
+                        },
+                        '& .MuiSvgIcon-root, & .MuiBottomNavigationAction-label': {
+                           color: '#fff'
+                        }
+                     }
+                  }}
+                  onChange={(event, newValue) => {
+                     setValue(newValue);
+                  }}
+               >
+                  <BottomNavigationAction label="หน้าหลัก" value="home" icon={<HomeIcon />} onClick={() => setPage('home')} />
+                  <BottomNavigationAction label="ฝากเงิน" value="deposit" icon={<PaidIcon />} onClick={() => setPage('deposit')} />
+                  <BottomNavigationAction label="ถอนเงิน" value="withdraw" icon={<CurrencyExchangeIcon />} onClick={() => setPage('withdraw')} />
+                  <BottomNavigationAction label="ประวัติ" value="history" icon={<ViewListIcon />} onClick={() => setPage('history')} />
+               </BottomNavigation>
+            </Box>
+               </Grid>
+               <Grid item xs={3} />
+            </Grid>
+          
+
 
          </Box>
+
+
+
 
          <Dialog
             open={openDialog}

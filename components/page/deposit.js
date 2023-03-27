@@ -73,7 +73,7 @@ function DepositComponent(props) {
     }, [])
 
     return (
-        <Box sx={{ m: 2, mb: 10 }}>
+        <Box sx={{ m: 2,}}>
             <Box sx={{
                 pb: 9,
                 // backgroundImage: `url('https://cdn.softkingdoms.sgp1.digitaloceanspaces.com/BKSCAN.jpg')`,

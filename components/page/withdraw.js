@@ -94,7 +94,7 @@ function WithdrawComponent() {
     const amount = [100, 200, 300, 500, 1000, 2000, 5000, 10000]
 
     return (
-        <Box sx={{ m: 2, mb: 15 }}>
+        <Box sx={{ m: 2 }}>
             <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 3 }}>ถอนเครดิต</Typography>
             <Typography sx={{ fontSize: '12px' }}>เลือกจำนวนเครดิต</Typography>
             <Grid container spacing={2} sx={{ mt: 2 }}>
