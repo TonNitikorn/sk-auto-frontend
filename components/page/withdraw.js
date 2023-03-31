@@ -51,6 +51,19 @@ function WithdrawComponent() {
 
         } catch (error) {
             console.log(error);
+            setLoading(false)
+            if (
+                error.response.status === 400 &&
+                error.response.data.error.message === "เครดิตไม่เพียงพอ"
+            ) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'เครดิตไม่เพียงพอ',
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+            }
             if (
                 error.response.status === 401 &&
                 error.response.data.error.message === "Unauthorized"

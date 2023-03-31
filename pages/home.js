@@ -303,12 +303,12 @@ function Home({ children }) {
 
 
             {/* ----- footer ----- */}
-            <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, borderTopLeftRadius: '30px', borderTopRightRadius: '30px' }} elevation={3}>
+            <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, borderTopLeftRadius: '10px', borderTopRightRadius: '10px' }} elevation={3}>
                <BottomNavigation
                   showLabels
                   value={value}
                   sx={{
-                     background: "linear-gradient(#41A3E3, #0072B1)", borderTopLeftRadius: '30px', borderTopRightRadius: '30px',
+                     background: "linear-gradient(#41A3E3, #0072B1)", borderTopLeftRadius: '10px', borderTopRightRadius: '10px',
                      '& .Mui-selected': {
                         '& .MuiBottomNavigationAction-label': {
                            color: '#fff'
@@ -509,7 +509,7 @@ function Home({ children }) {
                         showLabels
                         value={value}
                         sx={{
-                           background: "linear-gradient(#41A3E3, #0072B1)", borderTopLeftRadius: '30px', borderTopRightRadius: '30px',
+                           background: "linear-gradient(#41A3E3, #0072B1)", borderTopLeftRadius: '10px', borderTopRightRadius: '10px',
                            '& .Mui-selected': {
                               '& .MuiBottomNavigationAction-label': {
                                  color: '#fff'
