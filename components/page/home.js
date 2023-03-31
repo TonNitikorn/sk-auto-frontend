@@ -87,6 +87,14 @@ function Home() {
             setLoading(false)
         } catch (error) {
             console.log(error);
+            if (
+                error.response.status === 401 &&
+                error.response.data.error.message === "Unauthorized"
+            ) {
+                dispatch(signOut());
+                localStorage.clear();
+                router.push("/auth/login");
+            }
         }
     };
 
@@ -114,6 +122,14 @@ function Home() {
             setLoading(false);
         } catch (error) {
             console.log(error);
+            if (
+                error.response.status === 401 &&
+                error.response.data.error.message === "Unauthorized"
+            ) {
+                dispatch(signOut());
+                localStorage.clear();
+                router.push("/auth/login");
+            }
         }
     };
 
