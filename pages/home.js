@@ -86,7 +86,7 @@ function Home({ children }) {
          console.log(error);
          if (
            error.response.status === 401 &&
-           error.response.data === "Unauthorized"
+           error.response.data.error.message === "Unauthorized"
          ) {
            dispatch(signOut());
            localStorage.clear();
