@@ -47,6 +47,17 @@ const withAuth = (WrappedComponent) => (props) => {
           return null;
         }
       } else if (route == "/") {
+        if (isAuthenticated) {
+          const token = new URLSearchParams(window.location.search).get("access_token");
+
+          if (localStorage.getItem('access_token') !== token) {
+            localStorage.setItem('access_token', token)
+          } else {
+            router.push(`/home`); // default page after login when call root path
+            return null;
+          }
+
+        }
         router.push(`/home`); // default page after login when call root path
         return null;
       }

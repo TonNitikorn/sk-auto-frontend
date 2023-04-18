@@ -205,7 +205,7 @@ function Layout({ children, page }) {
           alignItems="center"
         >
           <Box sx={{ pl: 1, mt: 1 }}>
-            <img src={logo[0]?.img_url} width={70} height={45} />
+            <img src={logo[0]?.img_url} width={50} height={45} />
           </Box>
         </Grid>
 

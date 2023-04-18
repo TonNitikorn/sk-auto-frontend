@@ -153,7 +153,8 @@ function WithdrawComponent() {
                 fullWidth
                 onClick={() => handelwithdraw()}
                 sx={{
-                    mt: 5,
+                    mt: 1,
+                    mb:8,
                     bgcolor: "#41A3E3",
                     color: 'white'
                 }}

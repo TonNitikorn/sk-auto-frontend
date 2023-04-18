@@ -144,9 +144,9 @@ function Home({ children }) {
                justifyContent="start"
                alignItems="center"
             >
-               <Grid item xs={6} >
+               <Grid  item xs={6} >
                   <Box sx={{ pl: 1, mt: 1 }}>
-                     <img src={logo[0]?.img_url} width={70} height={45} />
+                     <img src={logo[0]?.img_url} width={50} height={45} />
                   </Box>
                </Grid>
                <Grid container justifyContent="flex-end"
@@ -303,7 +303,7 @@ function Home({ children }) {
 
 
             {/* ----- footer ----- */}
-            <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, borderTopLeftRadius: '10px', borderTopRightRadius: '10px' }} elevation={3}>
+            <Paper sx={{ position: 'fixed', zIndex:99, bottom: 0, left: 0, right: 0, borderTopLeftRadius: '10px', borderTopRightRadius: '10px' }} elevation={3}>
                <BottomNavigation
                   showLabels
                   value={value}
@@ -351,7 +351,7 @@ function Home({ children }) {
                      >
                         <Grid item xs={6} >
                            <Box sx={{ pl: 1, mt: 1 }}>
-                              <img src={logo[0]?.img_url} width={70} height={45} />
+                              <img src={logo[0]?.img_url} width={50} height={45} />
                            </Box>
                         </Grid>
                         <Grid container justifyContent="flex-end"
