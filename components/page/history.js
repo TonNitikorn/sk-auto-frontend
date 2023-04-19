@@ -79,18 +79,18 @@ function HistoryComponent() {
                 : history.map((item) => (
                     <Paper sx={{ mt: 1, borderRadius: 5 }}>
                         <Grid container justifyContent="space-between" sx={{ py: 1, px: 2, bgcolor: '#D9D9D9', borderRadius: "20px 20px 0px 0px" }}>
-                            <Typography sx={{fontWeight:"bold"}}>{item.transfer_type === "WITHDRAW" ? 'ถอนเครดิต' : 'เติมเครดิต'} </Typography>
+                            <Typography sx={{ fontWeight: "bold" }}>{item.transfer_type === "WITHDRAW" ? 'ถอนเครดิต' : 'เติมเครดิต'} </Typography>
                             <Typography sx={{ color: item.transfer_type === "WITHDRAW" ? '#BC0C20' : 'green', fontWeight: "bold" }}>
                                 {item.transfer_type === "WITHDRAW" ? '-' : '+'}
                                 {Intl.NumberFormat("THB").format(item.credit)}
                             </Typography>
                         </Grid>
-                        <Grid container justifyContent="space-between" sx={{ bgcolor:  item.status_transction === "CANCEL" ? '#ab2b3a' : item.status_transction === "PENDING" ? '#c78912' :item.status_transction === "MANUAL" ? 'green' : 'green', py: 1, px: 2, borderRadius: "0px 0px 20px 20px" }}>
+                        <Grid container justifyContent="space-between" sx={{ bgcolor: item.status_transction === "CANCEL" ? '#ab2b3a' : item.status_transction === "PENDING" ? '#c78912' : item.status_transction === "MANUAL" ? 'green' : item.status_transction === "APPROVE" ? '#c78912' : 'green', py: 1, px: 2, borderRadius: "0px 0px 20px 20px" }}>
                             <Typography sx={{
                                 fontSize: '14px', color: '#D9D9D9'
                             }}>
-                                {item.status_transction === "CANCEL" ? 'ทำรายการไม่สำเร็จ' :   item.status_transction === "PENDING" ? 'กำลังทำรายการ' :item.status_transction === "MANUAL" ? 'ทำรายการสำเร็จ' : 'ทำรายการสำเร็จ' } </Typography>
-                            <Typography sx={{ fontSize: '14px' , color:'#D9D9D9' }}>
+                                {item.status_transction === "CANCEL" ? 'ทำรายการไม่สำเร็จ' : item.status_transction === "PENDING" ? 'กำลังทำรายการ' : item.status_transction === "APPROVE" ? 'กำลังทำรายการ' : item.status_transction === "MANUAL" ? 'ทำรายการสำเร็จ' : 'ทำรายการสำเร็จ'} </Typography>
+                            <Typography sx={{ fontSize: '14px', color: '#D9D9D9' }}>
                                 {moment(item.update_at).format('DD/MM | hh:mm')}
                             </Typography>
                         </Grid>
