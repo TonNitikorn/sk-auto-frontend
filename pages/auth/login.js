@@ -163,7 +163,7 @@ function Login() {
                   alignItems="center"
                 >
                   <Box sx={{ pl: 1, mt: "5px" }}>
-                    <img src={logo[0]?.img_url} width={120} height={90} />
+                    <img src={logo[0]?.img_url} width={200} height={80} />
                   </Box>
                   {/* <Typography variant="h5" sx={{ mt: 3, color: "#41A3E3" }}>เข้าสู่ระบบ</Typography> */}
                 </Grid>
@@ -238,7 +238,7 @@ function Login() {
                   </Grid>
                   <Grid item xs={4} container justifyContent="center">
                     <Box sx={{ pl: 1, mt: "5px" }}>
-                      <img src={logo[0]?.img_url} width={120} height={90} />
+                      <img src={logo[0]?.img_url} width={200} height={80} />
                     </Box>
                     {/* <Typography variant="h5" sx={{ mt: 3, color: "#41A3E3" }}>เข้าสู่ระบบ</Typography> */}
                   </Grid>
@@ -342,7 +342,7 @@ function Login() {
               alignItems="center"
             >
               <Box sx={{ pl: 1, mt: "5px" }}>
-                <img src={logo[0]?.img_url} width={120} height={90} />
+                <img src={logo[0]?.img_url} width={200} height={80} />
               </Box>
               {/* <Typography variant="h5" sx={{ mt: 3, color: "#41A3E3" }}>เข้าสู่ระบบ</Typography> */}
             </Grid>
@@ -418,7 +418,7 @@ function Login() {
               </Grid>
               <Grid item xs={4} container justifyContent="center">
                 <Box sx={{ pl: 1, mt: "5px" }}>
-                  <img src={logo[0]?.img_url} width={120} height={90} />
+                  <img src={logo[0]?.img_url} width={200} height={80} />
                 </Box>
                 {/* <Typography variant="h5" sx={{ mt: 3, color: "#41A3E3" }}>เข้าสู่ระบบ</Typography> */}
               </Grid>

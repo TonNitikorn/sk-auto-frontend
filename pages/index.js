@@ -367,7 +367,7 @@ function Index() {
       >
         {/* <Grid item xs={12} > */}
         <Box sx={{ pl: 1, mt: 1 }}>
-          <img src={logo[0]?.img_url} width={50} height={45} />
+          <img src={logo[0]?.img_url} width={110} height={40} />
         </Box>
         {/* </Grid> */}
         {/* <Grid container justifyContent="flex-end"

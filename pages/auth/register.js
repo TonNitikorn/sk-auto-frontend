@@ -131,7 +131,7 @@ function Register() {
                               alignItems="center"
                            >
                               <Box sx={{ pl: 1, mt: "5px" }}>
-                                 <img src={logo[0]?.img_url} width={120} height={90} />
+                                 <img src={logo[0]?.img_url} width={200} height={80} />
                               </Box></Grid>
                            <Grid container
                               direction="row"
@@ -237,7 +237,7 @@ function Register() {
                                  alignItems="center"
                               >
                                  <Box sx={{ pl: 1, mt: "5px" }}>
-                                    <img src={logo[0]?.img_url} width={120} height={90} />
+                                    <img src={logo[0]?.img_url} width={200} height={80} />
                                  </Box></Grid>
                               <Grid container
                                  direction="row"
@@ -371,7 +371,7 @@ function Register() {
                                        alignItems="center"
                                     >
                                        <Box sx={{ pl: 1, mt: "5px" }}>
-                                          <img src={logo[0]?.img_url} width={120} height={90} />
+                                          <img src={logo[0]?.img_url} width={200} height={80} />
                                        </Box></Grid>
                                     <Grid container
                                        direction="row"
@@ -505,7 +505,7 @@ function Register() {
                         alignItems="center"
                      >
                         <Box sx={{ pl: 1, mt: "5px" }}>
-                           <img src={logo[0]?.img_url} width={120} height={90} />
+                           <img src={logo[0]?.img_url} width={200} height={80} />
                         </Box></Grid>
                      <Grid container
                         direction="row"
@@ -609,7 +609,7 @@ function Register() {
                            alignItems="center"
                         >
                            <Box sx={{ pl: 1, mt: "5px" }}>
-                              <img src={logo[0]?.img_url} width={120} height={90} />
+                              <img src={logo[0]?.img_url} width={200} height={80} />
                            </Box></Grid>
                         <Grid container
                            direction="row"
