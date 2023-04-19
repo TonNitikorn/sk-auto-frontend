@@ -391,7 +391,7 @@ function Register() {
                                              return (
                                                 <input
                                                    style={{ width: 30, height: 45, marginLeft: '2%', textAlign: 'center', borderRadius: '10px', border: '1px solid #41A3E3' }}
-                                                   type="number"
+                                                   type="text"
                                                    name="otp"
                                                    maxLength="1"
                                                    key={index}
@@ -757,7 +757,7 @@ function Register() {
                                        return (
                                           <input
                                              style={{ width: 30, height: 45, marginLeft: '2%', textAlign: 'center', borderRadius: '10px', border: '1px solid #41A3E3' }}
-                                             type="number"
+                                             type="text"
                                              name="otp"
                                              maxLength="1"
                                              key={index}

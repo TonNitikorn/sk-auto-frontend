@@ -85,11 +85,11 @@ function HistoryComponent() {
                                 {Intl.NumberFormat("THB").format(item.credit)}
                             </Typography>
                         </Grid>
-                        <Grid container justifyContent="space-between" sx={{ bgcolor:  item.status_transction === "CANCEL" ? '#ab2b3a' : item.status_transction === "MANUAL" ? '#c78912' : 'green', py: 1, px: 2, borderRadius: "0px 0px 20px 20px" }}>
+                        <Grid container justifyContent="space-between" sx={{ bgcolor:  item.status_transction === "CANCEL" ? '#ab2b3a' : item.status_transction === "PENDING" ? '#c78912' :item.status_transction === "MANUAL" ? 'green' : 'green', py: 1, px: 2, borderRadius: "0px 0px 20px 20px" }}>
                             <Typography sx={{
                                 fontSize: '14px', color: '#D9D9D9'
                             }}>
-                                {item.status_transction === "CANCEL" ? 'ทำรายการไม่สำเร็จ' : item.status_transction === "MANUAL" ? 'กำลังทำรายการ' : 'ทำรายการสำเร็จ'} </Typography>
+                                {item.status_transction === "CANCEL" ? 'ทำรายการไม่สำเร็จ' :   item.status_transction === "PENDING" ? 'กำลังทำรายการ' :item.status_transction === "MANUAL" ? 'ทำรายการสำเร็จ' : 'ทำรายการสำเร็จ' } </Typography>
                             <Typography sx={{ fontSize: '14px' , color:'#D9D9D9' }}>
                                 {moment(item.update_at).format('DD/MM | hh:mm')}
                             </Typography>
