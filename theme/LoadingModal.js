@@ -16,8 +16,10 @@ export default function LoadingModal(props) {
       }}>
         <Fab aria-label="save" color="neutral">
           <img
-            src={"https://the1pg.com/wp-content/uploads/2022/09/The1PG-6-2.png"}
+            src={"https://angpaos.games/wp-content/uploads/2023/04/Angpaos-Logo1.png"}
             alt="mascot"
+            width="40px"
+            height="35px"
           />
         </Fab>
         <CircularProgress

@@ -169,7 +169,8 @@ function Home() {
                                         boxShadow: '2px 2px 5px gray'
                                     }}
                                     onClick={() => {
-                                        setSelectGame(true)
+                                        // setSelectGame(true)
+                                        router.push("https://lin.ee/vlDC5MA")
                                     }}
                                 />
                                 <Typography sx={{ fontSize: '14px' }}>
@@ -266,8 +267,8 @@ function Home() {
                                 </Grid>
                                 <Grid item md={2}>
                                     <Grid container>
-                                        <Typography sx={{ color: "#000" }}>ดูทั้งหมด</Typography>
-                                        <ChevronRightIcon sx={{ color: "#000" }} />
+                                        {/* <Typography sx={{ color: "#000" }}>ดูทั้งหมด</Typography>
+                                        <ChevronRightIcon sx={{ color: "#000" }} /> */}
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -370,12 +371,45 @@ function Home() {
         </Grid> */}
                     </Grid>
                 </Box> :
-                <Box>
+                <Box sx={{
+                    maxHeight: "500px",
+                    overflow: "auto",
+                }}>
                     <Grid container sx={{ pl: 2 }}>
                         <ArrowBackIosIcon fontSize='small' sx={{ my: 1 }} onClick={() => setSelectGame(false)} />
                         <Typography sx={{ fontSize: '14px', mt: 1 }} onClick={() => setSelectGame(false)}  >ย้อนกลับ</Typography>
                     </Grid>
                     <Grid container spacing={1} sx={{ p: 1, textAlign: "center" }}>
+                        <Grid item xs={6} md={3}>
+                            <img src={`https://angpaos.games/wp-content/uploads/2023/04/เกมส์กัญชา-V2.png`} width={'100%'} height={100} style={{ borderRadius: '10px' }}
+                                onClick={() => window.location.href = `https://sk-dev-test-app-9ood3.ondigitalocean.app/?token=${localStorage.getItem('access_token')}`}
+                            />
+                        </Grid>
+                        <Grid item xs={6} md={3}>
+                            <img src={'https://angpaos.games/wp-content/uploads/2023/04/เกมส์ควาย-V2.png'} width={'100%'} height={100} style={{ borderRadius: '10px' }} />
+                        </Grid>  <Grid item xs={6} md={3}>
+                            <img src={'https://angpaos.games/wp-content/uploads/2023/04/เกมส์หมู-V2.png'} width={'100%'} height={100} style={{ borderRadius: '10px' }} />
+                        </Grid>
+                        <Grid item xs={6} md={3}>
+                            <img src={`https://angpaos.games/wp-content/uploads/2023/04/เกมส์กัญชา-V2.png`} width={'100%'} height={100} style={{ borderRadius: '10px' }}
+                                onClick={() => window.location.href = `https://sk-dev-test-app-9ood3.ondigitalocean.app/?token=${localStorage.getItem('access_token')}`}
+                            />
+                        </Grid>
+                        <Grid item xs={6} md={3}>
+                            <img src={'https://angpaos.games/wp-content/uploads/2023/04/เกมส์ควาย-V2.png'} width={'100%'} height={100} style={{ borderRadius: '10px' }} />
+                        </Grid>  <Grid item xs={6} md={3}>
+                            <img src={'https://angpaos.games/wp-content/uploads/2023/04/เกมส์หมู-V2.png'} width={'100%'} height={100} style={{ borderRadius: '10px' }} />
+                        </Grid>
+                        <Grid item xs={6} md={3}>
+                            <img src={`https://angpaos.games/wp-content/uploads/2023/04/เกมส์กัญชา-V2.png`} width={'100%'} height={100} style={{ borderRadius: '10px' }}
+                                onClick={() => window.location.href = `https://sk-dev-test-app-9ood3.ondigitalocean.app/?token=${localStorage.getItem('access_token')}`}
+                            />
+                        </Grid>
+                        <Grid item xs={6} md={3}>
+                            <img src={'https://angpaos.games/wp-content/uploads/2023/04/เกมส์ควาย-V2.png'} width={'100%'} height={100} style={{ borderRadius: '10px' }} />
+                        </Grid>  <Grid item xs={6} md={3}>
+                            <img src={'https://angpaos.games/wp-content/uploads/2023/04/เกมส์หมู-V2.png'} width={'100%'} height={100} style={{ borderRadius: '10px' }} />
+                        </Grid>
                         <Grid item xs={6} md={3}>
                             <img src={`https://angpaos.games/wp-content/uploads/2023/04/เกมส์กัญชา-V2.png`} width={'100%'} height={100} style={{ borderRadius: '10px' }}
                                 onClick={() => window.location.href = `https://sk-dev-test-app-9ood3.ondigitalocean.app/?token=${localStorage.getItem('access_token')}`}

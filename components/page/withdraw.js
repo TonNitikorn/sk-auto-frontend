@@ -17,12 +17,31 @@ import hostname from "../../utils/hostname";
 import { useRouter } from "next/router";
 import { signOut } from "../../store/slices/userSlice";
 import { useAppDispatch } from "../../store/store";
+import CurrencyInput from 'md-react-currency-input';
 
-function WithdrawComponent() {
+function WithdrawComponent(props) {
     const router = useRouter();
     const dispatch = useAppDispatch();
     const [price, setPrice] = useState(0)
     const [loading, setLoading] = useState(false)
+
+
+    const getCredit = async () => {
+        try {
+            let credit = await axios({
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("access_token"),
+                },
+                method: "get",
+                url: `${hostname}/user/credit`,
+            });
+
+            props.setCredit(credit.data)
+
+        } catch (error) {
+
+        }
+    }
 
     const withdraw = async () => {
         setLoading(true)
@@ -40,6 +59,7 @@ function WithdrawComponent() {
 
             if (res.data.message === "Success") {
                 setLoading(false)
+                getCredit()
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
@@ -136,14 +156,12 @@ function WithdrawComponent() {
             <Typography sx={{ mt: 4, mb: 2 }}>
                 ระบุจำนวนที่ต้องการถอน
             </Typography>
-            <TextField
-                name="code"
-                type="number"
-                fullWidth
-                value={price || ""}
-                sx={{ bgcolor: "#fff", borderRadius: 2, }}
-                onChange={(e) => setPrice(e.target.value)}
-            />
+
+            <CurrencyInput
+                className="currencyInput"
+                sx={{ bgcolor: "#000", borderRadius: 2, height: "20px" }}
+                value={price || ""} onChangeEvent={(e) => setPrice(e.target.value)} precision="0" />
+
             <Typography sx={{ color: "#aaa", mt: 1, mb: 2, fontSize: "12px" }}>
                 ถอนไม่มีขั้นต่ำ
             </Typography>
@@ -154,7 +172,7 @@ function WithdrawComponent() {
                 onClick={() => handelwithdraw()}
                 sx={{
                     mt: 1,
-                    mb:8,
+                    mb: 8,
                     bgcolor: "#41A3E3",
                     color: 'white'
                 }}

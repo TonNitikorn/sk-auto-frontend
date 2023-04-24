@@ -18,6 +18,7 @@ import LoadingModal from '../../theme/LoadingModal'
 import { useRouter } from "next/router";
 import { signOut } from "../../store/slices/userSlice";
 import { useAppDispatch } from "../../store/store";
+import WarningIcon from '@mui/icons-material/Warning';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -125,8 +126,11 @@ function DepositComponent(props) {
                         </Box>
                     </>
                 ))}
+                <Grid container sx={{mt: 3,}}>
+                    <WarningIcon color='warning' />
+                    <Typography sx={{  ml:1, mt:'6px', fontSize: '12px' }}> โปรดใช้บัญชี {bank_name} <b>{bank_number}</b> โอนมาเท่านั้น</Typography>
 
-                <Typography sx={{ mt: 3, fontSize: '12px' }}>โปรดใช้บัญชี {bank_name} <b>{bank_number}</b> โอนมาเท่านั้น</Typography>
+                </Grid>
             </Box>
 
             <Snackbar

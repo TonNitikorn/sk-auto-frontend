@@ -59,8 +59,11 @@ function HistoryComponent() {
 
 
     return (
-        <Box sx={{ m: 2, mb: 10 }}>
-            <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 3 }}>ประวัติรายการย้อนหลัง</Typography>
+        <Box sx={{
+            m: 2, maxHeight: "500px",
+            overflow: "auto",
+        }}>
+            <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 1 }}>ประวัติรายการย้อนหลัง</Typography>
             {history.length === 0 ?
                 <Paper sx={{ mt: 1, borderRadius: 5 }}>
                     <Grid container justifyContent="center" sx={{ py: 1, px: 2, bgcolor: '#F1F1F1', borderRadius: "20px 20px 0px 0px" }}>

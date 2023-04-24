@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { store } from "../store/store";
 import { getToken } from "../store/slices/userSlice";
 import { createTheme, ThemeProvider } from '@mui/material';
+import '../styles/style.css'
 
 function MyApp({ Component, pageProps }) {
 

@@ -51,7 +51,7 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 function Home({ children }) {
    const router = useRouter();
    const dispatch = useAppDispatch();
-   const [value, setValue] = useState(0);
+   const [value, setValue] = useState('home');
    const [credit, setCredit] = useState({});
    const [logo, setLogo] = useState([])
    const [profile, setProfile] = useState({})
@@ -85,12 +85,12 @@ function Home({ children }) {
       } catch (error) {
          console.log(error);
          if (
-           error.response.status === 401 &&
-           error.response.data.error.message === "Unauthorized"
+            error.response.status === 401 &&
+            error.response.data.error.message === "Unauthorized"
          ) {
-           dispatch(signOut());
-           localStorage.clear();
-           router.push("/auth/login");
+            dispatch(signOut());
+            localStorage.clear();
+            router.push("/auth/login");
          }
       }
    };
@@ -112,11 +112,11 @@ function Home({ children }) {
          if (
             error.response.status === 401 &&
             error.response.data.error.message === "Unauthorized"
-        ) {
+         ) {
             dispatch(signOut());
             localStorage.clear();
             router.push("/auth/login");
-        }
+         }
       }
    };
 
@@ -144,7 +144,7 @@ function Home({ children }) {
                justifyContent="start"
                alignItems="center"
             >
-               <Grid  item xs={6} >
+               <Grid item xs={6} >
                   <Box sx={{ pl: 1, mt: 1 }}>
                      <img src={logo[0]?.img_url} width={130} height={40} />
                   </Box>
@@ -294,7 +294,7 @@ function Home({ children }) {
                {/* {children} */}
                {page === 'home' ? <HomeComponent /> :
                   page === 'deposit' ? <DepositComponent bank_number={profile.bank_number} bank_name={profile.bank_name} /> :
-                     page === 'withdraw' ? <WithdrawComponent /> :
+                     page === 'withdraw' ? <WithdrawComponent setCredit={setCredit} /> :
                         page === 'history' ? <HistoryComponent /> : ''}
 
 
@@ -303,7 +303,7 @@ function Home({ children }) {
 
 
             {/* ----- footer ----- */}
-            <Paper sx={{ position: 'fixed', zIndex:99, bottom: 0, left: 0, right: 0, borderTopLeftRadius: '10px', borderTopRightRadius: '10px' }} elevation={3}>
+            <Paper sx={{ position: 'fixed', zIndex: 99, bottom: 0, left: 0, right: 0, borderTopLeftRadius: '10px', borderTopRightRadius: '10px' }} elevation={3}>
                <BottomNavigation
                   showLabels
                   value={value}
@@ -551,11 +551,11 @@ function Home({ children }) {
                <Typography sx={{ color: '#41A3E3', fontSize: '18px' }}> ข้อมูลส่วนตัว</Typography>
             </DialogTitle>
             <DialogContent >
-               <Grid container justifyContent='center'>
+               {/* <Grid container justifyContent='center'>
                   <Avatar
                      sx={{ width: 80, height: 80, my: 2 }}
                   >H</Avatar>
-               </Grid>
+               </Grid> */}
                <Table sx={{ border: '1px solid #eee' }}>
                   <TableRow>
                      <TableCell
@@ -797,7 +797,7 @@ function Home({ children }) {
                               )}
                            </Grid>
                            <Grid item xs={6} sx={{ ml: 1, mt: '5px' }}>
-                              <Typography sx={{fontSize:'14px'}} >
+                              <Typography sx={{ fontSize: '14px' }} >
                                  {profile.bank_name === "kbnk"
                                     ? "กสิกรไทย"
                                     : profile.bank_name === "truemoney"
