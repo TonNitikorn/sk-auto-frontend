@@ -58,6 +58,7 @@ function Home({ children }) {
    const [page, setPage] = useState('home')
    const [loading, setLoading] = useState(false)
    const [openDialog, setOpenDialog] = useState(false)
+   const [openRankDialog, setOpenRankDialog] = useState(false)
 
    const getProfile = async () => {
       setLoading(true)
@@ -249,7 +250,9 @@ function Home({ children }) {
             </Box>
 
             <Box sx={{ m: 1 }}>
-               <Paper sx={{ background: "linear-gradient(#0072B1, #41A3E3)", p: 1, width: "100%" }}>
+               <Paper
+                  onClick={() => setOpenRankDialog(true)}
+                  sx={{ background: "linear-gradient(#0072B1, #41A3E3)", p: 1, width: "100%" }}>
                   <Grid container>
                      <Grid item sx={{ mt: 1 }}>
                         <Image src={rank1} alt="diamond" width={60} height={50} />
@@ -545,7 +548,6 @@ function Home({ children }) {
             onClose={() => setOpenDialog(false)}
             fullWidth
             maxWidth='md'
-
          >
             <DialogTitle >
                <Typography sx={{ color: '#41A3E3', fontSize: '18px' }}> ข้อมูลส่วนตัว</Typography>
@@ -862,6 +864,30 @@ function Home({ children }) {
             </DialogContent>
             <DialogActions>
                <Button variant="outlined" onClick={() => setOpenDialog(false)} >
+                  ปิด
+               </Button>
+            </DialogActions>
+         </Dialog>
+
+
+         <Dialog
+            open={openRankDialog}
+            onClose={() => setOpenRankDialog(false)}
+            fullWidth
+            maxWidth='md'
+         >
+            <DialogTitle>
+               <Typography sx={{ color: '#41A3E3', fontSize: '22px' , textAlign:'center' , mt:1}}> รายละเอียด Rank</Typography>
+            </DialogTitle>
+            <DialogContent >
+               <img src="https://angpaos.games/wp-content/uploads/2023/03/Rank-General.png" width={'100%'} height={130} style={{ borderRadius: '10px' }} />
+               <img src="https://angpaos.games/wp-content/uploads/2023/03/Rank-Silver.png" width={'100%'} height={130} style={{ borderRadius: '10px' }} />
+               <img src="https://angpaos.games/wp-content/uploads/2023/03/Rank-Gold.png" width={'100%'} height={130} style={{ borderRadius: '10px' }} />
+               <img src="https://angpaos.games/wp-content/uploads/2023/03/Rank-Dimond.png" oppa width={'100%'} height={130} style={{ borderRadius: '10px' }} />
+
+            </DialogContent>
+            <DialogActions>
+               <Button variant="outlined" onClick={() => setOpenRankDialog(false)} >
                   ปิด
                </Button>
             </DialogActions>
