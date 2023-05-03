@@ -385,12 +385,17 @@ function Home() {
                                 onClick={() => window.location.href = `https://sk-dev-test-app-9ood3.ondigitalocean.app/?token=${localStorage.getItem('access_token')}`}
                             />
                         </Grid>
+
                         <Grid item xs={6} md={3}>
-                            <img src={'https://angpaos.games/wp-content/uploads/2023/04/เกมส์ควาย-V2.png'} width={'100%'} height={100} style={{ borderRadius: '10px' }} />
+                            <img src={'https://angpaos.games/wp-content/uploads/2023/04/เกมส์ควาย-V2.png'} width={'100%'} height={100} style={{ borderRadius: '10px' }}
+                                onClick={() => window.location.href = `https://demo.angpaos.com/?token=${localStorage.getItem('access_token')}`}
+                            />
                         </Grid>  <Grid item xs={6} md={3}>
-                            <img src={'https://angpaos.games/wp-content/uploads/2023/04/เกมส์หมู-V2.png'} width={'100%'} height={100} style={{ borderRadius: '10px' }} />
+                            <img src={'https://angpaos.games/wp-content/uploads/2023/04/เกมส์หมู-V2.png'} width={'100%'} height={100} style={{ borderRadius: '10px' }}
+                                onClick={() => window.location.href = `https://demo.angpaos.com/?token=${localStorage.getItem('access_token')}`}
+                            />
                         </Grid>
-                       
+
                         {/* {gameType.map((item) => (
                             <>
                                 <Button
