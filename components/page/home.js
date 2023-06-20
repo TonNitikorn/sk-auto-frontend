@@ -145,7 +145,7 @@ function Home() {
                     <Box sx={{ display: { xs: "block", sm: 'none', md: "none" }, }}>
                         <Grid container spacing={1} sx={{ p: 1, textAlign: "center" }}>
                             <Grid item xs={6} md={3}>
-                                <img src={"https://angpaos.games/wp-content/uploads/2023/03/Playgame-auto.jpg"}
+                                <img src={"https://public-cdn-softkingdom.sgp1.cdn.digitaloceanspaces.com/1687250266623-Playgame-auto.jpg"}
                                     width={172}
                                     height={96}
                                     style={{
@@ -161,7 +161,7 @@ function Home() {
                                 </Typography>
                             </Grid>
                             <Grid item xs={6} md={3}>
-                                <img src={"https://angpaos.games/wp-content/uploads/2023/03/Admin-auto.jpg"}
+                                <img src={"https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687250571636-Admin-auto.jpg"}
                                     width={172}
                                     height={96}
                                     style={{
@@ -183,7 +183,7 @@ function Home() {
                     <Box sx={{ display: { xs: "none", sm: 'block', md: "none" }, }}>
                         <Grid container spacing={1} sx={{ p: 1, textAlign: "center" }}>
                             <Grid item xs={6} >
-                                <img src={"https://angpaos.games/wp-content/uploads/2023/03/2Playgame-auto.jpg"}
+                                <img src={"https://public-cdn-softkingdom.sgp1.cdn.digitaloceanspaces.com/1687250266599-2Playgame-auto.jpg"}
                                     width={'95%'}
                                     height={115}
                                     style={{
@@ -199,7 +199,7 @@ function Home() {
                                 </Typography>
                             </Grid>
                             <Grid item xs={6} >
-                                <img src={"https://angpaos.games/wp-content/uploads/2023/03/2Admin-auto.jpg"}
+                                <img src={"https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687250571636-Admin-auto.jpg"}
                                     width={'95%'}
                                     height={115}
                                     style={{
@@ -220,7 +220,7 @@ function Home() {
                     <Box sx={{ display: { xs: "none", sm: 'none', md: "block" }, }}>
                         <Grid container spacing={1} sx={{ p: 1, textAlign: "center" }}>
                             <Grid item xs={6} >
-                                <img src={"https://angpaos.games/wp-content/uploads/2023/03/2Playgame-auto.jpg"}
+                                <img src={"https://public-cdn-softkingdom.sgp1.cdn.digitaloceanspaces.com/1687250266599-2Playgame-auto.jpg"}
                                     width={'95%'}
                                     height={126}
                                     style={{
@@ -236,7 +236,7 @@ function Home() {
                                 </Typography>
                             </Grid>
                             <Grid item xs={6} >
-                                <img src={"https://angpaos.games/wp-content/uploads/2023/03/2Admin-auto.jpg"}
+                                <img src={"https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687250463876-2Admin-auto.jpg"}
                                     width={'95%'}
                                     height={126}
                                     style={{
@@ -381,17 +381,17 @@ function Home() {
                     </Grid>
                     <Grid container spacing={1} sx={{ p: 1, textAlign: "center" }}>
                         <Grid item xs={6} md={3}>
-                            <img src={`https://angpaos.games/wp-content/uploads/2023/04/เกมส์กัญชา-V2.png`} width={'100%'} height={100} style={{ borderRadius: '10px' }}
+                            <img src={`https://public-cdn-softkingdom.sgp1.cdn.digitaloceanspaces.com/1687251312070-%E0%B9%80%E0%B8%81%E0%B8%A1%E0%B8%AA%E0%B9%8C%E0%B8%81%E0%B8%B1%E0%B8%8D%E0%B8%8A%E0%B8%B2-V2.png`} width={'100%'} height={100} style={{ borderRadius: '10px' }}
                                 onClick={() => window.location.href = `https://sk-dev-test-app-9ood3.ondigitalocean.app/?token=${localStorage.getItem('access_token')}`}
                             />
                         </Grid>
 
                         <Grid item xs={6} md={3}>
-                            <img src={'https://angpaos.games/wp-content/uploads/2023/04/เกมส์ควาย-V2.png'} width={'100%'} height={100} style={{ borderRadius: '10px' }}
+                            <img src={'https://public-cdn-softkingdom.sgp1.cdn.digitaloceanspaces.com/1687251312074-%E0%B9%80%E0%B8%81%E0%B8%A1%E0%B8%AA%E0%B9%8C%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A2-V2.png'} width={'100%'} height={100} style={{ borderRadius: '10px' }}
                                 onClick={() => window.location.href = `https://demo.angpaos.com/?token=${localStorage.getItem('access_token')}`}
                             />
                         </Grid>  <Grid item xs={6} md={3}>
-                            <img src={'https://angpaos.games/wp-content/uploads/2023/04/เกมส์หมู-V2.png'} width={'100%'} height={100} style={{ borderRadius: '10px' }}
+                            <img src={'https://public-cdn-softkingdom.sgp1.cdn.digitaloceanspaces.com/1687251312100-%E0%B9%80%E0%B8%81%E0%B8%A1%E0%B8%AA%E0%B9%8C%E0%B8%AB%E0%B8%A1%E0%B8%B9-V2.png'} width={'100%'} height={100} style={{ borderRadius: '10px' }}
                                 onClick={() => window.location.href = `https://demo.angpaos.com/?token=${localStorage.getItem('access_token')}`}
                             />
                         </Grid>

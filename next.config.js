@@ -13,7 +13,7 @@ const nextConfig = {
     },
   },
   images: {
-    domains: ["images.unsplash.com", "angpaos.games"],
+    domains: ["images.unsplash.com", "angpaos.games" , "public-cdn-softkingdom.sgp1.digitaloceanspaces.com"],
   },
 }
 

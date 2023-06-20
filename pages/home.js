@@ -880,10 +880,10 @@ function Home({ children }) {
                <Typography sx={{ color: '#41A3E3', fontSize: '22px' , textAlign:'center' , mt:1}}> รายละเอียด Rank</Typography>
             </DialogTitle>
             <DialogContent >
-               <img src="https://angpaos.games/wp-content/uploads/2023/03/Rank-General.png" width={'100%'} height={130} style={{ borderRadius: '10px' }} />
-               <img src="https://angpaos.games/wp-content/uploads/2023/03/Rank-Silver.png" width={'100%'} height={130} style={{ borderRadius: '10px' }} />
-               <img src="https://angpaos.games/wp-content/uploads/2023/03/Rank-Gold.png" width={'100%'} height={130} style={{ borderRadius: '10px' }} />
-               <img src="https://angpaos.games/wp-content/uploads/2023/03/Rank-Dimond.png" oppa width={'100%'} height={130} style={{ borderRadius: '10px' }} />
+               <img src="https://public-cdn-softkingdom.sgp1.cdn.digitaloceanspaces.com/1687252504969-Rank-General.png" width={'100%'} height={130} style={{ borderRadius: '10px' }} />
+               <img src="https://public-cdn-softkingdom.sgp1.cdn.digitaloceanspaces.com/1687252504979-Rank-Silver.png" width={'100%'} height={130} style={{ borderRadius: '10px' }} />
+               <img src="https://public-cdn-softkingdom.sgp1.cdn.digitaloceanspaces.com/1687252504967-Rank-Gold.png" width={'100%'} height={130} style={{ borderRadius: '10px' }} />
+               {/* <img src="https://angpaos.games/wp-content/uploads/2023/03/Rank-Dimond.png" oppa width={'100%'} height={130} style={{ borderRadius: '10px' }} /> */}
 
             </DialogContent>
             <DialogActions>
