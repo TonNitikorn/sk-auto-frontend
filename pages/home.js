@@ -599,7 +599,7 @@ function Home({ children }) {
                               {profile.bank_name === "kbnk" ? (
                                  <Image
                                     src={
-                                       "https://angpaos.games/wp-content/uploads/2023/03/kbnk.png"
+                                       "https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687509600962-kbnk.png"
                                     }
                                     alt="kbnk"
                                     width={50}
@@ -608,7 +608,7 @@ function Home({ children }) {
                               ) : profile.bank_name === "truemoney" ? (
                                  <Image
                                     src={
-                                       "https://angpaos.games/wp-content/uploads/2023/03/truemoney.png"
+                                       "https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687509654967-truemoney.png"
                                     }
                                     alt="truemoney"
                                     width={50}
@@ -617,7 +617,7 @@ function Home({ children }) {
                               ) : profile.bank_name === "ktba" ? (
                                  <Image
                                     src={
-                                       "https://angpaos.games/wp-content/uploads/2023/03/ktba.png"
+                                       "https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687509722840-ktb.png"
                                     }
                                     alt="ktba"
                                     width={50}
@@ -626,7 +626,7 @@ function Home({ children }) {
                               ) : profile.bank_name === "scb" ? (
                                  <Image
                                     src={
-                                       "https://angpaos.games/wp-content/uploads/2023/03/scb.png"
+                                       "https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687509747475-scb.png"
                                     }
                                     alt="scb"
                                     width={50}
@@ -635,7 +635,7 @@ function Home({ children }) {
                               ) : profile.bank_name === "bay" ? (
                                  <Image
                                     src={
-                                       "https://angpaos.games/wp-content/uploads/2023/03/bay.png"
+                                       "https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687509778211-bay.png"
                                     }
                                     alt="bay"
                                     width={50}
@@ -644,7 +644,7 @@ function Home({ children }) {
                               ) : profile.bank_name === "bbla" ? (
                                  <Image
                                     src={
-                                       "https://angpaos.games/wp-content/uploads/2023/03/bbl.png"
+                                       "https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687509796809-bbl.png"
                                     }
                                     alt="bbla"
                                     width={50}
@@ -653,7 +653,7 @@ function Home({ children }) {
                               ) : profile.bank_name === "gsb" ? (
                                  <Image
                                     src={
-                                       "https://angpaos.games/wp-content/uploads/2023/03/gsb.png"
+                                       "https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687509823709-gsb.png"
                                     }
                                     alt="gsb"
                                     width={50}
@@ -662,7 +662,7 @@ function Home({ children }) {
                               ) : profile.bank_name === "ttb" ? (
                                  <Image
                                     src={
-                                       "https://angpaos.games/wp-content/uploads/2023/03/ttb.png"
+                                       "https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687509868094-ttb.png"
                                     }
                                     alt="ttb"
                                     width={50}
@@ -671,7 +671,7 @@ function Home({ children }) {
                               ) : profile.bank_name === "bbac" ? (
                                  <Image
                                     src={
-                                       "https://angpaos.games/wp-content/uploads/2023/03/baac.png"
+                                       "https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687509885549-baac.png"
                                     }
                                     alt="bbac"
                                     width={50}
@@ -680,7 +680,7 @@ function Home({ children }) {
                               ) : profile.bank_name === "icbc" ? (
                                  <Image
                                     src={
-                                       "https://angpaos.games/wp-content/uploads/2023/03/icbc.png"
+                                       "https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687509907708-icbt.png"
                                     }
                                     alt="icbc"
                                     width={50}
@@ -689,7 +689,7 @@ function Home({ children }) {
                               ) : profile.bank_name === "tcd" ? (
                                  <Image
                                     src={
-                                       "https://angpaos.games/wp-content/uploads/2023/03/tcd.png"
+                                       "https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687509929380-tcd.png"
                                     }
                                     alt="tcd"
                                     width={50}
@@ -698,7 +698,7 @@ function Home({ children }) {
                               ) : profile.bank_name === "citi" ? (
                                  <Image
                                     src={
-                                       "https://angpaos.games/wp-content/uploads/2023/03/citi.png"
+                                       "https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687509949540-citi.png"
                                     }
                                     alt="citi"
                                     width={50}
@@ -707,7 +707,7 @@ function Home({ children }) {
                               ) : profile.bank_name === "scbt" ? (
                                  <Image
                                     src={
-                                       "https://angpaos.games/wp-content/uploads/2023/03/scbt.png"
+                                       "https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687509967883-scbt.png"
                                     }
                                     alt="scbt"
                                     width={50}
@@ -716,7 +716,7 @@ function Home({ children }) {
                               ) : profile.bank_name === "cimb" ? (
                                  <Image
                                     src={
-                                       "https://angpaos.games/wp-content/uploads/2023/03/cimb.png"
+                                       "https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687509984083-cimb.png"
                                     }
                                     alt="cimb"
                                     width={50}
@@ -725,7 +725,7 @@ function Home({ children }) {
                               ) : profile.bank_name === "uob" ? (
                                  <Image
                                     src={
-                                       "https://angpaos.games/wp-content/uploads/2023/03/uob.png"
+                                       "https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687510000397-uob.png"
                                     }
                                     alt="uob"
                                     width={50}
@@ -734,7 +734,7 @@ function Home({ children }) {
                               ) : profile.bank_name === "hsbc" ? (
                                  <Image
                                     src={
-                                       "https://angpaos.games/wp-content/uploads/2023/03/hsbc.png"
+                                       "https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687510018318-hsbc.png"
                                     }
                                     alt="hsbc"
                                     width={50}
@@ -743,7 +743,7 @@ function Home({ children }) {
                               ) : profile.bank_name === "mizuho" ? (
                                  <Image
                                     src={
-                                       "https://angpaos.games/wp-content/uploads/2023/03/mizuho.png"
+                                       "https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687510037176-mizuho.png"
                                     }
                                     alt="mizuho"
                                     width={50}
@@ -752,7 +752,7 @@ function Home({ children }) {
                               ) : profile.bank_name === "ghb" ? (
                                  <Image
                                     src={
-                                       "https://angpaos.games/wp-content/uploads/2023/03/ghb.png"
+                                       "https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687510067372-ghb.png"
                                     }
                                     alt="ghb"
                                     width={50}
@@ -761,7 +761,7 @@ function Home({ children }) {
                               ) : profile.bank_name === "lhbank" ? (
                                  <Image
                                     src={
-                                       "https://angpaos.games/wp-content/uploads/2023/03/lhbank.png"
+                                       "https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687510092134-lhbank.png"
                                     }
                                     alt="lhbank"
                                     width={50}
@@ -770,7 +770,7 @@ function Home({ children }) {
                               ) : profile.bank_name === "tisco" ? (
                                  <Image
                                     src={
-                                       "https://angpaos.games/wp-content/uploads/2023/03/tisco.png"
+                                       "https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687510111592-tisco.png"
                                     }
                                     alt="tisco"
                                     width={50}
@@ -779,7 +779,7 @@ function Home({ children }) {
                               ) : profile.bank_name === "kkba" ? (
                                  <Image
                                     src={
-                                       "https://angpaos.games/wp-content/uploads/2023/03/kkba.png"
+                                       "https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687510132080-kkba.png"
                                     }
                                     alt="kkba"
                                     width={50}
@@ -788,7 +788,7 @@ function Home({ children }) {
                               ) : profile.bank_name === "ibank" ? (
                                  <Image
                                     src={
-                                       "https://angpaos.games/wp-content/uploads/2023/03/ibank.png"
+                                       "https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687510150924-ibank.png"
                                     }
                                     alt="ibank"
                                     width={50}
@@ -797,6 +797,7 @@ function Home({ children }) {
                               ) : (
                                  ""
                               )}
+
                            </Grid>
                            <Grid item xs={6} sx={{ ml: 1, mt: '5px' }}>
                               <Typography sx={{ fontSize: '14px' }} >
@@ -877,7 +878,7 @@ function Home({ children }) {
             maxWidth='md'
          >
             <DialogTitle>
-               <Typography sx={{ color: '#41A3E3', fontSize: '22px' , textAlign:'center' , mt:1}}> รายละเอียด Rank</Typography>
+               <Typography sx={{ color: '#41A3E3', fontSize: '22px', textAlign: 'center', mt: 1 }}> รายละเอียด Rank</Typography>
             </DialogTitle>
             <DialogContent >
                <img src="https://public-cdn-softkingdom.sgp1.cdn.digitaloceanspaces.com/1687252504969-Rank-General.png" width={'100%'} height={130} style={{ borderRadius: '10px' }} />
