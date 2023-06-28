@@ -614,12 +614,12 @@ function Home({ children }) {
                                     width={50}
                                     height={50}
                                  />
-                              ) : profile.bank_name === "ktba" ? (
+                              ) : profile.bank_name === "ktb" ? (
                                  <Image
                                     src={
                                        "https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687509722840-ktb.png"
                                     }
-                                    alt="ktba"
+                                    alt="ktb"
                                     width={50}
                                     height={50}
                                  />
@@ -641,12 +641,12 @@ function Home({ children }) {
                                     width={50}
                                     height={50}
                                  />
-                              ) : profile.bank_name === "bbla" ? (
+                              ) : profile.bank_name === "bbl" ? (
                                  <Image
                                     src={
                                        "https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687509796809-bbl.png"
                                     }
-                                    alt="bbla"
+                                    alt="bbl"
                                     width={50}
                                     height={50}
                                  />
@@ -805,13 +805,13 @@ function Home({ children }) {
                                     ? "กสิกรไทย"
                                     : profile.bank_name === "truemoney"
                                        ? "TrueMoney"
-                                       : profile.bank_name === "ktba"
+                                       : profile.bank_name === "ktb"
                                           ? "กรุงไทย"
                                           : profile.bank_name === "scb"
                                              ? "ไทยพาณิชย์"
                                              : profile.bank_name === "bay"
                                                 ? "กรุงศรีอยุธยา"
-                                                : profile.bank_name === "bbla"
+                                                : profile.bank_name === "bbl"
                                                    ? "กรุงเทพ"
                                                    : profile.bank_name === "gsb"
                                                       ? "ออมสิน"

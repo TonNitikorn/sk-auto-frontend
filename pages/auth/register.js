@@ -130,7 +130,7 @@ function Register() {
                               justifyContent="center"
                               alignItems="center"
                            >
-                              <Box sx={{  mt: "5px" }}>
+                              <Box sx={{ mt: "5px" }}>
                                  <img src={logo[0]?.img_url} width={200} height={70} />
                               </Box></Grid>
                            <Grid container
@@ -236,7 +236,7 @@ function Register() {
                                  justifyContent="center"
                                  alignItems="center"
                               >
-                                 <Box sx={{  mt: "5px" }}>
+                                 <Box sx={{ mt: "5px" }}>
                                     <img src={logo[0]?.img_url} width={200} height={70} />
                                  </Box></Grid>
                               <Grid container
@@ -267,10 +267,10 @@ function Register() {
                                     </MenuItem>
                                     <MenuItem value="kbnk">ธนาคารกสิกรไทย</MenuItem>
                                     <MenuItem value="truemoney">TrueMoney Wallet</MenuItem>
-                                    <MenuItem value="ktba">ธนาคารกรุงไทย</MenuItem>
+                                    <MenuItem value="ktb">ธนาคารกรุงไทย</MenuItem>
                                     <MenuItem value="scb">ธนาคารไทยพาณิชย์</MenuItem>
                                     <MenuItem value="bay">ธนาคารกรุงศรีอยุธยา</MenuItem>
-                                    <MenuItem value="bbla">ธนาคารกรุงเทพ</MenuItem>
+                                    <MenuItem value="bbl">ธนาคารกรุงเทพ</MenuItem>
                                     <MenuItem value="gsb">ธนาคารออมสิน</MenuItem>
                                     <MenuItem value="ttb">ธนาคารทหารไทยธนชาต (TTB)</MenuItem>
                                     <MenuItem value="BAAC">
@@ -504,7 +504,7 @@ function Register() {
                         justifyContent="center"
                         alignItems="center"
                      >
-                        <Box sx={{  mt: "5px" }}>
+                        <Box sx={{ mt: "5px" }}>
                            <img src={logo[0]?.img_url} width={200} height={70} />
                         </Box></Grid>
                      <Grid container
@@ -608,7 +608,7 @@ function Register() {
                            justifyContent="center"
                            alignItems="center"
                         >
-                           <Box sx={{  mt: "5px" }}>
+                           <Box sx={{ mt: "5px" }}>
                               <img src={logo[0]?.img_url} width={200} height={70} />
                            </Box></Grid>
                         <Grid container
@@ -639,10 +639,10 @@ function Register() {
                               </MenuItem>
                               <MenuItem value="kbnk">ธนาคารกสิกรไทย</MenuItem>
                               <MenuItem value="truemoney">TrueMoney Wallet</MenuItem>
-                              <MenuItem value="ktba">ธนาคารกรุงไทย</MenuItem>
+                              <MenuItem value="ktb">ธนาคารกรุงไทย</MenuItem>
                               <MenuItem value="scb">ธนาคารไทยพาณิชย์</MenuItem>
                               <MenuItem value="bay">ธนาคารกรุงศรีอยุธยา</MenuItem>
-                              <MenuItem value="bbla">ธนาคารกรุงเทพ</MenuItem>
+                              <MenuItem value="bbl">ธนาคารกรุงเทพ</MenuItem>
                               <MenuItem value="gsb">ธนาคารออมสิน</MenuItem>
                               <MenuItem value="ttb">ธนาคารทหารไทยธนชาต (TTB)</MenuItem>
                               <MenuItem value="BAAC">
