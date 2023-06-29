@@ -67,7 +67,7 @@ function HistoryComponent() {
             {history.length === 0 ?
                 <Paper sx={{ mt: 1, borderRadius: 5 }}>
                     <Grid container justifyContent="center" sx={{ py: 1, px: 2, bgcolor: '#F1F1F1', borderRadius: "20px 20px 0px 0px" }}>
-                        <Typography>ไม่มีประวัติการถอน </Typography>
+                        <Typography>ไม่มีประวัติการทำรายการ </Typography>
 
                     </Grid>
                     <Grid

@@ -303,7 +303,8 @@ function Login() {
                         );
 
                         if (response.meta.requestStatus === "rejected") {
-                          alert("Login failed");
+                          // alert("Login failed");
+                          console.log('otp failed');
                         } else {
                           setTabOtp([...tabOtp.map(data => "")])
                           router.push("/home");
@@ -481,7 +482,8 @@ function Login() {
                     );
 
                     if (response.meta.requestStatus === "rejected") {
-                      alert("Login failed");
+                      // alert("Login failed");
+                      console.log('otp failed');
                     } else {
                       setTabOtp([...tabOtp.map(data => "")])
                       router.push("/home");

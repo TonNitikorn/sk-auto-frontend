@@ -118,7 +118,7 @@ function Home() {
             let resData = res.data;
             // console.log('resData', resData[0].sub_game_type)
             setGameType(resData)
-            setSubGameType(resData[0].sub_game_type)
+            setSubGameType(resData[0]?.sub_game_type)
             setLoading(false);
         } catch (error) {
             console.log(error);

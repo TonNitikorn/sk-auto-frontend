@@ -22,13 +22,16 @@ export const signIn = async (user) => {
 
   } catch (error) {
     console.log(error);
-    // Swal.fire({
-    //   position: "center",
-    //   icon: "error",
-    //   title: error.response.data.error.message,
-    //   showConfirmButton: false,
-    //   timer: 4000,
-    // });
+    if (error.response.data.error.status_code === 500 &&
+      error.response.data.error.message === "OTP ไม่ถูกต้อง") {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "OTP ไม่ถูกต้อง",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    }
   }
 };
 
@@ -40,6 +43,8 @@ export const register = async (data) => {
       data: {
         bank_number: data.bank_number,
         bank_name: data.bank_name,
+        fname: data.fname,
+        lname: data.lname,
         tel: data.tel,
         affiliate_by: "-",
         platform: "postman",
@@ -53,12 +58,16 @@ export const register = async (data) => {
 
   } catch (error) {
     console.log(error);
-    // Swal.fire({
-    //   position: "center",
-    //   icon: "error",
-    //   title: error.response.data.error.message,
-    //   showConfirmButton: false,
-    //   timer: 4000,
-    // });
+    if (error.response.data.error.status_code === 500 &&
+      error.response.data.error.message === "OTP ไม่ถูกต้อง") {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "OTP ไม่ถูกต้อง",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    }
+
   }
 };

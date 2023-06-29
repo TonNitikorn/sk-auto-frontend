@@ -24,18 +24,10 @@ import { signOut } from "../store/slices/userSlice";
 import { useAppDispatch } from "../store/store";
 import hostname from "../utils/hostname";
 import axios from "axios";
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Menu from '@mui/material/Menu';
-import Container from '@mui/material/Container';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
 import HomeIcon from '@mui/icons-material/Home';
 import PaidIcon from '@mui/icons-material/Paid';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import ViewListIcon from '@mui/icons-material/ViewList';
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import ConfirmationNumberOutlinedIcon from "@mui/icons-material/ConfirmationNumberOutlined";
 import rank1 from '../assets/rank-1.png'
 import AppsIcon from "@mui/icons-material/Apps";
 import HomeComponent from "../components/page/home";
@@ -47,7 +39,7 @@ import LoadingModal from '../theme/LoadingModal'
 import LogoutIcon from '@mui/icons-material/Logout';
 import Swal from "sweetalert2";
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-
+import CachedIcon from '@mui/icons-material/Cached';
 function Home({ children }) {
    const router = useRouter();
    const dispatch = useAppDispatch();
@@ -83,6 +75,30 @@ function Home({ children }) {
 
          setCredit(credit.data);
          setLoading(false)
+      } catch (error) {
+         console.log(error);
+         if (
+            error.response.status === 401 &&
+            error.response.data.error.message === "Unauthorized"
+         ) {
+            dispatch(signOut());
+            localStorage.clear();
+            router.push("/auth/login");
+         }
+      }
+   };
+
+   const getCredit = async () => {
+      try {
+         let credit = await axios({
+            headers: {
+               Authorization: "Bearer " + localStorage.getItem("access_token"),
+            },
+            method: "get",
+            url: `${hostname}/user/credit`,
+         });
+
+         setCredit(credit.data);
       } catch (error) {
          console.log(error);
          if (
@@ -192,8 +208,8 @@ function Home({ children }) {
                      </Box>
                      <Box sx={{ textAlign: "center", mt: 1, mx: 1 }}>
                         <Typography align="center" sx={{ color: "#fff" }}>
-                           {profile.tel ? (
-                              profile.tel
+                           {profile.username ? (
+                              profile.username
                            ) : (
                               <Skeleton
                                  variant="text"
@@ -222,7 +238,7 @@ function Home({ children }) {
                            variant="h6"
                            sx={{ color: "#fff", textAlign: "left" }}
                         >
-                           {Intl.NumberFormat("THB").format(credit)} ฿{" "}
+                           ฿{" "} {Intl.NumberFormat("THB").format(credit)} <CachedIcon fontSize="10px" onClick={() => getCredit()} />
                         </Typography>
                      ) : (
                         <Skeleton
@@ -430,7 +446,7 @@ function Home({ children }) {
                                     variant="h6"
                                     sx={{ color: "#fff", textAlign: "left" }}
                                  >
-                                    {Intl.NumberFormat("THB").format(credit)} ฿{" "}
+                                    ฿{" "} {Intl.NumberFormat("THB").format(credit)} <CachedIcon fontSize="10px" onClick={() => getCredit()} />
                                  </Typography>
                               ) : (
                                  <Skeleton
@@ -573,7 +589,7 @@ function Home({ children }) {
                         sx={{ fontWeight: "bold", border: '1px solid #eee' }}
                         variant="head"
                      >
-                        เครดิตคงเหลือ
+                        เครดิต
                      </TableCell>
                      <TableCell>{profile.credit}</TableCell>
                   </TableRow>
@@ -800,7 +816,7 @@ function Home({ children }) {
 
                            </Grid>
                            <Grid item xs={6} sx={{ ml: 1, mt: '5px' }}>
-                              <Typography sx={{ fontSize: '14px' }} >
+                              <Typography sx={{ fontSize: '13px' }} >
                                  {profile.bank_name === "kbnk"
                                     ? "กสิกรไทย"
                                     : profile.bank_name === "truemoney"
@@ -850,6 +866,15 @@ function Home({ children }) {
                               </Typography>
                            </Grid>
                         </Grid></TableCell>
+                  </TableRow>
+                  <TableRow>
+                     <TableCell
+                        sx={{ fontWeight: "bold", border: '1px solid #eee' }}
+                        variant="head"
+                     >
+                        ชื่อ
+                     </TableCell>
+                     <TableCell >{profile.name}</TableCell>
                   </TableRow>
                   <TableRow>
                      <TableCell

@@ -71,6 +71,10 @@ function Register() {
             data: {
                bank_number: rowData.bank_number,
                bank_name: rowData.bank_name,
+               fname: rowData.fname,
+               lname: rowData.lname,
+               // name: rowData.name,
+
                tel: rowData.tel,
                affiliate_by: "-",
                platform: "postman",
@@ -92,6 +96,18 @@ function Register() {
                position: 'center',
                icon: 'warning',
                title: 'มีข้อมูลผู้ใช้งานนี้แล้ว',
+               showConfirmButton: false,
+               timer: 2000
+            })
+         }
+         if (
+            error.response.data.error.status_code === 400 &&
+            error.response.data.error.message === "ข้อมูลไม่ถูกต้อง"
+         ) {
+            Swal.fire({
+               position: 'center',
+               icon: 'warning',
+               title: 'กรุณากรอกข้อมูลให้ครบถ้วน',
                showConfirmButton: false,
                timer: 2000
             })
@@ -305,6 +321,34 @@ function Register() {
                                     variant="outlined"
                                     sx={{ bgcolor: "white", borderRadius: 1 }}
                                  />
+                                 <Typography sx={{ mt: 1, color: "#707070", fontSize: '12px' }}>
+                                    ชื่อจริง (ตรงกับบัญชีธนาคาร)*
+                                 </Typography>
+                                 <TextField
+                                    name="fname"
+                                    type="text"
+                                    value={rowData.fname || ""}
+                                    placeholder="ชื่อ"
+                                    fullWidth
+                                    size="small"
+                                    onChange={(e) => handleChangeData(e)}
+                                    variant="outlined"
+                                    sx={{ bgcolor: "white", borderRadius: 1 }}
+                                 />
+                                 <Typography sx={{ mt: 1, color: "#707070", fontSize: '12px' }}>
+                                    นามสกุล (ตรงกับบัญชีธนาคาร)*
+                                 </Typography>
+                                 <TextField
+                                    name="lname"
+                                    type="text"
+                                    value={rowData.lname || ""}
+                                    placeholder="นามสกุล"
+                                    fullWidth
+                                    size="small"
+                                    onChange={(e) => handleChangeData(e)}
+                                    variant="outlined"
+                                    sx={{ bgcolor: "white", borderRadius: 1 }}
+                                 />
                               </Grid>
 
                               <Grid container
@@ -434,6 +478,8 @@ function Register() {
                                                    tel: rowData.tel,
                                                    bank_number: rowData.bank_number,
                                                    bank_name: rowData.bank_name,
+                                                   fname: rowData.fname,
+                                                   lname: rowData.lname,
                                                    affiliate_by: "-",
                                                    platform: "postman",
                                                    token: dataOTP.token,
@@ -442,7 +488,8 @@ function Register() {
                                              );
 
                                              if (response.meta.requestStatus === "rejected") {
-                                                alert("Login failed");
+                                                // alert("Login failed");
+                                                console.log("otp failed");
                                              } else {
                                                 setTabOtp([...tabOtp.map(data => "")])
                                                 router.push("/home");
@@ -677,6 +724,34 @@ function Register() {
                               variant="outlined"
                               sx={{ bgcolor: "white", borderRadius: 1 }}
                            />
+                           <Typography sx={{ mt: 1, color: "#707070", fontSize: '12px' }}>
+                              ชื่อจริง (ตรงกับบัญชีธนาคาร)*
+                           </Typography>
+                           <TextField
+                              name="fname"
+                              type="text"
+                              value={rowData.fname || ""}
+                              placeholder="ชื่อ"
+                              fullWidth
+                              size="small"
+                              onChange={(e) => handleChangeData(e)}
+                              variant="outlined"
+                              sx={{ bgcolor: "white", borderRadius: 1 }}
+                           />
+                           <Typography sx={{ mt: 1, color: "#707070", fontSize: '12px' }}>
+                              นามสกุล (ตรงกับบัญชีธนาคาร)*
+                           </Typography>
+                           <TextField
+                              name="lname"
+                              type="text"
+                              value={rowData.lname || ""}
+                              placeholder="นามสกุล"
+                              fullWidth
+                              size="small"
+                              onChange={(e) => handleChangeData(e)}
+                              variant="outlined"
+                              sx={{ bgcolor: "white", borderRadius: 1 }}
+                           />
                         </Grid>
 
                         <Grid container
@@ -798,6 +873,8 @@ function Register() {
                                              tel: rowData.tel,
                                              bank_number: rowData.bank_number,
                                              bank_name: rowData.bank_name,
+                                             fname: rowData.fname,
+                                             lname: rowData.lname,
                                              affiliate_by: "-",
                                              platform: "postman",
                                              token: dataOTP.token,
@@ -806,7 +883,8 @@ function Register() {
                                        );
 
                                        if (response.meta.requestStatus === "rejected") {
-                                          alert("Login failed");
+                                          // alert("Login failed");
+                                          console.log("otp failed");
                                        } else {
                                           setTabOtp([...tabOtp.map(data => "")])
                                           router.push("/home");
