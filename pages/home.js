@@ -290,11 +290,11 @@ function Home({ children }) {
                         <Grid container>
                            <AppsIcon sx={{ color: "white" }} />
                            <Typography sx={{ mx: 1, color: "white", fontSize: "14px" }}>
-                              500 pts
+                              0 pts
                            </Typography>
                         </Grid>
                         <Typography sx={{ mt: 1, ml: 1, fontSize: "10px", color: "white" }}>
-                           450 pts จะหมดอายุ
+                           0 pts จะหมดอายุ
                         </Typography>
                      </Grid>
                   </Grid>
@@ -496,11 +496,11 @@ function Home({ children }) {
                                  <Grid container>
                                     <AppsIcon sx={{ color: "white" }} />
                                     <Typography sx={{ mx: 1, color: "white", fontSize: "14px" }}>
-                                       500 pts
+                                       0 pts
                                     </Typography>
                                  </Grid>
                                  <Typography sx={{ mt: 1, ml: 1, fontSize: "10px", color: "white" }}>
-                                    450 pts จะหมดอายุ
+                                    0 pts จะหมดอายุ
                                  </Typography>
                               </Grid>
                            </Grid>
