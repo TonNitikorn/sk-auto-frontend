@@ -416,8 +416,8 @@ function Home({ children }) {
                               </Box>
                               <Box sx={{ textAlign: "center", mt: 1, mx: 1 }}>
                                  <Typography align="center" sx={{ color: "#fff" }}>
-                                    {profile.tel ? (
-                                       profile.tel
+                                    {profile.username ? (
+                                       profile.username
                                     ) : (
                                        <Skeleton
                                           variant="text"
