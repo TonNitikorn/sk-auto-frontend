@@ -28,6 +28,7 @@ function Register() {
    const [tabOtp, setTabOtp] = useState(new Array(6).fill(""))
    const [logo, setLogo] = useState([])
    const [dataOTP, setDataOTP] = useState({})
+   const [sendOTPAgain, setSendOTPAgain] = useState(false)
 
    const [page, setPage] = useState(0)
 
@@ -85,6 +86,10 @@ function Register() {
          setDataOTP(resData)
          setPage(2)
          // setLoading(false)
+         const interval = setInterval(() => {
+            setSendOTPAgain(true)
+         }, 30000);
+         return () => clearInterval(interval);
       } catch (error) {
          console.log(error);
          // setLoading(false)
@@ -452,14 +457,14 @@ function Register() {
                                     <Grid container
                                        direction="row">
                                        <Typography sx={{ color: "#707070", fontSize: "12px", mt: 1 }}>ไม่ได้รับรหัส OTP ? ?  </Typography>
-                                       <Button
-                                          variant="text"
-                                          onClick={() => {
-                                             sendOTP()
-                                          }}
-                                       >
-                                          <Typography sx={{ color: "#41A3E3", fontSize: "12px", textDecoration: 'underline' }} >ส่งรหัสอีกครั้ง</Typography>
-                                       </Button>
+                                       {!sendOTPAgain ?
+                                          <Typography sx={{ color: "#707070", fontSize: "12px", mt: 1, ml: 1 }}>ส่งรหัสอีกครั้งในอีก 30 วินาที</Typography>
+                                          : <Button
+                                             variant="text"
+                                             onClick={() => sendOTP()}
+                                          >
+                                             <Typography sx={{ color: "#41A3E3", fontSize: "12px", textDecoration: 'underline' }}>ส่งรหัสอีกครั้ง</Typography>
+                                          </Button>}
 
                                     </Grid>
                                     <Grid
@@ -849,12 +854,14 @@ function Register() {
                               <Grid container
                                  direction="row">
                                  <Typography sx={{ color: "#707070", fontSize: "12px", mt: 1 }}>ไม่ได้รับรหัส OTP ? ?  </Typography>
-                                 <Button
-                                    variant="text"
-                                    onClick={() => sendOTP()}
-                                 >
-                                    <Typography sx={{ color: "#41A3E3", fontSize: "12px", textDecoration: 'underline' }} >ส่งรหัสอีกครั้ง</Typography>
-                                 </Button>
+                                 {!sendOTPAgain ?
+                                    <Typography sx={{ color: "#707070", fontSize: "12px", mt: 1, ml: 1 }}>ส่งรหัสอีกครั้งในอีก 30 วินาที</Typography>
+                                    : <Button
+                                       variant="text"
+                                       onClick={() => sendOTP()}
+                                    >
+                                       <Typography sx={{ color: "#41A3E3", fontSize: "12px", textDecoration: 'underline' }}>ส่งรหัสอีกครั้ง</Typography>
+                                    </Button>}
 
                               </Grid>
                               <Grid
