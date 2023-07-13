@@ -34,6 +34,8 @@ function Login() {
   const [tabOtp, setTabOtp] = useState(new Array(6).fill(""))
   const [dataOTP, setDataOTP] = useState()
   const [loading, setLoading] = useState(false)
+  const [sendOTPAgain, setSendOTPAgain] = useState(false)
+
 
   const handleChangeOtp = (element, index) => {
     if (isNaN(element.value)) return false
@@ -73,13 +75,18 @@ function Login() {
 
         setDataOTP(resData)
         setOtp(true)
+        setLoading(false)
+
+        const interval = setInterval(() => {
+          setSendOTPAgain(true)
+          }, 30000);
+        return () => clearInterval(interval);
+        // return () => clearInterval(interval);
       }
 
-      setLoading(false)
     } catch (error) {
       console.log(error);
       setLoading(false)
-
       if (
         error.response.data.error.status_code === 401 &&
         error.response.data.error.message === "ไม่มีข้อมูลผู้ใช้งานนี้"
@@ -237,7 +244,7 @@ function Login() {
                     <ArrowBackIosIcon fontSize='small' sx={{ mt: 3 }} onClick={() => setOtp(false)} />
                   </Grid>
                   <Grid item xs={4} container justifyContent="center">
-                    <Box sx={{  mt: "5px" }}>
+                    <Box sx={{ mt: "5px" }}>
                       <img src={logo[0]?.img_url} width={200} height={70} />
                     </Box>
                     {/* <Typography variant="h5" sx={{ mt: 3, color: "#41A3E3" }}>เข้าสู่ระบบ</Typography> */}
@@ -272,12 +279,15 @@ function Login() {
                 <Grid container
                   direction="row">
                   <Typography sx={{ ml: 2, color: "#707070", fontSize: "12px", mt: 1 }}>ไม่ได้รับรหัส OTP ? </Typography>
-                  <Button
-                    variant="text"
-                    onClick={() => sendOTP()}
-                  >
-                    <Typography sx={{ color: "#41A3E3", fontSize: "12px", textDecoration: 'underline' }} >ส่งรหัสอีกครั้ง</Typography>
-                  </Button>
+
+                  {!sendOTPAgain ?
+                    <Typography sx={{ color: "#707070", fontSize: "12px", mt: 1, ml: 1 }}>ส่งรหัสอีกครั้งในอีก 30 วินาที</Typography>
+                    : <Button
+                      variant="text"
+                      onClick={() => sendOTP()}
+                    >
+                      <Typography sx={{ color: "#41A3E3", fontSize: "12px", textDecoration: 'underline' }}>ส่งรหัสอีกครั้ง</Typography>
+                    </Button>}
                 </Grid>
 
                 <Grid
@@ -342,7 +352,7 @@ function Login() {
               justifyContent="center"
               alignItems="center"
             >
-              <Box sx={{  mt: "5px" }}>
+              <Box sx={{ mt: "5px" }}>
                 <img src={logo[0]?.img_url} width={200} height={70} />
               </Box>
               {/* <Typography variant="h5" sx={{ mt: 3, color: "#41A3E3" }}>เข้าสู่ระบบ</Typography> */}
@@ -418,7 +428,7 @@ function Login() {
                 <ArrowBackIosIcon fontSize='small' sx={{ mt: 3 }} onClick={() => setOtp(false)} />
               </Grid>
               <Grid item xs={4} container justifyContent="center">
-                <Box sx={{  mt: "5px" }}>
+                <Box sx={{ mt: "5px" }}>
                   <img src={logo[0]?.img_url} width={200} height={70} />
                 </Box>
                 {/* <Typography variant="h5" sx={{ mt: 3, color: "#41A3E3" }}>เข้าสู่ระบบ</Typography> */}
@@ -451,12 +461,14 @@ function Login() {
             <Grid container
               direction="row">
               <Typography sx={{ color: "#707070", fontSize: "12px", mt: 1 }}>ไม่ได้รับรหัส OTP ? </Typography>
-              <Button
-                variant="text"
-                onClick={() => sendOTP()}
-              >
-                <Typography sx={{ color: "#41A3E3", fontSize: "12px", textDecoration: 'underline' }} >ส่งรหัสอีกครั้ง</Typography>
-              </Button>
+              {!sendOTPAgain ?
+                <Typography sx={{ color: "#707070", fontSize: "12px", mt: 1, ml: 1 }}>ส่งรหัสอีกครั้งในอีก 30 วินาที</Typography>
+                : <Button
+                  variant="text"
+                  onClick={() => sendOTP()}
+                >
+                  <Typography sx={{ color: "#41A3E3", fontSize: "12px", textDecoration: 'underline' }}>ส่งรหัสอีกครั้ง</Typography>
+                </Button>}
             </Grid>
 
             <Grid
@@ -497,7 +509,7 @@ function Login() {
             </Grid>
           </Box>
         }
-      </div>
+      </div >
       <LoadingModal open={loading} />
     </>
   );
