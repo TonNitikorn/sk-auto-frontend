@@ -1,5 +1,5 @@
 import axios from "axios";
-import hostname from "../utils/hostname";
+import { hostname } from "../utils/hostname";
 import Swal from "sweetalert2";
 // import Stack from '@mui/material/Stack';
 // import Button from '@mui/material/Button';

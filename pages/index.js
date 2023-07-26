@@ -33,7 +33,7 @@ import Slide from '@mui/material/Slide';
 import { signIn } from "../store/slices/userSlice";
 import { useAppDispatch } from "../store/store";
 import axios from 'axios';
-import hostname from '../utils/hostname';
+import { hostname } from '../utils/hostname';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Swal from "sweetalert2";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";

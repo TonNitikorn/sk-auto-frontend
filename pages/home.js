@@ -22,7 +22,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { useRouter } from "next/router";
 import { signOut } from "../store/slices/userSlice";
 import { useAppDispatch } from "../store/store";
-import hostname from "../utils/hostname";
+import { hostname } from "../utils/hostname";
 import axios from "axios";
 import HomeIcon from '@mui/icons-material/Home';
 import PaidIcon from '@mui/icons-material/Paid';

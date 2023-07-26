@@ -13,7 +13,7 @@ import scbL from "../assets/scbL.png";
 import trueL from "../assets/trueL.png";
 import rank1 from "../assets/rank-1.png";
 import axios from "axios";
-import hostname from "../utils/hostname";
+import { hostname } from "../utils/hostname";
 import AppsIcon from "@mui/icons-material/Apps";
 
 

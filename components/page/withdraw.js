@@ -13,7 +13,7 @@ import Image from "next/image";
 import Swal from "sweetalert2";
 import LoadingModal from '../../theme/LoadingModal'
 import axios from "axios";
-import hostname from "../../utils/hostname";
+import { hostname } from "../../utils/hostname";
 import { useRouter } from "next/router";
 import { signOut } from "../../store/slices/userSlice";
 import { useAppDispatch } from "../../store/store";

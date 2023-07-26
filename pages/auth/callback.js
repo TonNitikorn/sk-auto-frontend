@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect, useState } from 'react';
 import LoadingModal from '../../theme/LoadingModal'
 import axios from 'axios';
-import hostname from '../../utils/hostname';
+import { hostname } from '../../utils/hostname';
 import { useRouter } from 'next/router'
 
 

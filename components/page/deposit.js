@@ -12,7 +12,7 @@ import trueL from "../../assets/trueL.png";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import axios from "axios";
-import hostname from "../../utils/hostname";
+import { hostname } from "../../utils/hostname";
 import MuiAlert from "@mui/material/Alert";
 import LoadingModal from '../../theme/LoadingModal'
 import { useRouter } from "next/router";

@@ -16,7 +16,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import EastIcon from '@mui/icons-material/East';
 import axios from "axios";
-import hostname from "../../utils/hostname";
+import { hostname } from "../../utils/hostname";
 import { register } from "../../store/slices/userSlice";
 import { useAppDispatch } from "../../store/store";
 

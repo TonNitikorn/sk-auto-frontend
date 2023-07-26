@@ -12,7 +12,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import axios from "axios";
 import { signIn } from "../../store/slices/userSlice";
 import withAuth from "../../routes/withAuth";
-import hostname from "../../utils/hostname";
+import { hostname } from "../../utils/hostname";
 import { useAppDispatch } from "../../store/store";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Swal from "sweetalert2";
@@ -52,6 +52,7 @@ function Login() {
     setLoading(true)
     try {
       if (!rowData.tel || rowData.tel.length !== 10) {
+        setLoading(false)
         Swal.fire({
           position: 'center',
           icon: 'info',
@@ -79,7 +80,7 @@ function Login() {
 
         const interval = setInterval(() => {
           setSendOTPAgain(true)
-          }, 30000);
+        }, 30000);
         return () => clearInterval(interval);
         // return () => clearInterval(interval);
       }

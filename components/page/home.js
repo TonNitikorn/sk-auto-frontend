@@ -21,7 +21,7 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import Swal from "sweetalert2";
 import Image from 'next/image'
 import axios from 'axios'
-import hostname from '../../utils/hostname'
+import { hostname, hostnameGameV1 } from '../../utils/hostname'
 import rank1 from '../../assets/rank-1.png'
 import AppsIcon from "@mui/icons-material/Apps";
 import gameIn from "../../assets/gameIn.png";
@@ -46,6 +46,7 @@ function Home() {
     const [selectGame, setSelectGame] = useState(false)
     const [profile, setProfile] = useState({})
     const [credit, setCredit] = useState({})
+    const [gameList, setGameList] = useState([])
 
     const handleChangeData = async (e) => {
         setRowData({ ...rowData, [e.target.name]: e.target.value });
@@ -133,9 +134,40 @@ function Home() {
         }
     };
 
+    const getGameList = async () => {
+        setLoading(true);
+        try {
+            let res = await axios({
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("access_token"),
+                },
+                method: "get",
+                url: `${hostnameGameV1}/game/getGameList`,
+            });
+
+            let resData = res.data;
+            console.log('resData', resData)
+            setGameList(resData)
+            setLoading(false);
+        } catch (error) {
+            console.log(error);
+            if (
+                error.response.status === 401 &&
+                error.response.data.error.message === "Unauthorized"
+            ) {
+                dispatch(signOut());
+                localStorage.clear();
+                router.push("/auth/login");
+            }
+        }
+    };
+
+
+
     useEffect(() => {
         getAssets()
         getGameType()
+        getGameList()
     }, [])
 
     return (
@@ -380,7 +412,16 @@ function Home() {
                         <Typography sx={{ fontSize: '14px', mt: 1 }} onClick={() => setSelectGame(false)}  >ย้อนกลับ</Typography>
                     </Grid>
                     <Grid container spacing={1} sx={{ p: 1, textAlign: "center" }}>
-                        <Grid item xs={6} md={3}>
+                        {gameList.map((item) => (
+                            <Grid item xs={6} md={3}>
+                                <img src={item.game_img} width={'100%'} height={100} style={{ borderRadius: '10px' }}
+                                    onClick={() => window.location.href = `${item.game_url}?game_name=${item.game_name}&token=${localStorage.getItem('access_token')}`}
+                                />
+                            </Grid>
+                        ))}
+
+
+                        {/* <Grid item xs={6} md={3}>
                             <img src={`https://public-cdn-softkingdom.sgp1.cdn.digitaloceanspaces.com/1687251312070-%E0%B9%80%E0%B8%81%E0%B8%A1%E0%B8%AA%E0%B9%8C%E0%B8%81%E0%B8%B1%E0%B8%8D%E0%B8%8A%E0%B8%B2-V2.png`} width={'100%'} height={100} style={{ borderRadius: '10px' }}
                                 onClick={() => window.location.href = `https://sk-dev-test-app-9ood3.ondigitalocean.app/?token=${localStorage.getItem('access_token')}`}
                             />
@@ -394,7 +435,7 @@ function Home() {
                             <img src={'https://public-cdn-softkingdom.sgp1.cdn.digitaloceanspaces.com/1687251312100-%E0%B9%80%E0%B8%81%E0%B8%A1%E0%B8%AA%E0%B9%8C%E0%B8%AB%E0%B8%A1%E0%B8%B9-V2.png'} width={'100%'} height={100} style={{ borderRadius: '10px' }}
                                 onClick={() => window.location.href = `https://demo.angpaos.com/?token=${localStorage.getItem('access_token')}`}
                             />
-                        </Grid>
+                        </Grid> */}
 
                         {/* {gameType.map((item) => (
                             <>
