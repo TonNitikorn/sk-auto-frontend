@@ -146,7 +146,7 @@ function Home() {
             });
 
             let resData = res.data;
-            console.log('resData', resData)
+            // console.log('resData', resData)
             setGameList(resData)
             setLoading(false);
         } catch (error) {
@@ -379,28 +379,6 @@ function Home() {
                             </Grid>
                         </Grid>
 
-                        {/* <Grid item md={6}>
-           <Grid
-              container
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-           >
-              <Grid item md={3}>
-                 <Typography sx={{ color: "#000" }}>เกม</Typography>
-              </Grid>
-              <Grid item md={3}>
-                 <Grid container>
-                    <Typography sx={{ color: "#000" }}>ดูทั้งหมด</Typography>
-                    <ChevronRightIcon sx={{ color: "#000" }} />
-                 </Grid>
-              </Grid>
-           </Grid>
-
-           <Grid sx={{ mt: 2, ml: 1 }}>
-              <Image src={ban} alt="banner" />
-           </Grid>
-        </Grid> */}
                     </Grid>
                 </Box> :
                 <Box sx={{
@@ -420,44 +398,6 @@ function Home() {
                             </Grid>
                         ))}
 
-
-                        {/* <Grid item xs={6} md={3}>
-                            <img src={`https://public-cdn-softkingdom.sgp1.cdn.digitaloceanspaces.com/1687251312070-%E0%B9%80%E0%B8%81%E0%B8%A1%E0%B8%AA%E0%B9%8C%E0%B8%81%E0%B8%B1%E0%B8%8D%E0%B8%8A%E0%B8%B2-V2.png`} width={'100%'} height={100} style={{ borderRadius: '10px' }}
-                                onClick={() => window.location.href = `https://sk-dev-test-app-9ood3.ondigitalocean.app/?token=${localStorage.getItem('access_token')}`}
-                            />
-                        </Grid>
-
-                        <Grid item xs={6} md={3}>
-                            <img src={'https://public-cdn-softkingdom.sgp1.cdn.digitaloceanspaces.com/1687251312074-%E0%B9%80%E0%B8%81%E0%B8%A1%E0%B8%AA%E0%B9%8C%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A2-V2.png'} width={'100%'} height={100} style={{ borderRadius: '10px' }}
-                                onClick={() => window.location.href = `https://demo.angpaos.com/?token=${localStorage.getItem('access_token')}`}
-                            />
-                        </Grid>  <Grid item xs={6} md={3}>
-                            <img src={'https://public-cdn-softkingdom.sgp1.cdn.digitaloceanspaces.com/1687251312100-%E0%B9%80%E0%B8%81%E0%B8%A1%E0%B8%AA%E0%B9%8C%E0%B8%AB%E0%B8%A1%E0%B8%B9-V2.png'} width={'100%'} height={100} style={{ borderRadius: '10px' }}
-                                onClick={() => window.location.href = `https://demo.angpaos.com/?token=${localStorage.getItem('access_token')}`}
-                            />
-                        </Grid> */}
-
-                        {/* {gameType.map((item) => (
-                            <>
-                                <Button
-                                    sx={{ mt: 1, height: '80px', width: '90%', borderRadius: '20px' }}
-                                    onClick={() => {
-                                        console.log('item.sub_game_type', item.sub_game_type)
-                                        setSubGameType(item.sub_game_type)
-                                    }}
-                                >
-                                    <Box >
-                                        <img src={item.type_logo} width={80} height={80} style={{ borderRadius: '20px' }} />
-                                    </Box>
-                                </Button>
-                                <Grid item xs={6} md={3}>
-                                    <img src={item.type_logo} width={80} height={80} style={{ borderRadius: '20px' }} />
-
-                                </Grid>
-
-
-                            </>
-                        ))} */}
                     </Grid>
                 </Box>
             }
