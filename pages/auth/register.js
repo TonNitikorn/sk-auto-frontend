@@ -94,6 +94,17 @@ function Register() {
          console.log(error);
          // setLoading(false)
          if (
+            error.response.data.status === 429
+         ) {
+            Swal.fire({
+               position: 'center',
+               icon: 'warning',
+               title: 'ตอนนี้ระบบมีผู้ใช้งานจำนวนมาก กรุณารอสักครู่',
+               showConfirmButton: false,
+               timer: 2000
+            })
+         }
+         if (
             error.response.data.error.status_code === 401 &&
             error.response.data.error.message === "มีข้อมูลผู้ใช้งานนี้แล้ว"
          ) {
@@ -395,7 +406,10 @@ function Register() {
                               <Button
                                  variant="contained"
                                  sx={{ borderRadius: 10 }}
-                                 onClick={() => setPage(2)}
+                                 onClick={() => {
+                                    sendOTP()
+                                    // setPage(2)
+                                 }}
                               >
                                  <Typography sx={{ color: '#fff', fontSize: '10px', mr: 1 }}> {" "}ต่อไป {"  "}</Typography>
                                  <EastIcon fontSize="small" sx={{ color: '#fff' }} />

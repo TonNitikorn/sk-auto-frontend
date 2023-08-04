@@ -22,6 +22,17 @@ export const signIn = async (user) => {
 
   } catch (error) {
     console.log(error);
+    if (
+      error.response.data.status === 429
+    ) {
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: 'ตอนนี้ระบบมีผู้ใช้งานจำนวนมาก กรุณารอสักครู่',
+        showConfirmButton: false,
+        timer: 2000
+      })
+    }
     if (error.response.data.error.status_code === 500 &&
       error.response.data.error.message === "OTP ไม่ถูกต้อง") {
       Swal.fire({
