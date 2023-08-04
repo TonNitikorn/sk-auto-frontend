@@ -254,7 +254,7 @@ function Home() {
                             <Grid item xs={6} >
                                 <img src={"https://public-cdn-softkingdom.sgp1.cdn.digitaloceanspaces.com/1687250266599-2Playgame-auto.jpg"}
                                     width={'95%'}
-                                    height={130}
+                                    height={115}
                                     style={{
                                         borderRadius: '5px',
                                         boxShadow: '2px 2px 5px gray'
@@ -270,7 +270,7 @@ function Home() {
                             <Grid item xs={6} >
                                 <img src={"https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687250463876-2Admin-auto.jpg"}
                                     width={'95%'}
-                                    height={130}
+                                    height={115}
                                     style={{
                                         borderRadius: '5px',
                                         boxShadow: '2px 2px 5px gray'
