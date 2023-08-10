@@ -50,7 +50,7 @@ export const register = async (data) => {
   try {
     let res = await axios({
       method: "post",
-      url: `${hostname}/v2/auth/register/verify`,
+      url: `${hostname}/auth/register`,
       data: {
         bank_number: data.bank_number,
         bank_name: data.bank_name,
@@ -61,9 +61,10 @@ export const register = async (data) => {
         platform: "postman",
         pin: data.pin,
         token: data.token,
+        password: data.password
       }
     });
-    localStorage.setItem("access_token", res.data.accesstoken);
+    localStorage.setItem("access_token", res.data.result.access_token);
     return res.data;
 
 
