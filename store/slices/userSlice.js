@@ -16,6 +16,14 @@ export const signIn = createAsyncThunk("user/signin", async (credential) => {
   return response;
 });
 
+export const changePassword = createAsyncThunk("user/changePassword", async (credential) => {
+  const response = await serverService.changePassword(credential);
+  if (!response) {
+    throw new Error("login failed");
+  }
+  return response;
+});
+
 export const register = createAsyncThunk("user/register", async (credential) => {
   const response = await serverService.register(credential);
   if (!response) {
@@ -63,6 +71,16 @@ const userSlice = createSlice({
     });
     builder.addCase(register.rejected, (state, action) => {
       state.accessToken = "";
+      state.isAuthenticated = false;
+      state.isAuthenticating = false;
+    });
+    builder.addCase(changePassword.fulfilled, (state, action) => {
+      // state.accessToken = action.payload.accessToken;
+      state.isAuthenticated = false;
+      state.isAuthenticating = false;
+    });
+    builder.addCase(changePassword.rejected, (state, action) => {
+      // state.accessToken = "";
       state.isAuthenticated = false;
       state.isAuthenticating = false;
     });
