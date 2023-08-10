@@ -177,7 +177,17 @@ function Register() {
          }
 
       } catch (error) {
-         console.log(error);
+         console.log(error)
+         if (error.response.data.error.status_code === 500 &&
+            error.response.data.error.message === "OTP ไม่ถูกต้อง") {
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: "OTP ไม่ถูกต้อง",
+              showConfirmButton: false,
+              timer: 3000,
+            });
+          }
       }
    }
 
