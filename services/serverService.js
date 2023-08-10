@@ -5,15 +5,14 @@ import Swal from "sweetalert2";
 // import Button from '@mui/material/Button';
 // import Snackbar from '@mui/material/Snackbar';
 // import MuiAlert from '@mui/material/Alert';
-export const signIn = async (user) => {
+export const signIn = async (data) => {
   try {
     let res = await axios({
       method: "post",
-      url: `${hostname}/v2/auth/login/verify`,
+      url: `${hostname}/auth/login`,
       data: {
-        "tel": user.tel,
-        "pin": user.pin,
-        "token": user.token
+        "tel": data.tel,
+        "password": data.password
       }
     });
     localStorage.setItem("access_token", res.data.accesstoken);

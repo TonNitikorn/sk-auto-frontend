@@ -6,6 +6,9 @@ import {
   Typography,
   TextField,
   Box,
+  InputAdornment,
+  IconButton
+
 } from "@mui/material";
 import { useRouter } from "next/router";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -17,6 +20,7 @@ import { useAppDispatch } from "../../store/store";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Swal from "sweetalert2";
 import LoadingModal from '../../theme/LoadingModal'
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 function Login() {
   const router = useRouter();
@@ -37,7 +41,10 @@ function Login() {
   const [dataOTP, setDataOTP] = useState()
   const [loading, setLoading] = useState(false)
   const [sendOTPAgain, setSendOTPAgain] = useState(false)
-
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('')
 
   const handleChangeOtp = (element, index) => {
     if (isNaN(element.value)) return false
@@ -49,8 +56,25 @@ function Login() {
     }
   }
 
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
 
-  const sendOTP = async () => {
+  const handleConfirmPasswordChange = (event) => {
+    setConfirmPassword(event.target.value);
+  };
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleShowConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
+
+
+  const login = async () => {
     setLoading(true)
     try {
       if (!rowData.tel || rowData.tel.length !== 10) {
@@ -366,7 +390,17 @@ function Login() {
                         color: '#fff'
                       }}
                       onClick={async () => {
-                        sendOTP()
+                        const response = await dispatch(
+                          signIn({ tel: rowData.tel, password: rowData.password })
+                        );
+
+                        if (response.meta.requestStatus === "rejected") {
+                          // alert("Login failed");
+                          console.log('otp failed');
+                        } else {
+                          setTabOtp([...tabOtp.map(data => "")])
+                          router.push("/home");
+                        }
                       }}
                     >
                       เข้าสู่ระบบ
@@ -538,31 +572,46 @@ function Login() {
                             รหัสผ่าน
                           </Typography>
                           <TextField
-                            name="password"
-                            type="password"
-                            value={rowData.password || ""}
-                            placeholder="password"
+                            type={showPassword ? 'text' : 'password'}
+                            placeholder="รหัสผ่าน"
+                            variant="outlined"
                             fullWidth
                             size="small"
-                            onChange={(e) => handleChangeData(e)}
-                            variant="outlined"
-                            sx={{ bgcolor: "white" }}
+                            value={password}
+                            onChange={handlePasswordChange}
+                            sx={{ bgcolor: "white", borderRadius: 1 }}
+                            InputProps={{
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  <IconButton onClick={toggleShowPassword}>
+                                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                                  </IconButton>
+                                </InputAdornment>
+                              ),
+                            }}
                           />
-                          <Typography sx={{ mt: 2, color: "#707070", fontSize: "14px" }}>
+                          <Typography sx={{ mt: 2, color: "#707070", fontSize: '12px' }}>
                             ยืนยันรหัสผ่าน
                           </Typography>
                           <TextField
-                            name="re_password"
-                            type="password"
-                            value={rowData.re_password || ""}
-                            placeholder="password"
+                            type={showConfirmPassword ? 'text' : 'password'}
+                            placeholder="ยืนยันรหัสผ่าน"
+                            variant="outlined"
                             fullWidth
                             size="small"
-                            onChange={(e) => handleChangeData(e)}
-                            variant="outlined"
-                            sx={{ bgcolor: "white" }}
+                            value={confirmPassword}
+                            onChange={handleConfirmPasswordChange}
+                            sx={{ bgcolor: "white", borderRadius: 1 }}
+                            InputProps={{
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  <IconButton onClick={toggleShowConfirmPassword}>
+                                    {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                                  </IconButton>
+                                </InputAdornment>
+                              ),
+                            }}
                           />
-
 
                           <Button
                             variant="contained"
@@ -574,18 +623,35 @@ function Login() {
                               color: '#fff'
                             }}
                             onClick={async () => {
-                              const response = await dispatch(
-                                changePassword({ tel: rowData.tel, password: rowData.password })
-                              );
-
-                              if (response.meta.requestStatus === "rejected") {
-                                // alert("Login failed");
-                                console.log('otp failed');
+                              if (password !== "" && confirmPassword !== "") {
+                                Swal.fire({
+                                  position: 'center',
+                                  icon: 'warning',
+                                  title: 'กรุณากรอกรหัสผ่านให้ครบถ้วน',
+                                  showConfirmButton: false,
+                                  timer: 3000
+                                })
+                              } if (password === !confirmPassword) {
+                                Swal.fire({
+                                  position: 'center',
+                                  icon: 'warning',
+                                  title: 'รหัสผ่านไม่ตรงกัน',
+                                  showConfirmButton: false,
+                                  timer: 3000
+                                })
                               } else {
-                                setTabOtp([...tabOtp.map(data => "")])
-                                // router.push("/auth/login");
-                                setForgotPassword(0)
+                                const response = await dispatch(
+                                  changePassword({ tel: rowData.tel, password: rowData.password })
+                                );
 
+                                if (response.meta.requestStatus === "rejected") {
+                                  // alert("Login failed");
+                                  console.log('otp failed');
+                                } else {
+                                  setTabOtp([...tabOtp.map(data => "")])
+                                  // router.push("/auth/login");
+                                  setForgotPassword(0)
+                                }
                               }
                             }}
                           >
@@ -784,7 +850,17 @@ function Login() {
                     color: '#fff'
                   }}
                   onClick={async () => {
-                    sendOTP()
+                    const response = await dispatch(
+                      signIn({ tel: rowData.tel, password: rowData.password })
+                    );
+
+                    if (response.meta.requestStatus === "rejected") {
+                      // alert("Login failed");
+                      console.log('otp failed');
+                    } else {
+                      setTabOtp([...tabOtp.map(data => "")])
+                      router.push("/home");
+                    }
                   }}
                 >
                   เข้าสู่ระบบ
@@ -956,29 +1032,45 @@ function Login() {
                         รหัสผ่าน
                       </Typography>
                       <TextField
-                        name="password"
-                        type="password"
-                        value={rowData.password || ""}
-                        placeholder="password"
+                        type={showPassword ? 'text' : 'password'}
+                        placeholder="รหัสผ่าน"
+                        variant="outlined"
                         fullWidth
                         size="small"
-                        onChange={(e) => handleChangeData(e)}
-                        variant="outlined"
-                        sx={{ bgcolor: "white" }}
+                        value={password}
+                        onChange={handlePasswordChange}
+                        sx={{ bgcolor: "white", borderRadius: 1 }}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton onClick={toggleShowPassword}>
+                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                        }}
                       />
-                      <Typography sx={{ mt: 2, color: "#707070", fontSize: "14px" }}>
+                      <Typography sx={{ mt: 2, color: "#707070", fontSize: '12px' }}>
                         ยืนยันรหัสผ่าน
                       </Typography>
                       <TextField
-                        name="re_password"
-                        type="password"
-                        value={rowData.re_password || ""}
-                        placeholder="password"
+                        type={showConfirmPassword ? 'text' : 'password'}
+                        placeholder="ยืนยันรหัสผ่าน"
+                        variant="outlined"
                         fullWidth
                         size="small"
-                        onChange={(e) => handleChangeData(e)}
-                        variant="outlined"
-                        sx={{ bgcolor: "white" }}
+                        value={confirmPassword}
+                        onChange={handleConfirmPasswordChange}
+                        sx={{ bgcolor: "white", borderRadius: 1 }}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton onClick={toggleShowConfirmPassword}>
+                                {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                        }}
                       />
 
 
@@ -991,19 +1083,38 @@ function Login() {
                           borderRadius: 5,
                           color: '#fff'
                         }}
-                      // onClick={async () => {
-                      //   const response = await dispatch(
-                      //     signIn({ tel: rowData.tel, token: dataOTP.token, pin: tabOtp[0] + tabOtp[1] + tabOtp[2] + tabOtp[3] + tabOtp[4] + tabOtp[5] })
-                      //   );
+                        onClick={async () => {
+                          if (password !== "" && confirmPassword !== "") {
+                            Swal.fire({
+                              position: 'center',
+                              icon: 'warning',
+                              title: 'กรุณากรอกรหัสผ่านให้ครบถ้วน',
+                              showConfirmButton: false,
+                              timer: 3000
+                            })
+                          } if (password === !confirmPassword) {
+                            Swal.fire({
+                              position: 'center',
+                              icon: 'warning',
+                              title: 'รหัสผ่านไม่ตรงกัน',
+                              showConfirmButton: false,
+                              timer: 3000
+                            })
+                          } else {
+                            const response = await dispatch(
+                              changePassword({ tel: rowData.tel, password: rowData.password })
+                            );
 
-                      //   if (response.meta.requestStatus === "rejected") {
-                      //     // alert("Login failed");
-                      //     console.log('otp failed');
-                      //   } else {
-                      //     setTabOtp([...tabOtp.map(data => "")])
-                      //     router.push("/home");
-                      //   }
-                      // }}
+                            if (response.meta.requestStatus === "rejected") {
+                              // alert("Login failed");
+                              console.log('otp failed');
+                            } else {
+                              setTabOtp([...tabOtp.map(data => "")])
+                              // router.push("/auth/login");
+                              setForgotPassword(0)
+                            }
+                          }
+                        }}
                       >
                         เปลี่ยนรหัสผ่านและเข้าสู่ระบบ
                       </Button>
@@ -1089,7 +1200,17 @@ function Login() {
                     color: '#fff'
                   }}
                   onClick={async () => {
-                    sendOTP()
+                    const response = await dispatch(
+                      signIn({ tel: rowData.tel, password: rowData.password })
+                    );
+
+                    if (response.meta.requestStatus === "rejected") {
+                      // alert("Login failed");
+                      console.log('otp failed');
+                    } else {
+                      setTabOtp([...tabOtp.map(data => "")])
+                      router.push("/home");
+                    }
                   }}
                 >
                   เข้าสู่ระบบ
@@ -1296,19 +1417,38 @@ function Login() {
                           borderRadius: 5,
                           color: '#fff'
                         }}
-                      // onClick={async () => {
-                      //   const response = await dispatch(
-                      //     signIn({ tel: rowData.tel, token: dataOTP.token, pin: tabOtp[0] + tabOtp[1] + tabOtp[2] + tabOtp[3] + tabOtp[4] + tabOtp[5] })
-                      //   );
+                        onClick={async () => {
+                          if (password !== "" && confirmPassword !== "") {
+                            Swal.fire({
+                              position: 'center',
+                              icon: 'warning',
+                              title: 'กรุณากรอกรหัสผ่านให้ครบถ้วน',
+                              showConfirmButton: false,
+                              timer: 3000
+                            })
+                          } if (password === !confirmPassword) {
+                            Swal.fire({
+                              position: 'center',
+                              icon: 'warning',
+                              title: 'รหัสผ่านไม่ตรงกัน',
+                              showConfirmButton: false,
+                              timer: 3000
+                            })
+                          } else {
+                            const response = await dispatch(
+                              changePassword({ tel: rowData.tel, password: rowData.password })
+                            );
 
-                      //   if (response.meta.requestStatus === "rejected") {
-                      //     // alert("Login failed");
-                      //     console.log('otp failed');
-                      //   } else {
-                      //     setTabOtp([...tabOtp.map(data => "")])
-                      //     router.push("/home");
-                      //   }
-                      // }}
+                            if (response.meta.requestStatus === "rejected") {
+                              // alert("Login failed");
+                              console.log('otp failed');
+                            } else {
+                              setTabOtp([...tabOtp.map(data => "")])
+                              // router.push("/auth/login");
+                              setForgotPassword(0)
+                            }
+                          }
+                        }}
                       >
                         เปลี่ยนรหัสผ่านและเข้าสู่ระบบ
                       </Button>
