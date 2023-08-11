@@ -583,12 +583,10 @@ function Home({ children }) {
                               width: "100%",
                            }}
                         >
-                           <Grid container>
-                              <Box sx={{ textAlign: "center", mt: 1 }}>
+                           <Grid container sx={{ mt: 1 }}>
+                              <Grid container item xs={8}>
                                  <Typography sx={{ color: "#fff" }}>User :</Typography>
-                              </Box>
-                              <Box sx={{ textAlign: "center", mt: 1, mx: 1 }}>
-                                 <Typography align="center" sx={{ color: "#fff" }}>
+                                 <Typography align="center" sx={{ color: "#fff", ml: 1 }}>
                                     {profile.username ? (
                                        profile.username
                                     ) : (
@@ -598,14 +596,17 @@ function Home({ children }) {
                                        />
                                     )}
                                  </Typography>
-                              </Box>
-                              <Box>
-                                 <IconButton>
-                                    {/* <CopyToClipboard text={profile.sb_username}>
-                            <ContentCopyIcon color="white" />
-                         </CopyToClipboard> */}
-                                 </IconButton>
-                              </Box>
+                              </Grid>
+                              <Grid item xs={4}>
+                                 <Typography
+                                    sx={{ color: "#fff", fontSize: '12px', textDecoration: 'underline', textAlign: 'end' }}
+                                    onClick={() => {
+                                       setOpenDialogChangePassword(true)
+                                    }}
+                                 >
+                                    เปลี่ยนรหัสผ่าน
+                                 </Typography>
+                              </Grid>
                            </Grid>
                            <Typography
                               align="start"
@@ -1110,14 +1111,15 @@ function Home({ children }) {
                      <TextField
                         name="tel"
                         type="text"
-                        value={rowData?.tel}
+                        value={profile?.tel}
                         placeholder="000-000-000"
                         fullWidth
                         size="small"
-                        onChange={(e) => handleChangeData(e)}
+                        disabled
+                        // onChange={(e) => handleChangeData(e)}
                         variant="outlined"
                         sx={{ bgcolor: "white" }}
-                        inputProps={{ maxLength: 10 }}
+                     // inputProps={{ maxLength: 10 }}
                      />
 
                      <Button
@@ -1286,7 +1288,7 @@ function Home({ children }) {
                                     console.log('otp failed');
                                  } else {
                                     setTabOtp([...tabOtp.map(data => "")])
-                                    localStorage.clear()
+                                    // localStorage.clear()
                                     // router.push("/auth/login");
                                  }
 

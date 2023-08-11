@@ -72,6 +72,8 @@ export const changePassword = async (data) => {
         title: 'เปลี่ยนรหัสผ่านสำเร็จ',
         showConfirmButton: false,
         timer: 3000
+      }).then(() => {
+        localStorage.clear()
       })
     }
     // localStorage.setItem("access_token", res.data.accesstoken);
