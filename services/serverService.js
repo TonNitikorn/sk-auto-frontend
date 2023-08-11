@@ -71,7 +71,7 @@ export const changePassword = async (data) => {
         icon: 'success',
         title: 'เปลี่ยนรหัสผ่านสำเร็จ',
         showConfirmButton: false,
-        timer: 3000
+        timer: 2000
       }).then(() => {
         localStorage.clear()
       })
