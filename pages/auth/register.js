@@ -146,8 +146,7 @@ function Register() {
          }
       }
    }
-
-
+   
    const confirmOTP = async () => {
       try {
          let res = await axios({
@@ -173,7 +172,6 @@ function Register() {
             }).then(() => {
                setPage(2)
             })
-
          }
 
       } catch (error) {

@@ -72,64 +72,6 @@ function Login() {
     setShowConfirmPassword(!showConfirmPassword);
   };
 
-
-
-  const login = async () => {
-    setLoading(true)
-    try {
-      if (!rowData.tel || rowData.tel.length !== 10) {
-        setLoading(false)
-        Swal.fire({
-          position: 'center',
-          icon: 'info',
-          title: 'กรุณากรอกหมายเลขโทรศัพท์',
-          showConfirmButton: false,
-          timer: 2000
-        })
-      } else {
-        let res = await axios({
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("access_token"),
-          },
-          method: "post",
-          url: `${hostname}/v2/auth/login`,
-          data: {
-            "tel": rowData.tel
-          }
-        });
-
-        let resData = res.data
-
-        setDataOTP(resData)
-        setOtp(true)
-        setLoading(false)
-
-        const interval = setInterval(() => {
-          setSendOTPAgain(true)
-        }, 30000);
-        return () => clearInterval(interval);
-        // return () => clearInterval(interval);
-      }
-
-    } catch (error) {
-      console.log(error);
-      setLoading(false)
-      if (
-        error.response.data.error.status_code === 401 &&
-        error.response.data.error.message === "ไม่มีข้อมูลผู้ใช้งานนี้"
-      ) {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'ไม่มีข้อมูลผู้ใช้งานนี้',
-          showConfirmButton: false,
-          timer: 2000
-        })
-        // router.push("/auth/login")
-      }
-    }
-  }
-
   const sendPasswordOTP = async () => {
     setLoading(true)
     try {
@@ -361,14 +303,24 @@ function Login() {
                     </Typography>
                     <TextField
                       name="password"
-                      type="password"
-                      value={rowData.password || ""}
+                      type={showPassword ? 'text' : 'password'}
+                      // value={rowData.password || ""}
+                      value={password}
                       placeholder="password"
                       fullWidth
                       size="small"
-                      onChange={(e) => handleChangeData(e)}
+                      onChange={handlePasswordChange}
                       variant="outlined"
                       sx={{ bgcolor: "white" }}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton onClick={toggleShowPassword}>
+                              {showPassword ? <Visibility /> : <VisibilityOff />}
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
                     />
 
                     <Button
@@ -391,7 +343,7 @@ function Login() {
                       }}
                       onClick={async () => {
                         const response = await dispatch(
-                          signIn({ tel: rowData.tel, password: rowData.password })
+                          signIn({ tel: rowData.tel, password: password })
                         );
 
                         if (response.meta.requestStatus === "rejected") {
@@ -436,7 +388,7 @@ function Login() {
                       </Typography>
                       <TextField
                         name="tel"
-                        type="number"
+                        type="text"
                         value={rowData.tel || ""}
                         placeholder="000-000-000"
                         fullWidth
@@ -590,7 +542,7 @@ function Login() {
                               ),
                             }}
                           />
-                          <Typography sx={{ mt: 2, color: "#707070", fontSize: '12px' }}>
+                          <Typography sx={{ mt: 2, color: "#707070", fontSize: '14px' }}>
                             ยืนยันรหัสผ่าน
                           </Typography>
                           <TextField
@@ -623,7 +575,7 @@ function Login() {
                               color: '#fff'
                             }}
                             onClick={async () => {
-                              if (password !== "" && confirmPassword !== "") {
+                              if (password === "" && confirmPassword === "") {
                                 Swal.fire({
                                   position: 'center',
                                   icon: 'warning',
@@ -631,7 +583,9 @@ function Login() {
                                   showConfirmButton: false,
                                   timer: 3000
                                 })
-                              } if (password === !confirmPassword) {
+                              } 
+                              
+                              if (password !== confirmPassword) {
                                 Swal.fire({
                                   position: 'center',
                                   icon: 'warning',
@@ -641,7 +595,7 @@ function Login() {
                                 })
                               } else {
                                 const response = await dispatch(
-                                  changePassword({ tel: rowData.tel, password: rowData.password })
+                                  changePassword({ tel: rowData.tel, password: password })
                                 );
 
                                 if (response.meta.requestStatus === "rejected") {
@@ -749,7 +703,7 @@ function Login() {
                       }}
                       onClick={async () => {
                         const response = await dispatch(
-                          changePassword({ tel: rowData.tel, password: rowData.password })
+                          changePassword({ tel: rowData.tel, password: password })
                         );
 
                         if (response.meta.requestStatus === "rejected") {
@@ -820,15 +774,23 @@ function Login() {
                   รหัสผ่าน
                 </Typography>
                 <TextField
-                  name="password"
-                  type="password"
-                  value={rowData.password || ""}
-                  placeholder="password"
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  placeholder="ยืนยันรหัสผ่าน"
+                  variant="outlined"
                   fullWidth
                   size="small"
-                  onChange={(e) => handleChangeData(e)}
-                  variant="outlined"
-                  sx={{ bgcolor: "white" }}
+                  value={confirmPassword}
+                  onChange={handleConfirmPasswordChange}
+                  sx={{ bgcolor: "white", borderRadius: 1 }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton onClick={toggleShowConfirmPassword}>
+                          {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
 
                 <Button
@@ -851,7 +813,7 @@ function Login() {
                   }}
                   onClick={async () => {
                     const response = await dispatch(
-                      signIn({ tel: rowData.tel, password: rowData.password })
+                      signIn({ tel: rowData.tel, password: password })
                     );
 
                     if (response.meta.requestStatus === "rejected") {
@@ -896,7 +858,7 @@ function Login() {
                   </Typography>
                   <TextField
                     name="tel"
-                    type="number"
+                    type="text"
                     value={rowData.tel || ""}
                     placeholder="000-000-000"
                     fullWidth
@@ -1092,7 +1054,7 @@ function Login() {
                               showConfirmButton: false,
                               timer: 3000
                             })
-                          } if (password === !confirmPassword) {
+                          } if (password !== confirmPassword) {
                             Swal.fire({
                               position: 'center',
                               icon: 'warning',
@@ -1102,7 +1064,7 @@ function Login() {
                             })
                           } else {
                             const response = await dispatch(
-                              changePassword({ tel: rowData.tel, password: rowData.password })
+                              changePassword({ tel: rowData.tel, password: password })
                             );
 
                             if (response.meta.requestStatus === "rejected") {
@@ -1170,15 +1132,23 @@ function Login() {
                   รหัสผ่าน
                 </Typography>
                 <TextField
-                  name="password"
-                  type="password"
-                  value={rowData.password || ""}
-                  placeholder="password"
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  placeholder="ยืนยันรหัสผ่าน"
+                  variant="outlined"
                   fullWidth
                   size="small"
-                  onChange={(e) => handleChangeData(e)}
-                  variant="outlined"
-                  sx={{ bgcolor: "white" }}
+                  value={confirmPassword}
+                  onChange={handleConfirmPasswordChange}
+                  sx={{ bgcolor: "white", borderRadius: 1 }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton onClick={toggleShowConfirmPassword}>
+                          {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
 
                 <Button
@@ -1201,7 +1171,7 @@ function Login() {
                   }}
                   onClick={async () => {
                     const response = await dispatch(
-                      signIn({ tel: rowData.tel, password: rowData.password })
+                      signIn({ tel: rowData.tel, password: password })
                     );
 
                     if (response.meta.requestStatus === "rejected") {
@@ -1382,29 +1352,46 @@ function Login() {
                         รหัสผ่าน
                       </Typography>
                       <TextField
-                        name="password"
-                        type="password"
-                        value={rowData.password || ""}
-                        placeholder="password"
+                        type={showConfirmPassword ? 'text' : 'password'}
+                        placeholder="ยืนยันรหัสผ่าน"
+                        variant="outlined"
                         fullWidth
                         size="small"
-                        onChange={(e) => handleChangeData(e)}
-                        variant="outlined"
-                        sx={{ bgcolor: "white" }}
+                        value={confirmPassword}
+                        onChange={handleConfirmPasswordChange}
+                        sx={{ bgcolor: "white", borderRadius: 1 }}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton onClick={toggleShowConfirmPassword}>
+                                {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                        }}
                       />
                       <Typography sx={{ mt: 2, color: "#707070", fontSize: "14px" }}>
                         ยืนยันรหัสผ่าน
                       </Typography>
                       <TextField
                         name="re_password"
-                        type="password"
-                        value={rowData.re_password || ""}
+                        type={showConfirmPassword ? 'text' : 'password'}
+                        value={confirmPassword}
+                        onChange={handleConfirmPasswordChange}
                         placeholder="password"
                         fullWidth
                         size="small"
-                        onChange={(e) => handleChangeData(e)}
                         variant="outlined"
                         sx={{ bgcolor: "white" }}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton onClick={toggleShowConfirmPassword}>
+                                {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                        }}
                       />
 
 
@@ -1426,7 +1413,7 @@ function Login() {
                               showConfirmButton: false,
                               timer: 3000
                             })
-                          } if (password === !confirmPassword) {
+                          } if (password !== confirmPassword) {
                             Swal.fire({
                               position: 'center',
                               icon: 'warning',
@@ -1436,7 +1423,7 @@ function Login() {
                             })
                           } else {
                             const response = await dispatch(
-                              changePassword({ tel: rowData.tel, password: rowData.password })
+                              changePassword({ tel: rowData.tel, password: password })
                             );
 
                             if (response.meta.requestStatus === "rejected") {
