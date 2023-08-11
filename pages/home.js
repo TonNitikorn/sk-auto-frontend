@@ -188,7 +188,7 @@ function Home({ children }) {
    const sendPasswordOTP = async () => {
       setLoading(true)
       try {
-         if (!rowData.tel || rowData.tel.length !== 10) {
+         if (!profile?.tel || profile?.tel.length !== 10) {
             setOpenDialogChangePassword(false)
             setLoading(false)
             Swal.fire({
@@ -206,7 +206,7 @@ function Home({ children }) {
                method: "post",
                url: `${hostname}/v2/auth/auth_otp`,
                data: {
-                  "tel": rowData.tel
+                  "tel": profile?.tel
                }
             });
 
@@ -253,7 +253,7 @@ function Home({ children }) {
             method: "post",
             url: `${hostname}/v2/auth/check_otp_forget`,
             data: {
-               tel: rowData.tel,
+               tel: profile?.tel,
                token: dataOTP.token,
                pin: tabOtp[0] + tabOtp[1] + tabOtp[2] + tabOtp[3] + tabOtp[4] + tabOtp[5]
             }
@@ -1158,7 +1158,7 @@ function Home({ children }) {
                         <Grid container direction="column" >
                            <Typography sx={{ mt: 2, color: "#4B4949", fontSize: "16px" }}>ยืนยันตัวตน OTP</Typography>
 
-                           <Typography sx={{ mt: 1, color: "#707070", fontSize: "14px" }}>ส่งรหัส 6 หลักไปที่ {rowData.tel}</Typography>
+                           <Typography sx={{ mt: 1, color: "#707070", fontSize: "14px" }}>ส่งรหัส 6 หลักไปที่ {profile.tel}</Typography>
                            <Box sx={{ textAlign: 'center', mt: 2, mb: -4 }}>
                               {tabOtp.map((data, index) => {
                                  return (
@@ -1280,7 +1280,7 @@ function Home({ children }) {
                               onClick={async () => {
 
                                  const response = await dispatch(
-                                    changePassword({ tel: rowData.tel, password: password })
+                                    changePassword({ tel: profile?.tel, password: password })
                                  );
 
                                  if (response.meta.requestStatus === "rejected") {
