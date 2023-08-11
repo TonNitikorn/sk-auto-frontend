@@ -21,23 +21,33 @@ export const signIn = async (data) => {
 
   } catch (error) {
     console.log(error);
-    if (
-      error.response.data.status === 429
-    ) {
-      Swal.fire({
-        position: 'center',
-        icon: 'warning',
-        title: 'ตอนนี้ระบบมีผู้ใช้งานจำนวนมาก กรุณารอสักครู่',
-        showConfirmButton: false,
-        timer: 2000
-      })
-    }
-    if (error.response.data.error.status_code === 500 &&
-      error.response.data.error.message === "OTP ไม่ถูกต้อง") {
+    // if (
+    //   error.response.data.status === 429
+    // ) {
+    //   Swal.fire({
+    //     position: 'center',
+    //     icon: 'warning',
+    //     title: 'ตอนนี้ระบบมีผู้ใช้งานจำนวนมาก กรุณารอสักครู่',
+    //     showConfirmButton: false,
+    //     timer: 2000
+    //   })
+    // }
+    if (error.response.data.error.status_code === 401 &&
+      error.response.data.error.message === "รหัสผ่านไม่ถูกต้อง") {
       Swal.fire({
         position: "center",
         icon: "error",
-        title: "OTP ไม่ถูกต้อง",
+        title: "รหัสผ่านไม่ถูกต้อง",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    }
+    if (error.response.data.error.status_code === 401 &&
+      error.response.data.error.message === "หมายเลขโทรศัพท์ หรือ Password ไม่ถูกต้อง") {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "หมายเลขโทรศัพท์ไม่ถูกต้อง",
         showConfirmButton: false,
         timer: 3000,
       });

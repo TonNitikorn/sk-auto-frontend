@@ -10,17 +10,17 @@ import {
    Skeleton,
    IconButton,
    DialogTitle,
-   DialogContentText,
    DialogContent,
    DialogActions,
    Dialog,
-   TextField, Table, TableRow, TableCell, Avatar
+   TextField, Table, TableRow, TableCell,
+   InputAdornment,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import CssBaseline from "@mui/material/CssBaseline";
 import { useRouter } from "next/router";
-import { signOut } from "../store/slices/userSlice";
+import { signOut, changePassword } from "../store/slices/userSlice";
 import { useAppDispatch } from "../store/store";
 import { hostname } from "../utils/hostname";
 import axios from "axios";
@@ -40,6 +40,10 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import Swal from "sweetalert2";
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import CachedIcon from '@mui/icons-material/Cached';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+
+
 function Home({ children }) {
    const router = useRouter();
    const dispatch = useAppDispatch();
@@ -51,6 +55,50 @@ function Home({ children }) {
    const [loading, setLoading] = useState(false)
    const [openDialog, setOpenDialog] = useState(false)
    const [openRankDialog, setOpenRankDialog] = useState(false)
+   const [openDialogChangePassword, setOpenDialogChangePassword] = useState(false)
+   const [showPassword, setShowPassword] = useState(false);
+   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+   const [password, setPassword] = useState('');
+   const [confirmPassword, setConfirmPassword] = useState('')
+   const [otp, setOtp] = useState(false)
+   const [forgotPassword, setForgotPassword] = useState(0)
+   const [sendOTPAgain, setSendOTPAgain] = useState(false)
+   const [tabOtp, setTabOtp] = useState(new Array(6).fill(""))
+   const [dataOTP, setDataOTP] = useState()
+   const [rowData, setRowData] = useState({})
+
+   const handleChangeOtp = (element, index) => {
+      if (isNaN(element.value)) return false
+
+      setTabOtp([...tabOtp.map((d, idx) => (idx === index) ? element.value : d)])
+
+      if (element.nextSibling) {
+         element.nextSibling.focus()
+      }
+   }
+
+
+   const handleChangeData = async (e) => {
+      setRowData({ ...rowData, [e.target.name]: e.target.value });
+   };
+
+   const handlePasswordChange = (event, name) => {
+      if (name === "password") {
+         setPassword(event.target.value);
+      }
+      if (name === "confirmPassword") {
+         setConfirmPassword(event.target.value);
+      }
+   };
+
+   const toggleShowPassword = (name) => {
+      if (name === "password") {
+         setShowPassword(!showPassword);
+      }
+      if (name === "confirmPassword") {
+         setShowConfirmPassword(!showConfirmPassword);
+      }
+   };
 
    const getProfile = async () => {
       setLoading(true)
@@ -137,7 +185,130 @@ function Home({ children }) {
       }
    };
 
+   const sendPasswordOTP = async () => {
+      setLoading(true)
+      try {
+         if (!rowData.tel || rowData.tel.length !== 10) {
+            setOpenDialogChangePassword(false)
+            setLoading(false)
+            Swal.fire({
+               position: 'center',
+               icon: 'info',
+               title: 'กรุณากรอกหมายเลขโทรศัพท์',
+               showConfirmButton: false,
+               timer: 2000
+            })
+         } else {
+            let res = await axios({
+               headers: {
+                  Authorization: "Bearer " + localStorage.getItem("access_token"),
+               },
+               method: "post",
+               url: `${hostname}/v2/auth/auth_otp`,
+               data: {
+                  "tel": rowData.tel
+               }
+            });
 
+            let resData = res.data
+
+            setDataOTP(resData)
+            setForgotPassword(1)
+            setLoading(false)
+
+            const interval = setInterval(() => {
+               setSendOTPAgain(true)
+            }, 30000);
+            return () => clearInterval(interval);
+            // return () => clearInterval(interval);
+         }
+
+      } catch (error) {
+         console.log(error);
+         setOpenDialogChangePassword(false)
+         setLoading(false)
+         if (
+            error.response.data.error.status_code === 401 &&
+            error.response.data.error.message === "ไม่มีข้อมูลผู้ใช้งานนี้"
+         ) {
+            Swal.fire({
+               position: 'center',
+               icon: 'error',
+               title: 'ไม่มีข้อมูลผู้ใช้งานนี้',
+               showConfirmButton: false,
+               timer: 2000
+            })
+            // router.push("/auth/login")
+         }
+      }
+   }
+
+   const verifiyOTP = async () => {
+      setLoading(true)
+      try {
+         let res = await axios({
+            headers: {
+               Authorization: "Bearer " + localStorage.getItem("access_token"),
+            },
+            method: "post",
+            url: `${hostname}/v2/auth/check_otp_forget`,
+            data: {
+               tel: rowData.tel,
+               token: dataOTP.token,
+               pin: tabOtp[0] + tabOtp[1] + tabOtp[2] + tabOtp[3] + tabOtp[4] + tabOtp[5]
+            }
+         });
+
+         let resData = res.data
+
+         if (resData.message === "ยืนยัน OTP สำเร็จ") {
+            setLoading(false)
+            // Swal.fire({
+            //    position: 'center',
+            //    icon: 'success',
+            //    title: 'ยืนยัน OTP สำเร็จ',
+            //    showConfirmButton: false,
+            //    timer: 2000
+            // })
+            setForgotPassword(2)
+
+         }
+         setLoading(false)
+
+         const interval = setInterval(() => {
+            setSendOTPAgain(true)
+         }, 30000);
+         return () => clearInterval(interval);
+         // return () => clearInterval(interval);
+
+      } catch (error) {
+         console.log(error);
+         setLoading(false)
+         // if (error.response.data.error.status_code === 500 &&
+         //    error.response.data.error.message === "AxiosError: Request failed with status code 400") {
+         //    Swal.fire({
+         //       position: "center",
+         //       icon: "error",
+         //       title: "OTP ไม่ถูกต้อง",
+         //       showConfirmButton: false,
+         //       timer: 3000,
+         //    });
+         // }
+         if (
+            error.response.data.error.status_code === 401 &&
+            error.response.data.error.message === "ไม่มีข้อมูลผู้ใช้งานนี้"
+         ) {
+            Swal.fire({
+               position: 'center',
+               icon: 'error',
+               title: 'ไม่มีข้อมูลผู้ใช้งานนี้',
+               showConfirmButton: false,
+               timer: 2000
+            })
+            // router.push("/auth/login")
+         }
+      }
+   }
 
    useEffect(() => {
       getProfile()
@@ -202,12 +373,10 @@ function Home({ children }) {
                      width: "100%",
                   }}
                >
-                  <Grid container>
-                     <Box sx={{ textAlign: "center", mt: 1 }}>
+                  <Grid container sx={{ mt: 1 }}>
+                     <Grid container item xs={8}>
                         <Typography sx={{ color: "#fff" }}>User :</Typography>
-                     </Box>
-                     <Box sx={{ textAlign: "center", mt: 1, mx: 1 }}>
-                        <Typography align="center" sx={{ color: "#fff" }}>
+                        <Typography align="center" sx={{ color: "#fff", ml: 1 }}>
                            {profile.username ? (
                               profile.username
                            ) : (
@@ -217,15 +386,19 @@ function Home({ children }) {
                               />
                            )}
                         </Typography>
-                     </Box>
-                     <Box>
-                        <IconButton>
-                           {/* <CopyToClipboard text={profile.sb_username}>
-                            <ContentCopyIcon color="white" />
-                         </CopyToClipboard> */}
-                        </IconButton>
-                     </Box>
+                     </Grid>
+                     <Grid item xs={4}>
+                        <Typography
+                           sx={{ color: "#fff", fontSize: '12px', textDecoration: 'underline', textAlign: 'end' }}
+                           onClick={() => {
+                              setOpenDialogChangePassword(true)
+                           }}
+                        >
+                           เปลี่ยนรหัสผ่าน
+                        </Typography>
+                     </Grid>
                   </Grid>
+
                   <Typography
                      align="start"
                      sx={{ color: "#fff", mt: 2, fontSize: "13px" }}
@@ -910,6 +1083,224 @@ function Home({ children }) {
                <img src="https://public-cdn-softkingdom.sgp1.cdn.digitaloceanspaces.com/1687252504979-Rank-Silver.png" width={'100%'} height={130} style={{ borderRadius: '10px' }} />
                <img src="https://public-cdn-softkingdom.sgp1.cdn.digitaloceanspaces.com/1687252504967-Rank-Gold.png" width={'100%'} height={130} style={{ borderRadius: '10px' }} />
                {/* <img src="https://angpaos.games/wp-content/uploads/2023/03/Rank-Dimond.png" oppa width={'100%'} height={130} style={{ borderRadius: '10px' }} /> */}
+
+            </DialogContent>
+            <DialogActions>
+               <Button variant="outlined" onClick={() => setOpenRankDialog(false)} >
+                  ปิด
+               </Button>
+            </DialogActions>
+         </Dialog>
+
+         <Dialog
+            open={openDialogChangePassword}
+            onClose={() => setOpenDialogChangePassword(false)}
+            fullWidth
+            maxWidth='xs'
+         >
+            <DialogTitle>
+               <Typography sx={{ color: '#41A3E3', fontSize: '22px', textAlign: 'center', mt: 1 }}> เปลี่ยนรหัสผ่าน</Typography>
+            </DialogTitle>
+            <DialogContent >
+               {forgotPassword === 0 ?
+                  <>
+                     <Typography sx={{ mt: 2, color: "#707070", fontSize: "14px" }}>
+                        หมายเลขโทรศัพท์
+                     </Typography>
+                     <TextField
+                        name="tel"
+                        type="text"
+                        value={rowData?.tel}
+                        placeholder="000-000-000"
+                        fullWidth
+                        size="small"
+                        onChange={(e) => handleChangeData(e)}
+                        variant="outlined"
+                        sx={{ bgcolor: "white" }}
+                        inputProps={{ maxLength: 10 }}
+                     />
+
+                     <Button
+                        variant="contained"
+                        fullWidth
+                        sx={{
+                           mt: 3,
+                           bgcolor: '#41A3E3',
+                           borderRadius: 5,
+                           color: '#fff'
+                        }}
+                        onClick={async () => {
+                           // sendOTP()
+                           sendPasswordOTP()
+                        }}
+                     >
+                        ส่งรหัส OTP
+                     </Button>
+                  </>
+                  : forgotPassword === 1 ?
+                     <>
+                        <Grid
+                           container
+                           direction="row"
+                           justifyContent="space-between"
+                        >
+                           <Grid item xs={4}>
+                              <ArrowBackIosIcon fontSize='small' sx={{ mt: 3 }} onClick={() => setForgotPassword(0)} />
+                           </Grid>
+                           <Grid item xs={4} container justifyContent="center">
+
+                           </Grid>
+                           <Grid item xs={4} />
+                        </Grid>
+
+                        <Grid container direction="column" >
+                           <Typography sx={{ mt: 2, color: "#4B4949", fontSize: "16px" }}>ยืนยันตัวตน OTP</Typography>
+
+                           <Typography sx={{ mt: 1, color: "#707070", fontSize: "14px" }}>ส่งรหัส 6 หลักไปที่ {rowData.tel}</Typography>
+                           <Box sx={{ textAlign: 'center', mt: 2, mb: -4 }}>
+                              {tabOtp.map((data, index) => {
+                                 return (
+                                    <input
+                                       style={{ width: 30, height: 40, marginLeft: '2%', textAlign: 'center', borderRadius: '10px', border: '1px solid #41A3E3' }}
+                                       type="text"
+                                       name="otp"
+                                       maxLength="1"
+                                       key={index}
+                                       value={data}
+                                       onChange={e => handleChangeOtp(e.target, index)}
+                                       onFocus={e => e.target.select()}
+                                    />
+                                 )
+                              })}
+                           </Box>
+                           <Typography sx={{ color: "#707070", fontSize: "14px" }}>รหัสอ้างอิง : {dataOTP?.refno}</Typography>
+                        </Grid>
+                        <Grid container
+                           direction="row">
+                           <Typography sx={{ color: "#707070", fontSize: "12px", mt: 1 }}>ไม่ได้รับรหัส OTP ? </Typography>
+                           {!sendOTPAgain ?
+                              <Typography sx={{ color: "#707070", fontSize: "12px", mt: 1, ml: 1 }}>ส่งรหัสอีกครั้งในอีก 30 วินาที</Typography>
+                              : <Button
+                                 variant="text"
+                                 onClick={() => sendPasswordOTP()}
+                              >
+                                 <Typography sx={{ color: "#41A3E3", fontSize: "12px", textDecoration: 'underline' }}>ส่งรหัสอีกครั้ง</Typography>
+                              </Button>}
+                        </Grid>
+
+                        <Grid
+                           container
+                           direction="row"
+                           justifyContent="flex-end"
+                        >
+                           <Grid item xs={6}>
+                              <Button
+                                 variant="contained"
+                                 fullWidth
+                                 sx={{
+                                    bgcolor: '#41A3E3',
+                                    borderRadius: 5,
+                                    color: '#fff',
+                                    mt: 1
+                                 }}
+                                 onClick={() => {
+                                    verifiyOTP()
+                                 }}
+                              >
+                                 ยืนยัน OTP
+                              </Button>
+                           </Grid>
+                        </Grid>
+                     </>
+
+                     : forgotPassword === 2 ?
+                        <>
+                           <Typography sx={{ mt: 2, color: "#707070", fontSize: "14px" }}>
+                              รหัสผ่าน
+                           </Typography>
+                           <TextField
+                              type={showPassword ? 'text' : 'password'}
+                              placeholder="รหัสผ่าน"
+                              variant="outlined"
+                              fullWidth
+                              size="small"
+                              value={password}
+                              onChange={(e) => { handlePasswordChange(e, "password") }}
+                              sx={{ bgcolor: "white", borderRadius: 1 }}
+                              InputProps={{
+                                 endAdornment: (
+                                    <InputAdornment position="end">
+                                       <IconButton onClick={() => {
+                                          toggleShowPassword('password')
+                                       }}>
+                                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                                       </IconButton>
+                                    </InputAdornment>
+                                 ),
+                              }}
+                           />
+                           <Typography sx={{ mt: 2, color: "#707070", fontSize: '14px' }}>
+                              ยืนยันรหัสผ่าน
+                           </Typography>
+                           <TextField
+                              type={showConfirmPassword ? 'text' : 'password'}
+                              placeholder="ยืนยันรหัสผ่าน"
+                              variant="outlined"
+                              fullWidth
+                              size="small"
+                              value={confirmPassword}
+                              onChange={(e) => { handlePasswordChange(e, "confirmPassword") }}
+                              sx={{ bgcolor: "white", borderRadius: 1 }}
+                              InputProps={{
+                                 endAdornment: (
+                                    <InputAdornment position="end">
+                                       <IconButton onClick={() => {
+                                          toggleShowPassword('confirmPassword')
+                                       }}>
+                                          {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                                       </IconButton>
+                                    </InputAdornment>
+                                 ),
+                              }}
+                           />
+
+                           {password !== confirmPassword ? <Typography sx={{ color: 'red', mt: 2 }}> รหัสผ่านไม่ตรงกัน! </Typography> : ''}
+                           <Button
+                              variant="contained"
+                              fullWidth
+                              disabled={password !== confirmPassword}
+                              sx={{
+                                 mt: 3,
+                                 bgcolor: '#41A3E3',
+                                 borderRadius: 5,
+                                 color: '#fff'
+                              }}
+                              onClick={async () => {
+
+                                 const response = await dispatch(
+                                    changePassword({ tel: rowData.tel, password: password })
+                                 );
+
+                                 if (response.meta.requestStatus === "rejected") {
+                                    // alert("Login failed");
+                                    console.log('otp failed');
+                                 } else {
+                                    setTabOtp([...tabOtp.map(data => "")])
+                                    localStorage.clear()
+                                    // router.push("/auth/login");
+                                 }
+
+                              }}
+                           >
+                              ยืนยันการเปลี่ยนรหัสผ่าน
+                           </Button>
+                        </>
+
+                        : ''}
+
+
+
+
 
             </DialogContent>
             <DialogActions>
