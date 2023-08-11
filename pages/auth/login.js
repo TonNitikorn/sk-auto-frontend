@@ -205,31 +205,9 @@ function Login() {
       }
     }
   }
-
-
-
-
-
-
   const handleChangeData = async (e) => {
     setRowData({ ...rowData, [e.target.name]: e.target.value });
   };
-
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
-
-  const handleClickShowPassword = () => {
-    setValues({
-      ...values,
-      showPassword: !values.showPassword,
-    });
-  };
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
   const getLogo = async () => {
     try {
       let res = await axios({
@@ -242,7 +220,6 @@ function Login() {
       console.log(error);
     }
   };
-
 
   useEffect(() => {
     getLogo()
@@ -583,8 +560,8 @@ function Login() {
                                   showConfirmButton: false,
                                   timer: 3000
                                 })
-                              } 
-                              
+                              }
+
                               if (password !== confirmPassword) {
                                 Swal.fire({
                                   position: 'center',
@@ -774,19 +751,21 @@ function Login() {
                   รหัสผ่าน
                 </Typography>
                 <TextField
-                  type={showConfirmPassword ? 'text' : 'password'}
-                  placeholder="ยืนยันรหัสผ่าน"
-                  variant="outlined"
+                  name="password"
+                  type={showPassword ? 'text' : 'password'}
+                  // value={rowData.password || ""}
+                  value={password}
+                  placeholder="password"
                   fullWidth
                   size="small"
-                  value={confirmPassword}
-                  onChange={handleConfirmPasswordChange}
-                  sx={{ bgcolor: "white", borderRadius: 1 }}
+                  onChange={handlePasswordChange}
+                  variant="outlined"
+                  sx={{ bgcolor: "white" }}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
-                        <IconButton onClick={toggleShowConfirmPassword}>
-                          {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                        <IconButton onClick={toggleShowPassword}>
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
                         </IconButton>
                       </InputAdornment>
                     ),
