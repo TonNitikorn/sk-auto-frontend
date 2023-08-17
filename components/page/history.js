@@ -140,167 +140,166 @@ function HistoryComponent(props) {
       }
     }
   };
-  console.log('historyGame', historyGame)
+  console.log("historyGame", historyGame);
 
   const historyUser = (
     <>
-      {history.length === 0
-        ? dataEmtyp
-        : history.map((item) => (
-            <Paper sx={{ mt: 1, borderRadius: 3 }}>
-              <Grid
-                container
-                justifyContent="space-between"
+      {history.length === 0 ? (
+        <>
+          <Paper
+            sx={{
+              mt: 1,
+              borderRadius: 3,
+              p: 3,
+              bgcolor: "#D9D9D9",
+              textAlign: "center",
+            }}
+          >
+            <Typography>ไม่มีประวัติการทำรายการ </Typography>
+          </Paper>
+        </>
+      ) : (
+        history.map((item) => (
+          <Paper sx={{ mt: 1, borderRadius: 3 }}>
+            <Grid
+              container
+              justifyContent="space-between"
+              sx={{
+                p: 1,
+                bgcolor: "#D9D9D9",
+                borderRadius: "5px 5px 0px 0px",
+              }}
+            >
+              <Typography sx={{ fontWeight: "bold", fontSize: "14px" }}>
+                {item.transfer_type === "WITHDRAW" ? "ถอนเครดิต" : "เติมเครดิต"}{" "}
+              </Typography>
+              <Typography
                 sx={{
-                  p: 1,
-                  bgcolor: "#D9D9D9",
-                  borderRadius: "5px 5px 0px 0px",
+                  color:
+                    item.transfer_type === "WITHDRAW" ? "#BC0C20" : "green",
+                  fontWeight: "bold",
+                  fontSize: "14px",
                 }}
               >
-                <Typography sx={{ fontWeight: "bold", fontSize: "14px" }}>
-                  {item.transfer_type === "WITHDRAW"
-                    ? "ถอนเครดิต"
-                    : "เติมเครดิต"}{" "}
-                </Typography>
-                <Typography
-                  sx={{
-                    color:
-                      item.transfer_type === "WITHDRAW" ? "#BC0C20" : "green",
-                    fontWeight: "bold",
-                    fontSize: "14px",
-                  }}
-                >
-                  {item.transfer_type === "WITHDRAW" ? "-" : "+"}
-                  {Intl.NumberFormat("THB").format(item.credit)}
-                </Typography>
-              </Grid>
-              <Grid
-                container
-                justifyContent="space-between"
-                sx={{
-                  bgcolor:
-                    item.status_transction === "CANCEL"
-                      ? "#ab2b3a"
-                      : item.status_transction === "PENDING"
-                      ? "#c78912"
-                      : item.status_transction === "MANUAL"
-                      ? "green"
-                      : item.status_transction === "APPROVE"
-                      ? "#c78912"
-                      : "green",
-                  p: 1,
-                  borderRadius: "0px 0px 5px 5px",
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontSize: "14px",
-                    color: "#D9D9D9",
-                  }}
-                >
-                  {item.status_transction === "CANCEL"
-                    ? "ทำรายการไม่สำเร็จ"
+                {item.transfer_type === "WITHDRAW" ? "-" : "+"}
+                {Intl.NumberFormat("THB").format(item.credit)}
+              </Typography>
+            </Grid>
+            <Grid
+              container
+              justifyContent="space-between"
+              sx={{
+                bgcolor:
+                  item.status_transction === "CANCEL"
+                    ? "#ab2b3a"
                     : item.status_transction === "PENDING"
-                    ? "กำลังทำรายการ"
-                    : item.status_transction === "APPROVE"
-                    ? "กำลังทำรายการ"
+                    ? "#c78912"
                     : item.status_transction === "MANUAL"
-                    ? "ทำรายการสำเร็จ"
-                    : "ทำรายการสำเร็จ"}{" "}
-                </Typography>
-                <Typography sx={{ fontSize: "12px", color: "#D9D9D9" }}>
-                  {moment(item.update_at).format("DD/MM | hh:mm")}
-                </Typography>
-              </Grid>
+                    ? "green"
+                    : item.status_transction === "APPROVE"
+                    ? "#c78912"
+                    : "green",
+                p: 1,
+                borderRadius: "0px 0px 5px 5px",
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: "14px",
+                  color: "#D9D9D9",
+                }}
+              >
+                {item.status_transction === "CANCEL"
+                  ? "ทำรายการไม่สำเร็จ"
+                  : item.status_transction === "PENDING"
+                  ? "กำลังทำรายการ"
+                  : item.status_transction === "APPROVE"
+                  ? "กำลังทำรายการ"
+                  : item.status_transction === "MANUAL"
+                  ? "ทำรายการสำเร็จ"
+                  : "ทำรายการสำเร็จ"}{" "}
+              </Typography>
+              <Typography sx={{ fontSize: "12px", color: "#D9D9D9" }}>
+                {moment(item.update_at).format("DD/MM | hh:mm")}
+              </Typography>
+            </Grid>
 
-              {/* <Grid
+            {/* <Grid
                             container
                             justifyContent="flex-end"
                             sx={{ bgcolor: "#D9D9D9", py: 1, px: 2, borderRadius: "0px 0px 20px 20px" }}
                         >
                             22 ก.ย. | 07:47
                         </Grid> */}
-            </Paper>
-          ))}
+          </Paper>
+        ))
+      )}
     </>
   );
 
   const historyByGame = (
     <>
-      {history.length === 0
-        ? dataEmtyp
-        : historyGame.map((item) => (
-            <Paper sx={{ mt: 1, borderRadius: 3 }}>
-              <Grid
-                container
-                justifyContent="space-between"
-                sx={{
-                  p: 1,
-                  bgcolor: "#D9D9D9",
-                }}
-              >
-                <Grid item xs={5}>
-                  <Typography sx={{ fontWeight: "bold", fontSize: "14px" }}>
-                    {" "}
-                    {item.game_name}{" "}
-                  </Typography>
-                  <Typography sx={{ fontSize: "12px" }}>
-                    {moment(item.update_at).format("DD/MM | hh:mm")}
-                  </Typography>
-                </Grid>
-                <Grid item xs={5}>
-                  <Typography sx={{ fontSize: "14px", fontWeight: "bold" }}>
-                    เดิมพัน {Intl.NumberFormat("THB").format(item.betAmount)}
-                  </Typography>
-                  <Typography sx={{ fontSize: "14px" }}>
-                    ประเภท {item.symbolsStore !== "" ? "Slot" : "Pikgo"}
-                  </Typography>
-                </Grid>
-                <Grid item xs={2}>
-                  <Typography sx={{ fontSize: "14px", fontWeight: "bold" }}>
-                    ผลลัพธ์
-                  </Typography>
-                  <Typography
-                    sx={{
-                      color: item.win === "0" ? "#BC0C20" : "green",
-                      fontWeight: "bold",
-                      fontSize: "14px",
-                    }}
-                  >
-                    {item.win === "0" ? "" : "+"}
-                    {Intl.NumberFormat("THB").format(item.win)}
-                  </Typography>
-                </Grid>
+      {historyGame.length === 0 ? (
+        <Paper
+          sx={{
+            mt: 1,
+            borderRadius: 3,
+            p: 3,
+            bgcolor: "#D9D9D9",
+            textAlign: "center",
+          }}
+        >
+          <Typography>ไม่มีประวัติการทำรายการ </Typography>
+        </Paper>
+      ) : (
+        historyGame.map((item) => (
+          <Paper sx={{ mt: 1, borderRadius: 3 }}>
+            <Grid
+              container
+              justifyContent="space-between"
+              sx={{
+                p: 1,
+                bgcolor: "#D9D9D9",
+              }}
+            >
+              <Grid item xs={5}>
+                <Typography sx={{ fontWeight: "bold", fontSize: "14px" }}>
+                  {" "}
+                  {item.game_name}{" "}
+                </Typography>
+                <Typography sx={{ fontSize: "12px" }}>
+                  {moment(item.update_at).format("DD/MM | hh:mm")}
+                </Typography>
               </Grid>
+              <Grid item xs={5}>
+                <Typography sx={{ fontSize: "14px", fontWeight: "bold" }}>
+                  เดิมพัน {Intl.NumberFormat("THB").format(item.betAmount)}
+                </Typography>
+                <Typography sx={{ fontSize: "14px" }}>
+                  ประเภท {item.symbolsStore !== "" ? "Slot" : "Pikgo"}
+                </Typography>
+              </Grid>
+              <Grid item xs={2}>
+                <Typography sx={{ fontSize: "14px", fontWeight: "bold" }}>
+                  ผลลัพธ์
+                </Typography>
+                <Typography
+                  sx={{
+                    color: item.win === "0" ? "#BC0C20" : "green",
+                    fontWeight: "bold",
+                    fontSize: "14px",
+                  }}
+                >
+                  {item.win === "0" ? "" : "+"}
+                  {Intl.NumberFormat("THB").format(item.win)}
+                </Typography>
+              </Grid>
+            </Grid>
 
-              {/* 
-              <Grid
-                container
-                justifyContent="space-between"
-                sx={{
-                  p: 1,
-                  borderRadius: "0px 0px 3px 3px",
-                }}
-              >
-               
-              </Grid> */}
-            </Paper>
-          ))}
+          </Paper>
+        ))
+      )}
     </>
-  );
-
-  const dataEmtyp = (
-    <Paper
-      sx={{
-        mt: 1,
-        borderRadius: 3,
-        p: 3,
-        bgcolor: "#D9D9D9",
-        textAlign: "center",
-      }}
-    >
-      <Typography>ไม่มีประวัติการทำรายการ </Typography>
-    </Paper>
   );
 
   useEffect(() => {
@@ -325,9 +324,8 @@ function HistoryComponent(props) {
         <Typography variant="h6" sx={{ fontWeight: "bold", m: 1 }}>
           ประวัติรายการย้อนหลัง
         </Typography>
-        <IconButton 
-        onClick={() => search === '0' ? setSearch('1') : setSearch('0') }
-        
+        <IconButton
+          onClick={() => (search === "0" ? setSearch("1") : setSearch("0"))}
         >
           <FilterAltIcon />
         </IconButton>
@@ -406,7 +404,7 @@ function HistoryComponent(props) {
             fullWidth
             type="submit"
             onClick={() => {
-              getGameHistory()
+              getGameHistory();
             }}
           >
             <SearchIcon sx={{ color: "#ffff" }} />
@@ -416,41 +414,54 @@ function HistoryComponent(props) {
       ) : (
         ""
       )}
-
       <Box sx={{ width: "100%" }}>
-        <Box sx={{ borderBottom: 3, borderColor: "#ffff" }}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            textColor="secondary"
-            indicatorColor="secondary"
-            sx={{
-              background: "linear-gradient(#0072B1, #41A3E3)",
-              borderRadius: 1.5,
-              textAlign: "center",
-              p: 2,
-            }}
+        <Grid
+          sx={{
+            background: "linear-gradient(#0072B1, #41A3E3)",
+            borderRadius: 1.5,
+          }}
+        >
+          <Grid
+            item
+            xs={12}
+            container
+            justifyContent="center"
+            alignItems="center"
           >
-            <Tab
-              label="ประวัติรายการย้อนหลัง"
-              {...a11yProps(0)}
-              sx={{ fontSize: 15 }}
-            />
-            <Tab
-              label="ประวัติรายการเล่นเกม"
-              {...a11yProps(1)}
-              sx={{ fontSize: 15 }}
-              onClick={() => getGameHistory()}
-            />
-          </Tabs>
-        </Box>
-        <CustomTabPanel value={value} index={0}>
-          {historyUser}
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
-          {historyByGame}
-        </CustomTabPanel>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              textColor="secondary"
+              indicatorColor="secondary"
+              sx={{
+                background: "linear-gradient(#0072B1, #41A3E3)",
+                borderRadius: 1.5,
+                textAlign: "center",
+                p: 0.5,
+              }}
+            >
+              <Tab
+                label="ประวัติรายการฝากถอน"
+                {...a11yProps(0)}
+                sx={{ fontSize: 15 }}
+              />
+              <Tab
+                label="ประวัติรายการเล่นเกม"
+                {...a11yProps(1)}
+                sx={{ fontSize: 15 }}
+                onClick={() => getGameHistory()}
+              />
+            </Tabs>
+          </Grid>
+        </Grid>
       </Box>
+
+      <CustomTabPanel value={value} index={0}>
+        {historyUser}
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={1}>
+        {historyByGame}
+      </CustomTabPanel>
 
       <Dialog
         open={openDateDialog}
