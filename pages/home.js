@@ -487,7 +487,7 @@ function Home({ children }) {
                {page === 'home' ? <HomeComponent /> :
                   page === 'deposit' ? <DepositComponent bank_number={profile.bank_number} bank_name={profile.bank_name} /> :
                      page === 'withdraw' ? <WithdrawComponent setCredit={setCredit} /> :
-                        page === 'history' ? <HistoryComponent /> : ''}
+                        page === 'history' ? <HistoryComponent profile={profile?.username}/> : ''}
 
 
             </Box>
