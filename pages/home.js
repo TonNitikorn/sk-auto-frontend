@@ -487,7 +487,7 @@ function Home({ children }) {
                {page === 'home' ? <HomeComponent /> :
                   page === 'deposit' ? <DepositComponent bank_number={profile.bank_number} bank_name={profile.bank_name} /> :
                      page === 'withdraw' ? <WithdrawComponent setCredit={setCredit} /> :
-                        page === 'history' ? <HistoryComponent profile={profile?.username}/> : ''}
+                        page === 'history' ? <HistoryComponent profile={profile?.username} /> : ''}
 
 
             </Box>
@@ -1299,14 +1299,9 @@ function Home({ children }) {
                         </>
 
                         : ''}
-
-
-
-
-
             </DialogContent>
             <DialogActions>
-               <Button variant="outlined" onClick={() => setOpenRankDialog(false)} >
+               <Button variant="outlined" onClick={() => setOpenDialogChangePassword(false)} >
                   ปิด
                </Button>
             </DialogActions>
