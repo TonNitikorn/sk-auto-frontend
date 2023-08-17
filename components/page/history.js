@@ -15,6 +15,7 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  Divider
 } from "@mui/material";
 import Image from "next/image";
 import LoadingModal from "../../theme/LoadingModal";
@@ -165,7 +166,8 @@ function HistoryComponent(props) {
               container
               justifyContent="space-between"
               sx={{
-                p: 1,
+                py: 0.5,
+                px: 1,
                 bgcolor: "#D9D9D9",
                 borderRadius: "5px 5px 0px 0px",
               }}
@@ -176,7 +178,7 @@ function HistoryComponent(props) {
               <Typography
                 sx={{
                   color:
-                    item.transfer_type === "WITHDRAW" ? "#BC0C20" : "green",
+                    item.transfer_type === "WITHDRAW" ? "#BC0C20" : "#0d8544",
                   fontWeight: "bold",
                   fontSize: "14px",
                 }}
@@ -193,13 +195,14 @@ function HistoryComponent(props) {
                   item.status_transction === "CANCEL"
                     ? "#ab2b3a"
                     : item.status_transction === "PENDING"
-                    ? "#c78912"
-                    : item.status_transction === "MANUAL"
-                    ? "green"
-                    : item.status_transction === "APPROVE"
-                    ? "#c78912"
-                    : "green",
-                p: 1,
+                      ? "#c78912"
+                      : item.status_transction === "MANUAL"
+                        ? "#0d8544"
+                        : item.status_transction === "APPROVE"
+                          ? "#c78912"
+                          : "#0d8544",
+                py: 0.5,
+                px: 1,
                 borderRadius: "0px 0px 5px 5px",
               }}
             >
@@ -212,12 +215,12 @@ function HistoryComponent(props) {
                 {item.status_transction === "CANCEL"
                   ? "ทำรายการไม่สำเร็จ"
                   : item.status_transction === "PENDING"
-                  ? "กำลังทำรายการ"
-                  : item.status_transction === "APPROVE"
-                  ? "กำลังทำรายการ"
-                  : item.status_transction === "MANUAL"
-                  ? "ทำรายการสำเร็จ"
-                  : "ทำรายการสำเร็จ"}{" "}
+                    ? "กำลังทำรายการ"
+                    : item.status_transction === "APPROVE"
+                      ? "กำลังทำรายการ"
+                      : item.status_transction === "MANUAL"
+                        ? "ทำรายการสำเร็จ"
+                        : "ทำรายการสำเร็จ"}{" "}
               </Typography>
               <Typography sx={{ fontSize: "12px", color: "#D9D9D9" }}>
                 {moment(item.update_at).format("DD/MM | hh:mm")}
@@ -249,17 +252,17 @@ function HistoryComponent(props) {
             textAlign: "center",
           }}
         >
-          <Typography>ไม่มีประวัติการทำรายการ </Typography>
+          <Typography>ไม่มีประวัติการทำรายการ </Typography>z
         </Paper>
       ) : (
         historyGame.map((item) => (
-          <Paper sx={{ mt: 1, borderRadius: 3 }}>
+          <Paper sx={{ mt: 0.5, borderRadius: 3, }}>
             <Grid
               container
               justifyContent="space-between"
               sx={{
                 p: 1,
-                bgcolor: "#D9D9D9",
+                // bgcolor: "#e9e9e9",
               }}
             >
               <Grid item xs={5}>
@@ -267,6 +270,9 @@ function HistoryComponent(props) {
                   {" "}
                   {item.game_name}{" "}
                 </Typography>
+                <Divider
+                  sx={{ color: "#c0b7b7", bgcolor: "#c0b7b7", my: 0.5 }}
+                />
                 <Typography sx={{ fontSize: "12px" }}>
                   {moment(item.update_at).format("DD/MM | hh:mm")}
                 </Typography>
@@ -275,7 +281,10 @@ function HistoryComponent(props) {
                 <Typography sx={{ fontSize: "14px", fontWeight: "bold" }}>
                   เดิมพัน {Intl.NumberFormat("THB").format(item.betAmount)}
                 </Typography>
-                <Typography sx={{ fontSize: "14px" }}>
+                <Divider
+                  sx={{ color: "#c0b7b7", bgcolor: "#c0b7b7", my: 0.5 }}
+                />
+                <Typography sx={{ fontSize: "12px" }}>
                   ประเภท {item.symbolsStore !== "" ? "Slot" : "Pikgo"}
                 </Typography>
               </Grid>
@@ -283,9 +292,12 @@ function HistoryComponent(props) {
                 <Typography sx={{ fontSize: "14px", fontWeight: "bold" }}>
                   ผลลัพธ์
                 </Typography>
+                <Divider
+                  sx={{ color: "#c0b7b7", bgcolor: "#c0b7b7", my: 0.5 }}
+                />
                 <Typography
                   sx={{
-                    color: item.win === "0" ? "#BC0C20" : "green",
+                    color: item.win === "0" ? "#BC0C20" : "#0d8544",
                     fontWeight: "bold",
                     fontSize: "14px",
                   }}
