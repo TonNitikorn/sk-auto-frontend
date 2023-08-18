@@ -141,7 +141,6 @@ function HistoryComponent(props) {
       }
     }
   };
-  console.log("historyGame", historyGame);
 
   const historyUser = (
     <>
@@ -184,7 +183,7 @@ function HistoryComponent(props) {
                 }}
               >
                 {item.transfer_type === "WITHDRAW" ? "-" : "+"}
-                {Intl.NumberFormat("THB").format(item.credit)}
+                {Intl.NumberFormat('th', { style: 'currency', currency: 'THB' }).format(item.credit)}
               </Typography>
             </Grid>
             <Grid
@@ -279,13 +278,14 @@ function HistoryComponent(props) {
               </Grid>
               <Grid item xs={5}>
                 <Typography sx={{ fontSize: "14px", fontWeight: "bold" }}>
-                  เดิมพัน {Intl.NumberFormat("THB").format(item.betAmount)}
+                  เดิมพัน
                 </Typography>
                 <Divider
                   sx={{ color: "#c0b7b7", bgcolor: "#c0b7b7", my: 0.5 }}
                 />
-                <Typography sx={{ fontSize: "12px" }}>
-                  ประเภท {item.symbolsStore !== "" ? "Slot" : "Pikgo"}
+                <Typography sx={{ fontSize: "12px", fontWeight: "bold" }}>
+                  {/* ประเภท {item.symbolsStore !== "" ? "Slot" : "Pikgo"} */}
+                  {Intl.NumberFormat('th', { style: 'currency', currency: 'THB' }).format(item.betAmount)}
                 </Typography>
               </Grid>
               <Grid item xs={2}>
@@ -303,7 +303,7 @@ function HistoryComponent(props) {
                   }}
                 >
                   {item.win === "0" ? "" : "+"}
-                  {Intl.NumberFormat("THB").format(item.win)}
+                  {Intl.NumberFormat('th', { style: 'currency', currency: 'THB' }).format(item.win)}
                 </Typography>
               </Grid>
             </Grid>

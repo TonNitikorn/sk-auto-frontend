@@ -252,34 +252,56 @@ function Home() {
                     <Box sx={{ display: { xs: "none", sm: 'none', md: "block" }, }}>
                         <Grid container spacing={1} sx={{ p: 1, textAlign: "center" }}>
                             <Grid item xs={6} >
-                                <img src={"https://public-cdn-softkingdom.sgp1.cdn.digitaloceanspaces.com/1687250266599-2Playgame-auto.jpg"}
-                                    width={'95%'}
-                                    height={115}
-                                    style={{
-                                        borderRadius: '5px',
-                                        boxShadow: '2px 2px 5px gray'
+                                <Button
+                                    variant="contained"
+                                    sx={{
+                                        ":hover": {
+                                            backgroundColor: "#000000",
+                                        },
+                                        p: 0
                                     }}
                                     onClick={() => {
                                         setSelectGame(true)
-                                    }}
-                                />
-                                <Typography sx={{ fontSize: '14px' }}>
+                                    }}>
+                                    <img src={"https://public-cdn-softkingdom.sgp1.cdn.digitaloceanspaces.com/1687250266599-2Playgame-auto.jpg"}
+                                        width={'100%'}
+                                        height={115}
+                                        style={{
+                                            borderRadius: '5px',
+                                            boxShadow: '2px 2px 5px gray',
+                                            opacity: 0.9
+                                        }}
+                                    />
+
+                                </Button>
+                                <Typography sx={{ fontSize: '14px', mt: 1 }}>
                                     เล่นเกมส์
                                 </Typography>
                             </Grid>
                             <Grid item xs={6} >
-                                <img src={"https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687250463876-2Admin-auto.jpg"}
-                                    width={'95%'}
-                                    height={115}
-                                    style={{
-                                        borderRadius: '5px',
-                                        boxShadow: '2px 2px 5px gray'
+                                <Button
+                                    variant="contained"
+                                    sx={{
+                                        // bgcolor: "#fff", borderRadius: 50,
+                                        ":hover": {
+                                            backgroundColor: "#000000",
+                                        },
+                                        p: 0
                                     }}
                                     onClick={() => {
                                         setSelectGame(true)
-                                    }}
-                                />
-                                <Typography sx={{ fontSize: '14px' }}>
+                                    }}>
+                                    <img src={"https://public-cdn-softkingdom.sgp1.digitaloceanspaces.com/1687250463876-2Admin-auto.jpg"}
+                                        width={'100%'}
+                                        height={115}
+                                        style={{
+                                            borderRadius: '5px',
+                                            boxShadow: '2px 2px 5px gray',
+                                            opacity: 0.9
+                                        }}
+                                    />
+                                </Button>
+                                <Typography sx={{ fontSize: '14px', mt: 1 }}>
                                     แจ้งปัญหา
                                 </Typography>
                             </Grid>
@@ -380,7 +402,7 @@ function Home() {
                         </Grid>
 
                     </Grid>
-                </Box> :
+                </Box > :
                 <Box sx={{
                     maxHeight: "500px",
                     overflow: "auto",
@@ -393,7 +415,10 @@ function Home() {
                         {gameList.map((item) => (
                             <Grid item xs={6} md={3}>
                                 <img src={item.game_img} width={'100%'} height={100} style={{ borderRadius: '10px' }}
-                                    onClick={() => window.location.href = `${item.game_url}?game_name=${item.game_name}&token=${localStorage.getItem('access_token')}`}
+                                    // onClick={() => window.location.href = `${item.game_url}?game_name=${item.game_name}&token=${localStorage.getItem('access_token')}`}
+                                    onClick={() => {
+                                        window.open(`${item.game_url}?game_name=${item.game_name}&token=${localStorage.getItem('access_token')}`, "_blank");
+                                    }}
                                 />
                             </Grid>
                         ))}
