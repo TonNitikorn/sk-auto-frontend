@@ -781,7 +781,7 @@ function Home({ children }) {
                 ) : page === "withdraw" ? (
                   <WithdrawComponent />
                 ) : page === "history" ? (
-                  <HistoryComponent />
+                  <HistoryComponent profile={profile?.username} />
                 ) : (
                   ""
                 )}

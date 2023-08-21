@@ -251,7 +251,7 @@ function HistoryComponent(props) {
             textAlign: "center",
           }}
         >
-          <Typography>ไม่มีประวัติการทำรายการ </Typography>z
+          <Typography>ไม่มีประวัติการทำรายการ </Typography>
         </Paper>
       ) : (
         historyGame.map((item) => (
@@ -317,7 +317,7 @@ function HistoryComponent(props) {
   useEffect(() => {
     getHistory();
     getGameHistory();
-  }, [props]);
+  }, []);
 
   return (
     <Box
